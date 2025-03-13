@@ -30,6 +30,7 @@ h11==0.14.0
 httpcore==1.0.7
 httpx==0.28.1
 huggingface-hub==0.29.3
+ibm-fms==0.0.8
 idna==3.10
 ipykernel==6.29.5
 ipython==8.30.0
