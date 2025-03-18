@@ -8,20 +8,20 @@ pipeline {
             }
         }
 
-	stage('Download Requirements') {
-            steps {
-                pip install -r requirements.txt
+        stage('Download Requirements') {
+                steps {
+                    sh 'pip install -r requirements.txt'
+                }
             }
-        }
 
-	stage('Run Dynamo Explain') {
-            steps {
-                // Execute a Python script that runs dynamo.explain
-                sh '''
-                    python3 pull_model_run_dynamo_explain.py
-                '''
+        stage('Run Dynamo Explain') {
+                steps {
+                    // Execute a Python script that runs dynamo.explain
+                    sh '''
+                        python3 pull_model_run_dynamo_explain.py
+                    '''
+                }
             }
-        }
 
         stage('Get Number Graph Breaks') {
             steps {
