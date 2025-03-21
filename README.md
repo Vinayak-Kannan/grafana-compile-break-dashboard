@@ -19,11 +19,12 @@
    8. Paste the image name into the Container image field
    9. Click on 'Run as privileged'
    10. Set Restart policy to 'On Failure'
-   11. Turn off Data Protection policies
-   12. Enable HTTP and HTTPS traffic in Networking
-   13. In your Network interfaces in the default network, add a firewall rule to allow all traffic on port 8080 and 50000
-   14. Add logging and monitoring to the VM
-   15. Create the VM
+   11. Make sure that the disk size is still 100 GB, sometimes it gets reset when you change options around
+   12. Turn off Data Protection policies
+   13. Enable HTTP and HTTPS traffic in Networking
+   14. In your Network interfaces in the default network, add a firewall rule to allow all traffic on port 8080 and 50000
+   15. Add logging and monitoring to the VM
+   16. Create the VM
 5. Go to the external IP of your VM and add :8080 to the end of it. You should see the Jenkins setup page. Remove https:// from the URL
 6. Open your VM and run `docker ps` and then run `docker logs [id of your jenkins container]`
 7. Find the initial admin password and copy it, and paste into your jenkins setup page
