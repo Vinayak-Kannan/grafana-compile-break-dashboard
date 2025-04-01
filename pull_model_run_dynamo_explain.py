@@ -7,12 +7,6 @@ import umap
 model = AutoModel.from_pretrained("prajjwal1/bert-tiny")
 inputs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
 
-# explanation = dynamo.explain(model.forward)(**inputs)
-
-# # Save to a text file
-# with open("dynamo_explanation.txt", "w") as f:
-#     f.write(str(explanation))
-
 
 # Option 1: Modify your forward_refined function to accept keyword argumentsimport umap
 
@@ -67,3 +61,9 @@ model.forward = forward_refined
 model = torch.compile(model)
 # Call the model
 model.forward(**inputs)
+
+# explanation = dynamo.explain(model.forward)(**inputs)
+#
+# # Save to a text file
+# with open("dynamo_explanation.txt", "w") as f:
+#     f.write(str(explanation))
