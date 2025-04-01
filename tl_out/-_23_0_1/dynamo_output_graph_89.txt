@@ -1,0 +1,8 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_x0_: "f64[2][1]cpu"):
+        l_x0_ = L_x0_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:23 in _check_func, code: res = atleast_1d(thefunc(*((x0[:numinputs],) + args)))
+        wrapped_getitem: "f64[2][1]cpu" = torch__dynamo_utils_wrapped_getitem(l_x0_, slice(None, 2, None));  l_x0_ = None
+        return (wrapped_getitem,)
+        

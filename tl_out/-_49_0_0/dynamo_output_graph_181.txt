@@ -1,0 +1,14 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_X_: "f32[1, 10][10, 1]cpu"):
+        l_x_ = L_X_
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:2455 in torch_dynamo_resume_in_fit_at_2415, code: if X[index].shape[0] <= self.n_neighbors:
+        wrapped_getitem: "f32[1, 10][10, 1]cpu" = torch__dynamo_utils_wrapped_getitem(l_x_, [0]);  wrapped_getitem = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:2456 in torch_dynamo_resume_in_fit_at_2415, code: if X[index].shape[0] == 1:
+        wrapped_getitem_1: "f32[1, 10][10, 1]cpu" = torch__dynamo_utils_wrapped_getitem_1(l_x_, [0]);  l_x_ = wrapped_getitem_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:2457 in torch_dynamo_resume_in_fit_at_2415, code: self.embedding_ = np.zeros(
+        wrapped_zeros: "f64[1, 2][2, 1]cpu" = torch__dynamo_utils_wrapped_zeros((1, 2))
+        return (wrapped_zeros,)
+        

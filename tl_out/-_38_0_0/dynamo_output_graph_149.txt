@@ -1,0 +1,14 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_stack0_1_: "f64[2, 2][2, 1]cpu", L_stack0_2_fvec_: "f64[300][1]cpu"):
+        l_stack0_1_ = L_stack0_1_
+        l_stack0_2_fvec_ = L_stack0_2_fvec_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:1010 in torch_dynamo_resume_in_curve_fit_at_1007, code: cost = np.sum(infodict['fvec'] ** 2)
+        wrapped_pow: "f64[300][1]cpu" = torch__dynamo_utils_wrapped_pow(l_stack0_2_fvec_, 2);  l_stack0_2_fvec_ = None
+        cost: "f64[][]cpu" = torch__dynamo_utils_wrapped_sum(wrapped_pow);  wrapped_pow = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:1040 in torch_dynamo_resume_in_curve_fit_at_1007, code: if pcov is None or np.isnan(pcov).any():
+        wrapped_isnan: "b8[2, 2][2, 1]cpu" = torch__dynamo_utils_wrapped_isnan(l_stack0_1_);  l_stack0_1_ = None
+        wrapped_any: "b8[][]cpu" = torch__dynamo_utils_wrapped_any(wrapped_isnan);  wrapped_isnan = None
+        return (wrapped_any, cost)
+        

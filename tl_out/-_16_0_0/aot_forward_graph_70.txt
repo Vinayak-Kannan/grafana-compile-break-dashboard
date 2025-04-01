@@ -1,0 +1,13 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[2][1]cpu", arg1_1: "f64[2][1]cpu"):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:916 in torch_dynamo_resume_in_curve_fit_at_914, code: bounded_problem = np.any((lb > -np.inf) | (ub < np.inf))
+        _tensor_constant0 = self._tensor_constant0
+        lift_fresh_copy: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant0);  _tensor_constant0 = None
+        gt: "b8[2][1]cpu" = torch.ops.aten.gt.Tensor(arg0_1, lift_fresh_copy);  arg0_1 = lift_fresh_copy = None
+        _tensor_constant1 = self._tensor_constant1
+        lift_fresh_copy_1: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant1);  _tensor_constant1 = None
+        lt: "b8[2][1]cpu" = torch.ops.aten.lt.Tensor(arg1_1, lift_fresh_copy_1);  arg1_1 = lift_fresh_copy_1 = None
+        bitwise_or: "b8[2][1]cpu" = torch.ops.aten.bitwise_or.Tensor(gt, lt);  gt = lt = None
+        any_1: "b8[][]cpu" = torch.ops.aten.any.default(bitwise_or);  bitwise_or = None
+        return (any_1,)
+        

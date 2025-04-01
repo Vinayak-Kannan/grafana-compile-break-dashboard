@@ -1,0 +1,6 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "i64[1, 10][10, 1]cpu"):
+         # File: /workspaces/HPML-Project/pull_model_run_dynamo_explain.py:40 in torch_dynamo_resume_in_forward_refined_at_36, code: input_ids_np = input_ids.cpu().numpy()
+        view: "i64[1, 10][10, 1]cpu" = torch.ops.aten.view.default(arg0_1, [1, 10]);  arg0_1 = None
+        return (view,)
+        

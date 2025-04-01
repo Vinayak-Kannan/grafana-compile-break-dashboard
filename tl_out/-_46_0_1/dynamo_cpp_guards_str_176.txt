@@ -1,0 +1,10 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['_launch_threads'], accessed_by=DictGetItemGuardAccessor(_launch_threads)
+| | | +- GuardManager: source=G['_launch_threads'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | +- ID_MATCH: ___check_obj_id(G['_launch_threads'].__code__, 111057023510304)

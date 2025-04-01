@@ -1,0 +1,34 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['n'], accessed_by=DictGetItemGuardAccessor(n)
+| | +- EQUALS_MATCH: L['n'] == 2                                                 
+| +- GuardManager: source=L['jac'], accessed_by=DictGetItemGuardAccessor(jac)
+| | +- ID_MATCH: ___check_obj_id(L['jac'], 111055818751712)                  
+| +- GuardManager: source=L['kwargs'], accessed_by=DictGetItemGuardAccessor(kwargs)
+| | +- DICT_LENGTH: not L['kwargs']                                             
+| +- GuardManager: source=L['method'], accessed_by=DictGetItemGuardAccessor(method)
+| | +- EQUALS_MATCH: L['method'] == 'lm'                                         
+| +- GuardManager: source=L['___stack0'], accessed_by=DictGetItemGuardAccessor(___stack0)
+| | +- GuardManager: source=L['___stack0'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | +- ID_MATCH: ___check_obj_id(L['___stack0'].__code__, 138005366804752)   
+| +- GuardManager: source=L['p0'], accessed_by=DictGetItemGuardAccessor(p0)
+| | +- GuardManager: source=___from_numpy(L['p0']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['p0']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['p0']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING: check_no_aliasing(___from_numpy(L['p0']), ___from_numpy(L['ydata']))
+| +- GuardManager: source=L['ydata'], accessed_by=DictGetItemGuardAccessor(ydata)
+| | +- GuardManager: source=___from_numpy(L['ydata']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['ydata']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[300], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['ydata']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['leastsq'], accessed_by=DictGetItemGuardAccessor(leastsq)
+| | | +- GuardManager: source=G['leastsq'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | +- ID_MATCH: ___check_obj_id(G['leastsq'].__code__, 111056999990016)     
+| | +- GuardManager: source=G['__builtins_dict___71'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___71)
+| | | +- GuardManager: source=G['__builtins_dict___71']['callable'], accessed_by=DictGetItemGuardAccessor(callable)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___71']['callable'], 138006094273552)

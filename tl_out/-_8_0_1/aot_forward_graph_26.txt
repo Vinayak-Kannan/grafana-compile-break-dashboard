@@ -1,0 +1,38 @@
+class <lambda>(torch.nn.Module):
+    def forward(self):
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1403 in find_ab_params, code: xv = np.linspace(0, spread * 3, 300)
+        _tensor_constant0 = self._tensor_constant0
+        lift_fresh_copy: "i64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant0);  _tensor_constant0 = None
+        _tensor_constant1 = self._tensor_constant1
+        lift_fresh_copy_1: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant1);  _tensor_constant1 = None
+        convert_element_type: "f64[][]cpu" = torch.ops.prims.convert_element_type.default(lift_fresh_copy, torch.float64);  lift_fresh_copy = None
+        iota: "i64[300][1]cpu" = torch.ops.prims.iota.default(300, start = 0, step = 1, dtype = torch.int64, device = device(type='cpu'), requires_grad = False)
+        sub: "f64[][]cpu" = torch.ops.aten.sub.Tensor(lift_fresh_copy_1, convert_element_type)
+        div: "f64[][]cpu" = torch.ops.aten.div.Tensor(sub, 299);  sub = None
+        lt: "b8[300][1]cpu" = torch.ops.aten.lt.Scalar(iota, 150.0)
+        convert_element_type_1: "f64[300][1]cpu" = torch.ops.prims.convert_element_type.default(iota, torch.float64)
+        mul: "f64[300][1]cpu" = torch.ops.aten.mul.Tensor(div, convert_element_type_1);  convert_element_type_1 = None
+        add: "f64[300][1]cpu" = torch.ops.aten.add.Tensor(convert_element_type, mul);  convert_element_type = mul = None
+        sub_1: "i64[300][1]cpu" = torch.ops.aten.sub.Tensor(299, iota);  iota = None
+        convert_element_type_2: "f64[300][1]cpu" = torch.ops.prims.convert_element_type.default(sub_1, torch.float64);  sub_1 = None
+        mul_1: "f64[300][1]cpu" = torch.ops.aten.mul.Tensor(div, convert_element_type_2);  div = convert_element_type_2 = None
+        sub_2: "f64[300][1]cpu" = torch.ops.aten.sub.Tensor(lift_fresh_copy_1, mul_1);  lift_fresh_copy_1 = mul_1 = None
+        where: "f64[300][1]cpu" = torch.ops.aten.where.self(lt, add, sub_2);  lt = add = sub_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1404 in find_ab_params, code: yv = np.zeros(xv.shape)
+        full: "f64[300][1]cpu" = torch.ops.aten.full.default([300], 0, dtype = torch.float64, layout = torch.strided, device = device(type='cpu'), pin_memory = False)
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1405 in find_ab_params, code: yv[xv < min_dist] = 1.0
+        _tensor_constant2 = self._tensor_constant2
+        lift_fresh_copy_2: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant2);  _tensor_constant2 = None
+        lt_1: "b8[300][1]cpu" = torch.ops.aten.lt.Tensor(where, lift_fresh_copy_2);  lift_fresh_copy_2 = None
+        _tensor_constant3 = self._tensor_constant3
+        lift_fresh_copy_3: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant3);  _tensor_constant3 = None
+        index_put: "f64[300][1]cpu" = torch.ops.aten.index_put.default(full, [lt_1], lift_fresh_copy_3);  full = lt_1 = lift_fresh_copy_3 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1406 in find_ab_params, code: yv[xv >= min_dist] = np.exp(-(xv[xv >= min_dist] - min_dist) / spread)
+        _tensor_constant4 = self._tensor_constant4
+        lift_fresh_copy_4: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant4);  _tensor_constant4 = None
+        ge: "b8[300][1]cpu" = torch.ops.aten.ge.Tensor(where, lift_fresh_copy_4);  lift_fresh_copy_4 = None
+        return (where, ge, index_put)
+        

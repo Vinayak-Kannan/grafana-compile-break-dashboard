@@ -1,0 +1,6 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[2][1]cpu"):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:23 in _check_func, code: res = atleast_1d(thefunc(*((x0[:numinputs],) + args)))
+        slice_1: "f64[2][1]cpu" = torch.ops.aten.slice.Tensor(arg0_1, 0, 0, 2);  arg0_1 = None
+        return (slice_1,)
+        

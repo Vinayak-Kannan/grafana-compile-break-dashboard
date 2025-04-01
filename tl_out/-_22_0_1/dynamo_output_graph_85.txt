@@ -1,0 +1,9 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_x0_: "f64[2][1]cpu"):
+        l_x0_ = L_x0_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:422 in leastsq, code: x0 = asarray(x0).flatten()
+        wrapped_asarray: "f64[2][1]cpu" = torch__dynamo_utils_wrapped_asarray(l_x0_);  l_x0_ = None
+        x0: "f64[2][1]cpu" = torch__dynamo_utils_wrapped_flatten(wrapped_asarray);  wrapped_asarray = None
+        return (x0,)
+        

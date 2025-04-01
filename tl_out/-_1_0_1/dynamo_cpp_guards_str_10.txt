@@ -1,0 +1,13 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['modified_input_ids'], accessed_by=DictGetItemGuardAccessor(modified_input_ids)
+| | +- TENSOR_MATCH: check_tensor(L['modified_input_ids'], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.int64, device=None, requires_grad=False, size=[1, 10], stride=[10, 1])
+| | +- NO_HASATTR: hasattr(L['modified_input_ids'], '_dynamo_dynamic_indices') == False
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['__builtins_dict___5'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___5)
+| | | +- GuardManager: source=G['__builtins_dict___5']['print'], accessed_by=DictGetItemGuardAccessor(print)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___5']['print'], 138006094275872)

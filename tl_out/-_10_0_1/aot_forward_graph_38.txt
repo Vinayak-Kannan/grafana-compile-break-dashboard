@@ -1,0 +1,27 @@
+class <lambda>(torch.nn.Module):
+    def forward(self):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/least_squares.py:96 in <genexpr>, code: lb, ub = (np.asarray(b, dtype=float) for b in bounds)
+        _tensor_constant0 = self._tensor_constant0
+        lift_fresh_copy: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant0);  _tensor_constant0 = None
+        _tensor_constant1 = self._tensor_constant1
+        lift_fresh_copy_1: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant1);  _tensor_constant1 = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/least_squares.py:98 in prepare_bounds, code: lb = np.resize(lb, n)
+        view: "f64[1][1]cpu" = torch.ops.aten.view.default(lift_fresh_copy, [1]);  lift_fresh_copy = None
+        unsqueeze: "f64[1, 1][1, 1]cpu" = torch.ops.aten.unsqueeze.default(view, 0);  view = None
+        expand: "f64[2, 1][0, 1]cpu" = torch.ops.aten.expand.default(unsqueeze, [2, 1]);  unsqueeze = None
+        view_1: "f64[2][0]cpu" = torch.ops.aten.view.default(expand, [2]);  expand = None
+        clone: "f64[2][1]cpu" = torch.ops.aten.clone.default(view_1);  view_1 = None
+        slice_1: "f64[2][1]cpu" = torch.ops.aten.slice.Tensor(clone, 0, 0, 2);  clone = None
+        view_2: "f64[2][1]cpu" = torch.ops.aten.view.default(slice_1, [2]);  slice_1 = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/least_squares.py:101 in prepare_bounds, code: ub = np.resize(ub, n)
+        view_3: "f64[1][1]cpu" = torch.ops.aten.view.default(lift_fresh_copy_1, [1]);  lift_fresh_copy_1 = None
+        unsqueeze_1: "f64[1, 1][1, 1]cpu" = torch.ops.aten.unsqueeze.default(view_3, 0);  view_3 = None
+        expand_1: "f64[2, 1][0, 1]cpu" = torch.ops.aten.expand.default(unsqueeze_1, [2, 1]);  unsqueeze_1 = None
+        view_4: "f64[2][0]cpu" = torch.ops.aten.view.default(expand_1, [2]);  expand_1 = None
+        clone_1: "f64[2][1]cpu" = torch.ops.aten.clone.default(view_4);  view_4 = None
+        slice_2: "f64[2][1]cpu" = torch.ops.aten.slice.Tensor(clone_1, 0, 0, 2);  clone_1 = None
+        view_5: "f64[2][1]cpu" = torch.ops.aten.view.default(slice_2, [2]);  slice_2 = None
+        return (view_2, view_5)
+        

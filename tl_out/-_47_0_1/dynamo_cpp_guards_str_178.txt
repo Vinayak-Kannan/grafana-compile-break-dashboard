@@ -1,0 +1,30 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['n'], accessed_by=DictGetItemGuardAccessor(n)
+| | +- EQUALS_MATCH: L['n'] == 1                                                 
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['np'], accessed_by=DictGetItemGuardAccessor(np)
+| | | +- ID_MATCH: ___check_obj_id(G['np'], 138006086600640)                   
+| | | +- GuardManager: source=G['np'].integer, accessed_by=GetAttrGuardAccessor(integer)
+| | | | +- ID_MATCH: ___check_obj_id(G['np'].integer, 138005714248832)           
+| | +- GuardManager: source=G['snt_check'], accessed_by=DictGetItemGuardAccessor(snt_check)
+| | | +- GuardManager: source=G['snt_check'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | +- ID_MATCH: ___check_obj_id(G['snt_check'].__code__, 138005167410272)   
+| | | +- GuardManager: source=G['snt_check'].__closure__, accessed_by=GetAttrGuardAccessor(__closure__)
+| | | | +- GuardManager: source=G['snt_check'].__closure__[0], accessed_by=TupleGetItemGuardAccessor(0)
+| | | | | +- GuardManager: source=G['snt_check'].__closure__[0].cell_contents, accessed_by=GetAttrGuardAccessor(cell_contents)
+| | | | | | +- EQUALS_MATCH: G['snt_check'].__closure__[0].cell_contents == 2            
+| | | | +- GuardManager: source=G['snt_check'].__closure__[1], accessed_by=TupleGetItemGuardAccessor(1)
+| | | | | +- GuardManager: source=G['snt_check'].__closure__[1].cell_contents, accessed_by=GetAttrGuardAccessor(cell_contents)
+| | | | | | +- EQUALS_MATCH: G['snt_check'].__closure__[1].cell_contents == 'The number of threads must be between 1 and 2'
+| | +- GuardManager: source=G['_set_num_threads'], accessed_by=DictGetItemGuardAccessor(_set_num_threads)
+| | | +- TYPE_MATCH: ___check_type_id(G['_set_num_threads'], 111057059806880)    
+| | +- GuardManager: source=G['__builtins_dict___145'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___145)
+| | | +- GuardManager: source=G['__builtins_dict___145']['int'], accessed_by=DictGetItemGuardAccessor(int)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___145']['int'], 111055818732256)
+| | | +- GuardManager: source=G['__builtins_dict___145']['isinstance'], accessed_by=DictGetItemGuardAccessor(isinstance)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___145']['isinstance'], 138006094274832)

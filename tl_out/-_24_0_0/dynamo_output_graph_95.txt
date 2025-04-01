@@ -1,0 +1,9 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_params_: "f64[2][1]cpu"):
+        l_params_ = L_params_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:519 in _memoized_func, code: if np.all(_memoized_func.last_params == params):
+        wrapped_eq: "b8[2][1]cpu" = torch__dynamo_utils_wrapped_eq(None, l_params_);  l_params_ = None
+        wrapped_all: "b8[][]cpu" = torch__dynamo_utils_wrapped_all(wrapped_eq);  wrapped_eq = None
+        return (wrapped_all,)
+        

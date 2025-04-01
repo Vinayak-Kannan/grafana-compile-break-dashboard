@@ -1,0 +1,7 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "i64[1, 10][10, 1]cpu"):
+         # File: /workspaces/HPML-Project/pull_model_run_dynamo_explain.py:35 in torch_dynamo_resume_in_forward_refined_at_34, code: print(f"Modified first element: {modified_input_ids[0, 0]}")
+        select: "i64[10][1]cpu" = torch.ops.aten.select.int(arg0_1, 0, 0);  arg0_1 = None
+        select_1: "i64[][]cpu" = torch.ops.aten.select.int(select, 0, 0);  select = None
+        return (select_1,)
+        

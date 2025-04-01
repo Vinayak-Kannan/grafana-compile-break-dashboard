@@ -1,0 +1,12 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['seq_length'], accessed_by=DictGetItemGuardAccessor(seq_length)
+| | +- EQUALS_MATCH: L['seq_length'] == 10                                       
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['__builtins_dict___9'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___9)
+| | | +- GuardManager: source=G['__builtins_dict___9']['print'], accessed_by=DictGetItemGuardAccessor(print)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___9']['print'], 138006094275872)

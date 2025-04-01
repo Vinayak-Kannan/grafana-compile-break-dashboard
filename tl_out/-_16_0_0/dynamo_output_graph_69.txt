@@ -1,0 +1,12 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_lb_: "f64[2][1]cpu", L_ub_: "f64[2][1]cpu"):
+        l_lb_ = L_lb_
+        l_ub_ = L_ub_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:916 in torch_dynamo_resume_in_curve_fit_at_914, code: bounded_problem = np.any((lb > -np.inf) | (ub < np.inf))
+        wrapped_gt: "b8[2][1]cpu" = torch__dynamo_utils_wrapped_gt(l_lb_, -inf);  l_lb_ = None
+        wrapped_lt: "b8[2][1]cpu" = torch__dynamo_utils_wrapped_lt(l_ub_, inf);  l_ub_ = None
+        wrapped_or_: "b8[2][1]cpu" = torch__dynamo_utils_wrapped_or_(wrapped_gt, wrapped_lt);  wrapped_gt = wrapped_lt = None
+        bounded_problem: "b8[][]cpu" = torch__dynamo_utils_wrapped_any(wrapped_or_);  wrapped_or_ = None
+        return (bounded_problem,)
+        

@@ -1,0 +1,7 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[2][1]cpu"):
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1408 in torch_dynamo_resume_in_find_ab_params_at_1407, code: return params[0], params[1]
+        select: "f64[][]cpu" = torch.ops.aten.select.int(arg0_1, 0, 0)
+        select_1: "f64[][]cpu" = torch.ops.aten.select.int(arg0_1, 0, 1);  arg0_1 = None
+        return (select, select_1)
+        

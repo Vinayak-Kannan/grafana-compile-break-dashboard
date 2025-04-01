@@ -1,0 +1,46 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['self'], accessed_by=DictGetItemGuardAccessor(self)
+| | +- TYPE_MATCH: ___check_type_id(L['self'], 111057029776464)                
+| | +- GuardManager: source=L['self'].init, accessed_by=GetAttrGuardAccessor(init)
+| | | +- EQUALS_MATCH: L['self'].init == 'spectral'                                
+| | +- GuardManager: source=L['self'].learning_rate, accessed_by=GetAttrGuardAccessor(learning_rate)
+| | | +- EQUALS_MATCH: L['self'].learning_rate == 1.0                              
+| | +- GuardManager: source=L['self'].precomputed_knn, accessed_by=GetAttrGuardAccessor(precomputed_knn)
+| | | +- TYPE_MATCH: ___check_type_id(L['self'].precomputed_knn, 111055818760256)
+| | | +- LENGTH_CHECK: len(L['self'].precomputed_knn) == 3                         
+| | | +- GuardManager: source=L['self'].precomputed_knn[0], accessed_by=TupleGetItemGuardAccessor(0)
+| | | | +- ID_MATCH: ___check_obj_id(L['self'].precomputed_knn[0], 111055818751712)
+| | | +- GuardManager: source=L['self'].precomputed_knn[1], accessed_by=TupleGetItemGuardAccessor(1)
+| | | | +- ID_MATCH: ___check_obj_id(L['self'].precomputed_knn[1], 111055818751712)
+| | | +- GuardManager: source=L['self'].precomputed_knn[2], accessed_by=TupleGetItemGuardAccessor(2)
+| | | | +- ID_MATCH: ___check_obj_id(L['self'].precomputed_knn[2], 111055818751712)
+| +- GuardManager: source=L['___stack0'], accessed_by=DictGetItemGuardAccessor(___stack0)
+| | +- TYPE_MATCH: ___check_type_id(L['___stack0'], 111055818760256)           
+| | +- LENGTH_CHECK: len(L['___stack0']) == 2                                    
+| | +- GuardManager: source=L['___stack0'][0], accessed_by=TupleGetItemGuardAccessor(0)
+| | | +- GuardManager: source=___from_numpy(L['___stack0'][0]), accessed_by=PythonLambdaGuardAccessor
+| | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['___stack0'][0]), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[], stride=[])
+| | | | +- NO_HASATTR: hasattr(___from_numpy(L['___stack0'][0]), '_dynamo_dynamic_indices') == False
+| | | | +- NO_TENSOR_ALIASING: check_no_aliasing(___from_numpy(L['___stack0'][0]), ___from_numpy(L['___stack0'][1]))
+| | +- GuardManager: source=L['___stack0'][1], accessed_by=TupleGetItemGuardAccessor(1)
+| | | +- GuardManager: source=___from_numpy(L['___stack0'][1]), accessed_by=PythonLambdaGuardAccessor
+| | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['___stack0'][1]), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[], stride=[])
+| | | | +- NO_HASATTR: hasattr(___from_numpy(L['___stack0'][1]), '_dynamo_dynamic_indices') == False
+| | | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['np'], accessed_by=DictGetItemGuardAccessor(np)
+| | | +- ID_MATCH: ___check_obj_id(G['np'], 138006086600640)                   
+| | | +- GuardManager: source=G['np'].ndarray, accessed_by=GetAttrGuardAccessor(ndarray)
+| | | | +- ID_MATCH: ___check_obj_id(G['np'].ndarray, 138005714262272)           
+| | +- GuardManager: source=G['__builtins_dict___129'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___129)
+| | | +- GuardManager: source=G['__builtins_dict___129']['len'], accessed_by=DictGetItemGuardAccessor(len)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___129']['len'], 138006094275152)
+| | | +- GuardManager: source=G['__builtins_dict___129']['isinstance'], accessed_by=DictGetItemGuardAccessor(isinstance)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___129']['isinstance'], 138006094274832)
++- LAMBDA_GUARD: not __math_isnan(___from_numpy(L['___stack0'][0]).item())     # _dynamo/output_graph.py:463 in init_ambient_guards
++- LAMBDA_GUARD: not __math_isnan(___from_numpy(L['___stack0'][1]).item())     # _dynamo/output_graph.py:463 in init_ambient_guards

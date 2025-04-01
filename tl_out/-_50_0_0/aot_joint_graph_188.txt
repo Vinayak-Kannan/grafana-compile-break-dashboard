@@ -1,0 +1,663 @@
+class joint_helper(torch.nn.Module):
+    def forward(self, primals, tangents):
+        primals_1: "i64[1, 10][10, 1]cpu"; primals_2: "i64[1, 512][512, 1]cpu"; primals_3: "i64[1, 512][512, 1]cpu"; primals_4: "f32[30522, 128][128, 1]cpu"; primals_5: "f32[2, 128][128, 1]cpu"; primals_6: "f32[512, 128][128, 1]cpu"; primals_7: "f32[128][1]cpu"; primals_8: "f32[128][1]cpu"; primals_9: "f32[128, 128][1, 128]cpu"; primals_10: "f32[128][1]cpu"; primals_11: "f32[128, 128][1, 128]cpu"; primals_12: "f32[128][1]cpu"; primals_13: "f32[128, 128][1, 128]cpu"; primals_14: "f32[128][1]cpu"; primals_15: "f32[128, 128][1, 128]cpu"; primals_16: "f32[128][1]cpu"; primals_17: "f32[128][1]cpu"; primals_18: "f32[128][1]cpu"; primals_19: "f32[512, 128][1, 512]cpu"; primals_20: "f32[512][1]cpu"; primals_21: "f32[128, 512][1, 128]cpu"; primals_22: "f32[128][1]cpu"; primals_23: "f32[128][1]cpu"; primals_24: "f32[128][1]cpu"; primals_25: "f32[128, 128][1, 128]cpu"; primals_26: "f32[128][1]cpu"; primals_27: "f32[128, 128][1, 128]cpu"; primals_28: "f32[128][1]cpu"; primals_29: "f32[128, 128][1, 128]cpu"; primals_30: "f32[128][1]cpu"; primals_31: "f32[128, 128][1, 128]cpu"; primals_32: "f32[128][1]cpu"; primals_33: "f32[128][1]cpu"; primals_34: "f32[128][1]cpu"; primals_35: "f32[512, 128][1, 512]cpu"; primals_36: "f32[512][1]cpu"; primals_37: "f32[128, 512][1, 128]cpu"; primals_38: "f32[128][1]cpu"; primals_39: "f32[128][1]cpu"; primals_40: "f32[128][1]cpu"; primals_41: "f32[128, 128][1, 128]cpu"; primals_42: "f32[128][1]cpu"; tangents_1: "f32[1, 10, 128][1280, 128, 1]cpu"; tangents_2: "f32[1, 128][128, 1]cpu"; 
+    
+        primals_1, primals_2, primals_3, primals_4, primals_5, primals_6, primals_7, primals_8, primals_9, primals_10, primals_11, primals_12, primals_13, primals_14, primals_15, primals_16, primals_17, primals_18, primals_19, primals_20, primals_21, primals_22, primals_23, primals_24, primals_25, primals_26, primals_27, primals_28, primals_29, primals_30, primals_31, primals_32, primals_33, primals_34, primals_35, primals_36, primals_37, primals_38, primals_39, primals_40, primals_41, primals_42, tangents_1, tangents_2, = fx_pytree.tree_flatten_spec([primals, tangents], self._in_spec)
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:1072 in forward, code: buffered_token_type_ids = self.embeddings.token_type_ids[:, :seq_length]
+        slice_1: "i64[1, 512][512, 1]cpu" = torch.ops.aten.slice.Tensor(primals_2, 0, 0, 9223372036854775807);  primals_2 = None
+        slice_2: "i64[1, 10][512, 1]cpu" = torch.ops.aten.slice.Tensor(slice_1, 1, 0, 10);  slice_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:1073 in forward, code: buffered_token_type_ids_expanded = buffered_token_type_ids.expand(batch_size, seq_length)
+        expand: "i64[1, 10][512, 1]cpu" = torch.ops.aten.expand.default(slice_2, [1, 10]);  slice_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:197 in forward, code: position_ids = self.position_ids[:, past_key_values_length : seq_length + past_key_values_length]
+        slice_3: "i64[1, 512][512, 1]cpu" = torch.ops.aten.slice.Tensor(primals_3, 0, 0, 9223372036854775807);  primals_3 = None
+        slice_4: "i64[1, 10][512, 1]cpu" = torch.ops.aten.slice.Tensor(slice_3, 1, 0, 10);  slice_3 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:211 in forward, code: inputs_embeds = self.word_embeddings(input_ids)
+        embedding: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.embedding.default(primals_4, primals_1, 0);  primals_4 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:212 in forward, code: token_type_embeddings = self.token_type_embeddings(token_type_ids)
+        embedding_1: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.embedding.default(primals_5, expand);  primals_5 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:214 in forward, code: embeddings = inputs_embeds + token_type_embeddings
+        add: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(embedding, embedding_1);  embedding = embedding_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:216 in forward, code: position_embeddings = self.position_embeddings(position_ids)
+        embedding_2: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.embedding.default(primals_6, slice_4);  primals_6 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:217 in forward, code: embeddings += position_embeddings
+        add_1: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(add, embedding_2);  add = embedding_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:218 in forward, code: embeddings = self.LayerNorm(embeddings)
+        var_mean = torch.ops.aten.var_mean.correction(add_1, [2], correction = 0, keepdim = True)
+        getitem: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean[0]
+        getitem_1: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean[1];  var_mean = None
+        add_2: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.add.Tensor(getitem, 1e-12);  getitem = None
+        rsqrt: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.rsqrt.default(add_2);  add_2 = None
+        sub: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_1, getitem_1)
+        mul: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub, rsqrt);  sub = None
+        mul_1: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul, primals_7);  mul = None
+        add_3: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(mul_1, primals_8);  mul_1 = primals_8 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:219 in forward, code: embeddings = self.dropout(embeddings)
+        clone: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.clone.default(add_3);  add_3 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:1087 in forward, code: attention_mask = torch.ones((batch_size, seq_length + past_key_values_length), device=device)
+        full: "f32[1, 10][10, 1]cpu" = torch.ops.aten.full.default([1, 10], 1, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'), pin_memory = False)
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/modeling_attn_mask_utils.py:188 in _expand_mask, code: expanded_mask = mask[:, None, None, :].expand(bsz, 1, tgt_len, src_len).to(dtype)
+        slice_5: "f32[1, 10][10, 1]cpu" = torch.ops.aten.slice.Tensor(full, 0, 0, 9223372036854775807);  full = None
+        unsqueeze: "f32[1, 1, 10][10, 10, 1]cpu" = torch.ops.aten.unsqueeze.default(slice_5, 1);  slice_5 = None
+        unsqueeze_1: "f32[1, 1, 1, 10][10, 10, 10, 1]cpu" = torch.ops.aten.unsqueeze.default(unsqueeze, 2);  unsqueeze = None
+        slice_6: "f32[1, 1, 1, 10][10, 10, 10, 1]cpu" = torch.ops.aten.slice.Tensor(unsqueeze_1, 3, 0, 9223372036854775807);  unsqueeze_1 = None
+        expand_1: "f32[1, 1, 10, 10][10, 10, 0, 1]cpu" = torch.ops.aten.expand.default(slice_6, [1, 1, 10, 10]);  slice_6 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/modeling_attn_mask_utils.py:190 in _expand_mask, code: inverted_mask = 1.0 - expanded_mask
+        sub_1: "f32[1, 1, 10, 10][100, 100, 10, 1]cpu" = torch.ops.aten.sub.Tensor(1.0, expand_1);  expand_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/modeling_attn_mask_utils.py:192 in _expand_mask, code: return inverted_mask.masked_fill(inverted_mask.to(torch.bool), torch.finfo(dtype).min)
+        convert_element_type: "b8[1, 1, 10, 10][100, 100, 10, 1]cpu" = torch.ops.prims.convert_element_type.default(sub_1, torch.bool)
+        scalar_tensor: "f32[][]cpu" = torch.ops.aten.scalar_tensor.default(-3.4028234663852886e+38, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'))
+        where: "f32[1, 1, 10, 10][100, 100, 10, 1]cpu" = torch.ops.aten.where.self(convert_element_type, scalar_tensor, sub_1);  convert_element_type = scalar_tensor = sub_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:395 in forward, code: query_layer = self.transpose_for_scores(self.query(hidden_states))
+        view: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(clone, [10, 128])
+        permute: "f32[128, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_9, [1, 0]);  primals_9 = None
+        addmm: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_10, view, permute);  primals_10 = None
+        view_1: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm, [1, 10, 128]);  addmm = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_2: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.view.default(view_1, [1, 10, 2, 64]);  view_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_1: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.permute.default(view_2, [0, 2, 1, 3]);  view_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:408 in forward, code: key_layer = self.transpose_for_scores(self.key(current_states))
+        view_3: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(clone, [10, 128])
+        permute_2: "f32[128, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_11, [1, 0]);  primals_11 = None
+        addmm_1: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_12, view_3, permute_2);  primals_12 = None
+        view_4: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm_1, [1, 10, 128]);  addmm_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_5: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.view.default(view_4, [1, 10, 2, 64]);  view_4 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_3: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.permute.default(view_5, [0, 2, 1, 3]);  view_5 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:409 in forward, code: value_layer = self.transpose_for_scores(self.value(current_states))
+        view_6: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(clone, [10, 128])
+        permute_4: "f32[128, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_13, [1, 0]);  primals_13 = None
+        addmm_2: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_14, view_6, permute_4);  primals_14 = None
+        view_7: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm_2, [1, 10, 128]);  addmm_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_8: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.view.default(view_7, [1, 10, 2, 64]);  view_7 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_5: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.permute.default(view_8, [0, 2, 1, 3]);  view_8 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:440 in forward, code: attn_output = torch.nn.functional.scaled_dot_product_attention(
+        _scaled_dot_product_flash_attention_for_cpu = torch.ops.aten._scaled_dot_product_flash_attention_for_cpu.default(permute_1, permute_3, permute_5, attn_mask = where)
+        getitem_2: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = _scaled_dot_product_flash_attention_for_cpu[0]
+        getitem_3: "f32[1, 2, 10][20, 1, 2]cpu" = _scaled_dot_product_flash_attention_for_cpu[1];  _scaled_dot_product_flash_attention_for_cpu = None
+        alias: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.alias.default(getitem_2)
+        alias_1: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.alias.default(alias);  alias = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:449 in forward, code: attn_output = attn_output.transpose(1, 2)
+        permute_6: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.permute.default(getitem_2, [0, 2, 1, 3]);  getitem_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:450 in forward, code: attn_output = attn_output.reshape(bsz, tgt_len, self.all_head_size)
+        view_9: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(permute_6, [1, 10, 128]);  permute_6 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:466 in forward, code: hidden_states = self.dense(hidden_states)
+        view_10: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(view_9, [10, 128]);  view_9 = None
+        permute_7: "f32[128, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_15, [1, 0]);  primals_15 = None
+        addmm_3: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_16, view_10, permute_7);  primals_16 = None
+        view_11: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm_3, [1, 10, 128]);  addmm_3 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:467 in forward, code: hidden_states = self.dropout(hidden_states)
+        clone_1: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.clone.default(view_11);  view_11 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:468 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        add_4: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(clone_1, clone);  clone_1 = clone = None
+        var_mean_1 = torch.ops.aten.var_mean.correction(add_4, [2], correction = 0, keepdim = True)
+        getitem_4: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean_1[0]
+        getitem_5: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean_1[1];  var_mean_1 = None
+        add_5: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.add.Tensor(getitem_4, 1e-12);  getitem_4 = None
+        rsqrt_1: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.rsqrt.default(add_5);  add_5 = None
+        sub_2: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_4, getitem_5)
+        mul_2: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub_2, rsqrt_1);  sub_2 = None
+        mul_3: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_2, primals_17);  mul_2 = None
+        add_6: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(mul_3, primals_18);  mul_3 = primals_18 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:539 in forward, code: hidden_states = self.dense(hidden_states)
+        view_12: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(add_6, [10, 128])
+        permute_8: "f32[128, 512][512, 1]cpu" = torch.ops.aten.permute.default(primals_19, [1, 0]);  primals_19 = None
+        addmm_4: "f32[10, 512][512, 1]cpu" = torch.ops.aten.addmm.default(primals_20, view_12, permute_8);  primals_20 = None
+        view_13: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.view.default(addmm_4, [1, 10, 512]);  addmm_4 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/activations.py:78 in forward, code: return self.act(input)
+        mul_4: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_13, 0.5)
+        mul_5: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_13, 0.7071067811865476)
+        erf: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.erf.default(mul_5);  mul_5 = None
+        add_7: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.add.Tensor(erf, 1);  erf = None
+        mul_6: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(mul_4, add_7);  mul_4 = add_7 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:552 in forward, code: hidden_states = self.dense(hidden_states)
+        view_14: "f32[10, 512][512, 1]cpu" = torch.ops.aten.view.default(mul_6, [10, 512]);  mul_6 = None
+        permute_9: "f32[512, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_21, [1, 0]);  primals_21 = None
+        addmm_5: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_22, view_14, permute_9);  primals_22 = None
+        view_15: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm_5, [1, 10, 128]);  addmm_5 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:553 in forward, code: hidden_states = self.dropout(hidden_states)
+        clone_2: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.clone.default(view_15);  view_15 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:554 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        add_8: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(clone_2, add_6);  clone_2 = add_6 = None
+        var_mean_2 = torch.ops.aten.var_mean.correction(add_8, [2], correction = 0, keepdim = True)
+        getitem_6: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean_2[0]
+        getitem_7: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean_2[1];  var_mean_2 = None
+        add_9: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.add.Tensor(getitem_6, 1e-12);  getitem_6 = None
+        rsqrt_2: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.rsqrt.default(add_9);  add_9 = None
+        sub_3: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_8, getitem_7)
+        mul_7: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub_3, rsqrt_2);  sub_3 = None
+        mul_8: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_7, primals_23);  mul_7 = None
+        add_10: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(mul_8, primals_24);  mul_8 = primals_24 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:395 in forward, code: query_layer = self.transpose_for_scores(self.query(hidden_states))
+        view_16: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(add_10, [10, 128])
+        permute_10: "f32[128, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_25, [1, 0]);  primals_25 = None
+        addmm_6: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_26, view_16, permute_10);  primals_26 = None
+        view_17: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm_6, [1, 10, 128]);  addmm_6 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_18: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.view.default(view_17, [1, 10, 2, 64]);  view_17 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_11: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.permute.default(view_18, [0, 2, 1, 3]);  view_18 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:408 in forward, code: key_layer = self.transpose_for_scores(self.key(current_states))
+        view_19: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(add_10, [10, 128])
+        permute_12: "f32[128, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_27, [1, 0]);  primals_27 = None
+        addmm_7: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_28, view_19, permute_12);  primals_28 = None
+        view_20: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm_7, [1, 10, 128]);  addmm_7 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_21: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.view.default(view_20, [1, 10, 2, 64]);  view_20 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_13: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.permute.default(view_21, [0, 2, 1, 3]);  view_21 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:409 in forward, code: value_layer = self.transpose_for_scores(self.value(current_states))
+        view_22: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(add_10, [10, 128])
+        permute_14: "f32[128, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_29, [1, 0]);  primals_29 = None
+        addmm_8: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_30, view_22, permute_14);  primals_30 = None
+        view_23: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm_8, [1, 10, 128]);  addmm_8 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_24: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.view.default(view_23, [1, 10, 2, 64]);  view_23 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_15: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.permute.default(view_24, [0, 2, 1, 3]);  view_24 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:440 in forward, code: attn_output = torch.nn.functional.scaled_dot_product_attention(
+        _scaled_dot_product_flash_attention_for_cpu_1 = torch.ops.aten._scaled_dot_product_flash_attention_for_cpu.default(permute_11, permute_13, permute_15, attn_mask = where)
+        getitem_8: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = _scaled_dot_product_flash_attention_for_cpu_1[0]
+        getitem_9: "f32[1, 2, 10][20, 1, 2]cpu" = _scaled_dot_product_flash_attention_for_cpu_1[1];  _scaled_dot_product_flash_attention_for_cpu_1 = None
+        alias_2: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.alias.default(getitem_8)
+        alias_3: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.alias.default(alias_2);  alias_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:449 in forward, code: attn_output = attn_output.transpose(1, 2)
+        permute_16: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.permute.default(getitem_8, [0, 2, 1, 3]);  getitem_8 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:450 in forward, code: attn_output = attn_output.reshape(bsz, tgt_len, self.all_head_size)
+        view_25: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(permute_16, [1, 10, 128]);  permute_16 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:466 in forward, code: hidden_states = self.dense(hidden_states)
+        view_26: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(view_25, [10, 128]);  view_25 = None
+        permute_17: "f32[128, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_31, [1, 0]);  primals_31 = None
+        addmm_9: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_32, view_26, permute_17);  primals_32 = None
+        view_27: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm_9, [1, 10, 128]);  addmm_9 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:467 in forward, code: hidden_states = self.dropout(hidden_states)
+        clone_3: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.clone.default(view_27);  view_27 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:468 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        add_11: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(clone_3, add_10);  clone_3 = add_10 = None
+        var_mean_3 = torch.ops.aten.var_mean.correction(add_11, [2], correction = 0, keepdim = True)
+        getitem_10: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean_3[0]
+        getitem_11: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean_3[1];  var_mean_3 = None
+        add_12: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.add.Tensor(getitem_10, 1e-12);  getitem_10 = None
+        rsqrt_3: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.rsqrt.default(add_12);  add_12 = None
+        sub_4: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_11, getitem_11)
+        mul_9: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub_4, rsqrt_3);  sub_4 = None
+        mul_10: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_9, primals_33);  mul_9 = None
+        add_13: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(mul_10, primals_34);  mul_10 = primals_34 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:539 in forward, code: hidden_states = self.dense(hidden_states)
+        view_28: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(add_13, [10, 128])
+        permute_18: "f32[128, 512][512, 1]cpu" = torch.ops.aten.permute.default(primals_35, [1, 0]);  primals_35 = None
+        addmm_10: "f32[10, 512][512, 1]cpu" = torch.ops.aten.addmm.default(primals_36, view_28, permute_18);  primals_36 = None
+        view_29: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.view.default(addmm_10, [1, 10, 512]);  addmm_10 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/activations.py:78 in forward, code: return self.act(input)
+        mul_11: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_29, 0.5)
+        mul_12: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_29, 0.7071067811865476)
+        erf_1: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.erf.default(mul_12);  mul_12 = None
+        add_14: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.add.Tensor(erf_1, 1);  erf_1 = None
+        mul_13: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(mul_11, add_14);  mul_11 = add_14 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:552 in forward, code: hidden_states = self.dense(hidden_states)
+        view_30: "f32[10, 512][512, 1]cpu" = torch.ops.aten.view.default(mul_13, [10, 512]);  mul_13 = None
+        permute_19: "f32[512, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_37, [1, 0]);  primals_37 = None
+        addmm_11: "f32[10, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_38, view_30, permute_19);  primals_38 = None
+        view_31: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(addmm_11, [1, 10, 128]);  addmm_11 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:553 in forward, code: hidden_states = self.dropout(hidden_states)
+        clone_4: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.clone.default(view_31);  view_31 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:554 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        add_15: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(clone_4, add_13);  clone_4 = add_13 = None
+        var_mean_4 = torch.ops.aten.var_mean.correction(add_15, [2], correction = 0, keepdim = True)
+        getitem_12: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean_4[0]
+        getitem_13: "f32[1, 10, 1][10, 1, 1]cpu" = var_mean_4[1];  var_mean_4 = None
+        add_16: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.add.Tensor(getitem_12, 1e-12);  getitem_12 = None
+        rsqrt_4: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.rsqrt.default(add_16);  add_16 = None
+        sub_5: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_15, getitem_13)
+        mul_14: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub_5, rsqrt_4);  sub_5 = None
+        mul_15: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_14, primals_39);  mul_14 = None
+        add_17: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(mul_15, primals_40);  mul_15 = primals_40 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:746 in forward, code: first_token_tensor = hidden_states[:, 0]
+        slice_7: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.slice.Tensor(add_17, 0, 0, 9223372036854775807)
+        select: "f32[1, 128][1280, 1]cpu" = torch.ops.aten.select.int(slice_7, 1, 0);  slice_7 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:747 in forward, code: pooled_output = self.dense(first_token_tensor)
+        permute_20: "f32[128, 128][128, 1]cpu" = torch.ops.aten.permute.default(primals_41, [1, 0]);  primals_41 = None
+        addmm_12: "f32[1, 128][128, 1]cpu" = torch.ops.aten.addmm.default(primals_42, select, permute_20);  primals_42 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:748 in forward, code: pooled_output = self.activation(pooled_output)
+        tanh: "f32[1, 128][128, 1]cpu" = torch.ops.aten.tanh.default(addmm_12);  addmm_12 = None
+        alias_4: "f32[1, 128][128, 1]cpu" = torch.ops.aten.alias.default(tanh)
+        alias_5: "f32[1, 128][128, 1]cpu" = torch.ops.aten.alias.default(alias_4);  alias_4 = None
+        alias_6: "f32[1, 128][128, 1]cpu" = torch.ops.aten.alias.default(alias_5);  alias_5 = None
+        alias_7: "f32[1, 128][128, 1]cpu" = torch.ops.aten.alias.default(alias_6);  alias_6 = None
+        mul_16: "f32[1, 128][128, 1]cpu" = torch.ops.aten.mul.Tensor(alias_7, alias_7);  alias_7 = None
+        sub_6: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sub.Tensor(1, mul_16);  mul_16 = None
+        mul_17: "f32[1, 128][128, 1]cpu" = torch.ops.aten.mul.Tensor(tangents_2, sub_6);  tangents_2 = sub_6 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:747 in forward, code: pooled_output = self.dense(first_token_tensor)
+        permute_21: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(permute_20, [1, 0]);  permute_20 = None
+        mm: "f32[1, 128][128, 1]cpu" = torch.ops.aten.mm.default(mul_17, permute_21);  permute_21 = None
+        permute_22: "f32[128, 1][1, 1280]cpu" = torch.ops.aten.permute.default(select, [1, 0]);  select = None
+        mm_1: "f32[128, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_22, mul_17);  permute_22 = None
+        sum_1: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_17, [0], True);  mul_17 = None
+        view_32: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_1, [128]);  sum_1 = None
+        permute_23: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(mm_1, [1, 0]);  mm_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:746 in forward, code: first_token_tensor = hidden_states[:, 0]
+        full_1: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.full.default([1, 10, 128], 0, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'), pin_memory = False)
+        select_scatter: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.select_scatter.default(full_1, mm, 1, 0);  full_1 = mm = None
+        full_2: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.full.default([1, 10, 128], 0, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'), pin_memory = False)
+        slice_scatter: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.slice_scatter.default(full_2, select_scatter, 0, 0, 9223372036854775807);  full_2 = select_scatter = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:746 in forward, code: first_token_tensor = hidden_states[:, 0]
+        add_18: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(tangents_1, slice_scatter);  tangents_1 = slice_scatter = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:554 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        sub_7: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_15, getitem_13);  add_15 = getitem_13 = None
+        mul_18: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub_7, rsqrt_4);  sub_7 = None
+        mul_19: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_18, primals_39);  primals_39 = None
+        mul_20: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_19, 128)
+        sum_2: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_19, [2], True)
+        mul_21: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_19, mul_18);  mul_19 = None
+        sum_3: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_21, [2], True);  mul_21 = None
+        mul_22: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_18, sum_3);  sum_3 = None
+        sub_8: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(mul_20, sum_2);  mul_20 = sum_2 = None
+        sub_9: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(sub_8, mul_22);  sub_8 = mul_22 = None
+        div: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.div.Tensor(rsqrt_4, 128);  rsqrt_4 = None
+        mul_23: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(div, sub_9);  div = sub_9 = None
+        mul_24: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_18, mul_18);  mul_18 = None
+        sum_4: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(mul_24, [0, 1]);  mul_24 = None
+        sum_5: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(add_18, [0, 1]);  add_18 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:552 in forward, code: hidden_states = self.dense(hidden_states)
+        view_33: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(mul_23, [10, 128])
+        permute_24: "f32[128, 512][1, 128]cpu" = torch.ops.aten.permute.default(permute_19, [1, 0]);  permute_19 = None
+        mm_2: "f32[10, 512][512, 1]cpu" = torch.ops.aten.mm.default(view_33, permute_24);  permute_24 = None
+        permute_25: "f32[512, 10][1, 512]cpu" = torch.ops.aten.permute.default(view_30, [1, 0]);  view_30 = None
+        mm_3: "f32[512, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_25, view_33);  permute_25 = None
+        sum_6: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_33, [0], True);  view_33 = None
+        view_34: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_6, [128]);  sum_6 = None
+        permute_26: "f32[128, 512][1, 128]cpu" = torch.ops.aten.permute.default(mm_3, [1, 0]);  mm_3 = None
+        view_35: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.view.default(mm_2, [1, 10, 512]);  mm_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/activations.py:78 in forward, code: return self.act(input)
+        mul_25: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_29, 0.7071067811865476)
+        erf_2: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.erf.default(mul_25);  mul_25 = None
+        add_19: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.add.Tensor(erf_2, 1);  erf_2 = None
+        mul_26: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(add_19, 0.5);  add_19 = None
+        mul_27: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_29, view_29)
+        mul_28: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(mul_27, -0.5);  mul_27 = None
+        exp: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.exp.default(mul_28);  mul_28 = None
+        mul_29: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(exp, 0.3989422804014327);  exp = None
+        mul_30: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_29, mul_29);  view_29 = mul_29 = None
+        add_20: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.add.Tensor(mul_26, mul_30);  mul_26 = mul_30 = None
+        mul_31: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_35, add_20);  view_35 = add_20 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:539 in forward, code: hidden_states = self.dense(hidden_states)
+        view_36: "f32[10, 512][512, 1]cpu" = torch.ops.aten.view.default(mul_31, [10, 512]);  mul_31 = None
+        permute_27: "f32[512, 128][1, 512]cpu" = torch.ops.aten.permute.default(permute_18, [1, 0]);  permute_18 = None
+        mm_4: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_36, permute_27);  permute_27 = None
+        permute_28: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view_28, [1, 0]);  view_28 = None
+        mm_5: "f32[128, 512][512, 1]cpu" = torch.ops.aten.mm.default(permute_28, view_36);  permute_28 = None
+        sum_7: "f32[1, 512][512, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_36, [0], True);  view_36 = None
+        view_37: "f32[512][1]cpu" = torch.ops.aten.view.default(sum_7, [512]);  sum_7 = None
+        permute_29: "f32[512, 128][1, 512]cpu" = torch.ops.aten.permute.default(mm_5, [1, 0]);  mm_5 = None
+        view_38: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_4, [1, 10, 128]);  mm_4 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:539 in forward, code: hidden_states = self.dense(hidden_states)
+        add_21: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(mul_23, view_38);  mul_23 = view_38 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:468 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        sub_10: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_11, getitem_11);  add_11 = getitem_11 = None
+        mul_32: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub_10, rsqrt_3);  sub_10 = None
+        mul_33: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_21, primals_33);  primals_33 = None
+        mul_34: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_33, 128)
+        sum_8: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_33, [2], True)
+        mul_35: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_33, mul_32);  mul_33 = None
+        sum_9: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_35, [2], True);  mul_35 = None
+        mul_36: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_32, sum_9);  sum_9 = None
+        sub_11: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(mul_34, sum_8);  mul_34 = sum_8 = None
+        sub_12: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(sub_11, mul_36);  sub_11 = mul_36 = None
+        div_1: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.div.Tensor(rsqrt_3, 128);  rsqrt_3 = None
+        mul_37: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(div_1, sub_12);  div_1 = sub_12 = None
+        mul_38: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_21, mul_32);  mul_32 = None
+        sum_10: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(mul_38, [0, 1]);  mul_38 = None
+        sum_11: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(add_21, [0, 1]);  add_21 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:466 in forward, code: hidden_states = self.dense(hidden_states)
+        view_39: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(mul_37, [10, 128])
+        permute_30: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(permute_17, [1, 0]);  permute_17 = None
+        mm_6: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_39, permute_30);  permute_30 = None
+        permute_31: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view_26, [1, 0]);  view_26 = None
+        mm_7: "f32[128, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_31, view_39);  permute_31 = None
+        sum_12: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_39, [0], True);  view_39 = None
+        view_40: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_12, [128]);  sum_12 = None
+        permute_32: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(mm_7, [1, 0]);  mm_7 = None
+        view_41: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_6, [1, 10, 128]);  mm_6 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:450 in forward, code: attn_output = attn_output.reshape(bsz, tgt_len, self.all_head_size)
+        view_42: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.view.default(view_41, [1, 10, 2, 64]);  view_41 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:449 in forward, code: attn_output = attn_output.transpose(1, 2)
+        permute_33: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.permute.default(view_42, [0, 2, 1, 3]);  view_42 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:440 in forward, code: attn_output = torch.nn.functional.scaled_dot_product_attention(
+        alias_8: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.alias.default(alias_3);  alias_3 = None
+        alias_9: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.alias.default(alias_8);  alias_8 = None
+        _scaled_dot_product_flash_attention_for_cpu_backward = torch.ops.aten._scaled_dot_product_flash_attention_for_cpu_backward.default(permute_33, permute_11, permute_13, permute_15, alias_9, getitem_9, 0.0, False, attn_mask = where);  permute_33 = permute_11 = permute_13 = permute_15 = alias_9 = getitem_9 = None
+        getitem_14: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = _scaled_dot_product_flash_attention_for_cpu_backward[0]
+        getitem_15: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = _scaled_dot_product_flash_attention_for_cpu_backward[1]
+        getitem_16: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = _scaled_dot_product_flash_attention_for_cpu_backward[2];  _scaled_dot_product_flash_attention_for_cpu_backward = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_34: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.permute.default(getitem_16, [0, 2, 1, 3]);  getitem_16 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_43: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(permute_34, [1, 10, 128]);  permute_34 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:409 in forward, code: value_layer = self.transpose_for_scores(self.value(current_states))
+        view_44: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(view_43, [10, 128]);  view_43 = None
+        permute_35: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(permute_14, [1, 0]);  permute_14 = None
+        mm_8: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_44, permute_35);  permute_35 = None
+        permute_36: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view_22, [1, 0]);  view_22 = None
+        mm_9: "f32[128, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_36, view_44);  permute_36 = None
+        sum_13: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_44, [0], True);  view_44 = None
+        view_45: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_13, [128]);  sum_13 = None
+        permute_37: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(mm_9, [1, 0]);  mm_9 = None
+        view_46: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_8, [1, 10, 128]);  mm_8 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:409 in forward, code: value_layer = self.transpose_for_scores(self.value(current_states))
+        add_22: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(mul_37, view_46);  mul_37 = view_46 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_38: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.permute.default(getitem_15, [0, 2, 1, 3]);  getitem_15 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_47: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(permute_38, [1, 10, 128]);  permute_38 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:408 in forward, code: key_layer = self.transpose_for_scores(self.key(current_states))
+        view_48: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(view_47, [10, 128]);  view_47 = None
+        permute_39: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(permute_12, [1, 0]);  permute_12 = None
+        mm_10: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_48, permute_39);  permute_39 = None
+        permute_40: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view_19, [1, 0]);  view_19 = None
+        mm_11: "f32[128, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_40, view_48);  permute_40 = None
+        sum_14: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_48, [0], True);  view_48 = None
+        view_49: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_14, [128]);  sum_14 = None
+        permute_41: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(mm_11, [1, 0]);  mm_11 = None
+        view_50: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_10, [1, 10, 128]);  mm_10 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:408 in forward, code: key_layer = self.transpose_for_scores(self.key(current_states))
+        add_23: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(add_22, view_50);  add_22 = view_50 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_42: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.permute.default(getitem_14, [0, 2, 1, 3]);  getitem_14 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_51: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(permute_42, [1, 10, 128]);  permute_42 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:395 in forward, code: query_layer = self.transpose_for_scores(self.query(hidden_states))
+        view_52: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(view_51, [10, 128]);  view_51 = None
+        permute_43: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(permute_10, [1, 0]);  permute_10 = None
+        mm_12: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_52, permute_43);  permute_43 = None
+        permute_44: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view_16, [1, 0]);  view_16 = None
+        mm_13: "f32[128, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_44, view_52);  permute_44 = None
+        sum_15: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_52, [0], True);  view_52 = None
+        view_53: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_15, [128]);  sum_15 = None
+        permute_45: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(mm_13, [1, 0]);  mm_13 = None
+        view_54: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_12, [1, 10, 128]);  mm_12 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:395 in forward, code: query_layer = self.transpose_for_scores(self.query(hidden_states))
+        add_24: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(add_23, view_54);  add_23 = view_54 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:554 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        sub_13: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_8, getitem_7);  add_8 = getitem_7 = None
+        mul_39: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub_13, rsqrt_2);  sub_13 = None
+        mul_40: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_24, primals_23);  primals_23 = None
+        mul_41: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_40, 128)
+        sum_16: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_40, [2], True)
+        mul_42: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_40, mul_39);  mul_40 = None
+        sum_17: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_42, [2], True);  mul_42 = None
+        mul_43: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_39, sum_17);  sum_17 = None
+        sub_14: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(mul_41, sum_16);  mul_41 = sum_16 = None
+        sub_15: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(sub_14, mul_43);  sub_14 = mul_43 = None
+        div_2: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.div.Tensor(rsqrt_2, 128);  rsqrt_2 = None
+        mul_44: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(div_2, sub_15);  div_2 = sub_15 = None
+        mul_45: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_24, mul_39);  mul_39 = None
+        sum_18: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(mul_45, [0, 1]);  mul_45 = None
+        sum_19: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(add_24, [0, 1]);  add_24 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:552 in forward, code: hidden_states = self.dense(hidden_states)
+        view_55: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(mul_44, [10, 128])
+        permute_46: "f32[128, 512][1, 128]cpu" = torch.ops.aten.permute.default(permute_9, [1, 0]);  permute_9 = None
+        mm_14: "f32[10, 512][512, 1]cpu" = torch.ops.aten.mm.default(view_55, permute_46);  permute_46 = None
+        permute_47: "f32[512, 10][1, 512]cpu" = torch.ops.aten.permute.default(view_14, [1, 0]);  view_14 = None
+        mm_15: "f32[512, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_47, view_55);  permute_47 = None
+        sum_20: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_55, [0], True);  view_55 = None
+        view_56: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_20, [128]);  sum_20 = None
+        permute_48: "f32[128, 512][1, 128]cpu" = torch.ops.aten.permute.default(mm_15, [1, 0]);  mm_15 = None
+        view_57: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.view.default(mm_14, [1, 10, 512]);  mm_14 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/activations.py:78 in forward, code: return self.act(input)
+        mul_46: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_13, 0.7071067811865476)
+        erf_3: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.erf.default(mul_46);  mul_46 = None
+        add_25: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.add.Tensor(erf_3, 1);  erf_3 = None
+        mul_47: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(add_25, 0.5);  add_25 = None
+        mul_48: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_13, view_13)
+        mul_49: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(mul_48, -0.5);  mul_48 = None
+        exp_1: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.exp.default(mul_49);  mul_49 = None
+        mul_50: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(exp_1, 0.3989422804014327);  exp_1 = None
+        mul_51: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_13, mul_50);  view_13 = mul_50 = None
+        add_26: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.add.Tensor(mul_47, mul_51);  mul_47 = mul_51 = None
+        mul_52: "f32[1, 10, 512][5120, 512, 1]cpu" = torch.ops.aten.mul.Tensor(view_57, add_26);  view_57 = add_26 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:539 in forward, code: hidden_states = self.dense(hidden_states)
+        view_58: "f32[10, 512][512, 1]cpu" = torch.ops.aten.view.default(mul_52, [10, 512]);  mul_52 = None
+        permute_49: "f32[512, 128][1, 512]cpu" = torch.ops.aten.permute.default(permute_8, [1, 0]);  permute_8 = None
+        mm_16: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_58, permute_49);  permute_49 = None
+        permute_50: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view_12, [1, 0]);  view_12 = None
+        mm_17: "f32[128, 512][512, 1]cpu" = torch.ops.aten.mm.default(permute_50, view_58);  permute_50 = None
+        sum_21: "f32[1, 512][512, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_58, [0], True);  view_58 = None
+        view_59: "f32[512][1]cpu" = torch.ops.aten.view.default(sum_21, [512]);  sum_21 = None
+        permute_51: "f32[512, 128][1, 512]cpu" = torch.ops.aten.permute.default(mm_17, [1, 0]);  mm_17 = None
+        view_60: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_16, [1, 10, 128]);  mm_16 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:539 in forward, code: hidden_states = self.dense(hidden_states)
+        add_27: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(mul_44, view_60);  mul_44 = view_60 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:468 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        sub_16: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_4, getitem_5);  add_4 = getitem_5 = None
+        mul_53: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub_16, rsqrt_1);  sub_16 = None
+        mul_54: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_27, primals_17);  primals_17 = None
+        mul_55: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_54, 128)
+        sum_22: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_54, [2], True)
+        mul_56: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_54, mul_53);  mul_54 = None
+        sum_23: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_56, [2], True);  mul_56 = None
+        mul_57: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_53, sum_23);  sum_23 = None
+        sub_17: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(mul_55, sum_22);  mul_55 = sum_22 = None
+        sub_18: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(sub_17, mul_57);  sub_17 = mul_57 = None
+        div_3: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.div.Tensor(rsqrt_1, 128);  rsqrt_1 = None
+        mul_58: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(div_3, sub_18);  div_3 = sub_18 = None
+        mul_59: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_27, mul_53);  mul_53 = None
+        sum_24: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(mul_59, [0, 1]);  mul_59 = None
+        sum_25: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(add_27, [0, 1]);  add_27 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:466 in forward, code: hidden_states = self.dense(hidden_states)
+        view_61: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(mul_58, [10, 128])
+        permute_52: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(permute_7, [1, 0]);  permute_7 = None
+        mm_18: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_61, permute_52);  permute_52 = None
+        permute_53: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view_10, [1, 0]);  view_10 = None
+        mm_19: "f32[128, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_53, view_61);  permute_53 = None
+        sum_26: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_61, [0], True);  view_61 = None
+        view_62: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_26, [128]);  sum_26 = None
+        permute_54: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(mm_19, [1, 0]);  mm_19 = None
+        view_63: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_18, [1, 10, 128]);  mm_18 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:450 in forward, code: attn_output = attn_output.reshape(bsz, tgt_len, self.all_head_size)
+        view_64: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.view.default(view_63, [1, 10, 2, 64]);  view_63 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:449 in forward, code: attn_output = attn_output.transpose(1, 2)
+        permute_55: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.permute.default(view_64, [0, 2, 1, 3]);  view_64 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:440 in forward, code: attn_output = torch.nn.functional.scaled_dot_product_attention(
+        alias_10: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.alias.default(alias_1);  alias_1 = None
+        alias_11: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch.ops.aten.alias.default(alias_10);  alias_10 = None
+        _scaled_dot_product_flash_attention_for_cpu_backward_1 = torch.ops.aten._scaled_dot_product_flash_attention_for_cpu_backward.default(permute_55, permute_1, permute_3, permute_5, alias_11, getitem_3, 0.0, False, attn_mask = where);  permute_55 = permute_1 = permute_3 = permute_5 = alias_11 = getitem_3 = where = None
+        getitem_17: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = _scaled_dot_product_flash_attention_for_cpu_backward_1[0]
+        getitem_18: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = _scaled_dot_product_flash_attention_for_cpu_backward_1[1]
+        getitem_19: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = _scaled_dot_product_flash_attention_for_cpu_backward_1[2];  _scaled_dot_product_flash_attention_for_cpu_backward_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_56: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.permute.default(getitem_19, [0, 2, 1, 3]);  getitem_19 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_65: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(permute_56, [1, 10, 128]);  permute_56 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:409 in forward, code: value_layer = self.transpose_for_scores(self.value(current_states))
+        view_66: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(view_65, [10, 128]);  view_65 = None
+        permute_57: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(permute_4, [1, 0]);  permute_4 = None
+        mm_20: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_66, permute_57);  permute_57 = None
+        permute_58: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view_6, [1, 0]);  view_6 = None
+        mm_21: "f32[128, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_58, view_66);  permute_58 = None
+        sum_27: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_66, [0], True);  view_66 = None
+        view_67: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_27, [128]);  sum_27 = None
+        permute_59: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(mm_21, [1, 0]);  mm_21 = None
+        view_68: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_20, [1, 10, 128]);  mm_20 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:409 in forward, code: value_layer = self.transpose_for_scores(self.value(current_states))
+        add_28: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(mul_58, view_68);  mul_58 = view_68 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_60: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.permute.default(getitem_18, [0, 2, 1, 3]);  getitem_18 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_69: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(permute_60, [1, 10, 128]);  permute_60 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:408 in forward, code: key_layer = self.transpose_for_scores(self.key(current_states))
+        view_70: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(view_69, [10, 128]);  view_69 = None
+        permute_61: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(permute_2, [1, 0]);  permute_2 = None
+        mm_22: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_70, permute_61);  permute_61 = None
+        permute_62: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view_3, [1, 0]);  view_3 = None
+        mm_23: "f32[128, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_62, view_70);  permute_62 = None
+        sum_28: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_70, [0], True);  view_70 = None
+        view_71: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_28, [128]);  sum_28 = None
+        permute_63: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(mm_23, [1, 0]);  mm_23 = None
+        view_72: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_22, [1, 10, 128]);  mm_22 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:408 in forward, code: key_layer = self.transpose_for_scores(self.key(current_states))
+        add_29: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(add_28, view_72);  add_28 = view_72 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        permute_64: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = torch.ops.aten.permute.default(getitem_17, [0, 2, 1, 3]);  getitem_17 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        view_73: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(permute_64, [1, 10, 128]);  permute_64 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:395 in forward, code: query_layer = self.transpose_for_scores(self.query(hidden_states))
+        view_74: "f32[10, 128][128, 1]cpu" = torch.ops.aten.view.default(view_73, [10, 128]);  view_73 = None
+        permute_65: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(permute, [1, 0]);  permute = None
+        mm_24: "f32[10, 128][128, 1]cpu" = torch.ops.aten.mm.default(view_74, permute_65);  permute_65 = None
+        permute_66: "f32[128, 10][1, 128]cpu" = torch.ops.aten.permute.default(view, [1, 0]);  view = None
+        mm_25: "f32[128, 128][128, 1]cpu" = torch.ops.aten.mm.default(permute_66, view_74);  permute_66 = None
+        sum_29: "f32[1, 128][128, 1]cpu" = torch.ops.aten.sum.dim_IntList(view_74, [0], True);  view_74 = None
+        view_75: "f32[128][1]cpu" = torch.ops.aten.view.default(sum_29, [128]);  sum_29 = None
+        permute_67: "f32[128, 128][1, 128]cpu" = torch.ops.aten.permute.default(mm_25, [1, 0]);  mm_25 = None
+        view_76: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.view.default(mm_24, [1, 10, 128]);  mm_24 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:395 in forward, code: query_layer = self.transpose_for_scores(self.query(hidden_states))
+        add_30: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.add.Tensor(add_29, view_76);  add_29 = view_76 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:218 in forward, code: embeddings = self.LayerNorm(embeddings)
+        sub_19: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(add_1, getitem_1);  add_1 = getitem_1 = None
+        mul_60: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(sub_19, rsqrt);  sub_19 = None
+        mul_61: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_30, primals_7);  primals_7 = None
+        mul_62: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_61, 128)
+        sum_30: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_61, [2], True)
+        mul_63: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_61, mul_60);  mul_61 = None
+        sum_31: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.sum.dim_IntList(mul_63, [2], True);  mul_63 = None
+        mul_64: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(mul_60, sum_31);  sum_31 = None
+        sub_20: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(mul_62, sum_30);  mul_62 = sum_30 = None
+        sub_21: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.sub.Tensor(sub_20, mul_64);  sub_20 = mul_64 = None
+        div_4: "f32[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.div.Tensor(rsqrt, 128);  rsqrt = None
+        mul_65: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(div_4, sub_21);  div_4 = sub_21 = None
+        mul_66: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.mul.Tensor(add_30, mul_60);  mul_60 = None
+        sum_32: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(mul_66, [0, 1]);  mul_66 = None
+        sum_33: "f32[128][1]cpu" = torch.ops.aten.sum.dim_IntList(add_30, [0, 1]);  add_30 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:216 in forward, code: position_embeddings = self.position_embeddings(position_ids)
+        eq: "b8[1, 10][10, 1]cpu" = torch.ops.aten.eq.Scalar(slice_4, -1)
+        unsqueeze_2: "b8[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.unsqueeze.default(eq, -1);  eq = None
+        scalar_tensor_1: "f32[][]cpu" = torch.ops.aten.scalar_tensor.default(0.0, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'))
+        where_1: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.where.self(unsqueeze_2, scalar_tensor_1, mul_65);  unsqueeze_2 = scalar_tensor_1 = None
+        full_3: "f32[512, 128][128, 1]cpu" = torch.ops.aten.full.default([512, 128], 0, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'), pin_memory = False)
+        index_put: "f32[512, 128][128, 1]cpu" = torch.ops.aten.index_put.default(full_3, [slice_4], where_1, True);  full_3 = slice_4 = where_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:212 in forward, code: token_type_embeddings = self.token_type_embeddings(token_type_ids)
+        eq_1: "b8[1, 10][10, 1]cpu" = torch.ops.aten.eq.Scalar(expand, -1)
+        unsqueeze_3: "b8[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.unsqueeze.default(eq_1, -1);  eq_1 = None
+        scalar_tensor_2: "f32[][]cpu" = torch.ops.aten.scalar_tensor.default(0.0, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'))
+        where_2: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.where.self(unsqueeze_3, scalar_tensor_2, mul_65);  unsqueeze_3 = scalar_tensor_2 = None
+        full_4: "f32[2, 128][128, 1]cpu" = torch.ops.aten.full.default([2, 128], 0, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'), pin_memory = False)
+        index_put_1: "f32[2, 128][128, 1]cpu" = torch.ops.aten.index_put.default(full_4, [expand], where_2, True);  full_4 = expand = where_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:211 in forward, code: inputs_embeds = self.word_embeddings(input_ids)
+        eq_2: "b8[1, 10][10, 1]cpu" = torch.ops.aten.eq.Scalar(primals_1, 0)
+        unsqueeze_4: "b8[1, 10, 1][10, 1, 1]cpu" = torch.ops.aten.unsqueeze.default(eq_2, -1);  eq_2 = None
+        scalar_tensor_3: "f32[][]cpu" = torch.ops.aten.scalar_tensor.default(0.0, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'))
+        where_3: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.ops.aten.where.self(unsqueeze_4, scalar_tensor_3, mul_65);  unsqueeze_4 = scalar_tensor_3 = mul_65 = None
+        full_5: "f32[30522, 128][128, 1]cpu" = torch.ops.aten.full.default([30522, 128], 0, dtype = torch.float32, layout = torch.strided, device = device(type='cpu'), pin_memory = False)
+        index_put_2: "f32[30522, 128][128, 1]cpu" = torch.ops.aten.index_put.default(full_5, [primals_1], where_3, True);  full_5 = primals_1 = where_3 = None
+        return pytree.tree_unflatten([add_17, tanh, None, None, None, index_put_2, index_put_1, index_put, sum_32, sum_33, permute_67, view_75, permute_63, view_71, permute_59, view_67, permute_54, view_62, sum_24, sum_25, permute_51, view_59, permute_48, view_56, sum_18, sum_19, permute_45, view_53, permute_41, view_49, permute_37, view_45, permute_32, view_40, sum_10, sum_11, permute_29, view_37, permute_26, view_34, sum_4, sum_5, permute_23, view_32], self._out_spec)
+        

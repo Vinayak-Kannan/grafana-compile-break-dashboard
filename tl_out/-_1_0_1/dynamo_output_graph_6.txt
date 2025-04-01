@@ -1,0 +1,8 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_modified_input_ids_: "i64[1, 10][10, 1]cpu"):
+        l_modified_input_ids_ = L_modified_input_ids_
+        
+         # File: /workspaces/HPML-Project/pull_model_run_dynamo_explain.py:35 in torch_dynamo_resume_in_forward_refined_at_34, code: print(f"Modified first element: {modified_input_ids[0, 0]}")
+        getitem: "i64[][]cpu" = l_modified_input_ids_[(0, 0)];  l_modified_input_ids_ = None
+        return (getitem,)
+        

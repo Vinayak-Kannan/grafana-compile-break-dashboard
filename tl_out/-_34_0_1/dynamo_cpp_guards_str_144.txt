@@ -1,0 +1,40 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['dtype'], accessed_by=DictGetItemGuardAccessor(dtype)
+| | +- ID_MATCH: ___check_obj_id(L['dtype'], 111055818751712)                
+| +- GuardManager: source=L['ilp64'], accessed_by=DictGetItemGuardAccessor(ilp64)
+| | +- ID_MATCH: ___check_obj_id(L['ilp64'], 111055818658752)                
+| +- GuardManager: source=L['names'], accessed_by=DictGetItemGuardAccessor(names)
+| | +- EQUALS_MATCH: L['names'] == 'trtri'                                       
+| +- GuardManager: source=L['arrays'], accessed_by=DictGetItemGuardAccessor(arrays)
+| | +- TYPE_MATCH: ___check_type_id(L['arrays'], 111055818760256)              
+| | +- LENGTH_CHECK: len(L['arrays']) == 1                                       
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['_clapack'], accessed_by=DictGetItemGuardAccessor(_clapack)
+| | | +- ID_MATCH: ___check_obj_id(G['_clapack'], 111055818751712)             
+| | +- GuardManager: source=G['_flapack'], accessed_by=DictGetItemGuardAccessor(_flapack)
+| | | +- ID_MATCH: ___check_obj_id(G['_flapack'], 138005513726896)             
+| | +- GuardManager: source=G['_get_funcs'], accessed_by=DictGetItemGuardAccessor(_get_funcs)
+| | | +- GuardManager: source=G['_get_funcs'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | +- ID_MATCH: ___check_obj_id(G['_get_funcs'].__code__, 111056996729680)  
+| | +- GuardManager: source=G['_lapack_alias'], accessed_by=DictGetItemGuardAccessor(_lapack_alias)
+| | | +- DICT_LENGTH: len(G['_lapack_alias']) == 10                               
+| | | +- GuardManager: source=G['_lapack_alias']['corghr'], accessed_by=DictGetItemGuardAccessor(corghr)
+| | | +- GuardManager: source=G['_lapack_alias']['zorghr'], accessed_by=DictGetItemGuardAccessor(zorghr)
+| | | +- GuardManager: source=G['_lapack_alias']['corghr_lwork'], accessed_by=DictGetItemGuardAccessor(corghr_lwork)
+| | | +- GuardManager: source=G['_lapack_alias']['zorghr_lwork'], accessed_by=DictGetItemGuardAccessor(zorghr_lwork)
+| | | +- GuardManager: source=G['_lapack_alias']['corgqr'], accessed_by=DictGetItemGuardAccessor(corgqr)
+| | | +- GuardManager: source=G['_lapack_alias']['zorgqr'], accessed_by=DictGetItemGuardAccessor(zorgqr)
+| | | +- GuardManager: source=G['_lapack_alias']['cormqr'], accessed_by=DictGetItemGuardAccessor(cormqr)
+| | | +- GuardManager: source=G['_lapack_alias']['zormqr'], accessed_by=DictGetItemGuardAccessor(zormqr)
+| | | +- GuardManager: source=G['_lapack_alias']['corgrq'], accessed_by=DictGetItemGuardAccessor(corgrq)
+| | | +- GuardManager: source=G['_lapack_alias']['zorgrq'], accessed_by=DictGetItemGuardAccessor(zorgrq)
+| | +- GuardManager: source=G['__builtins_dict___115'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___115)
+| | | +- GuardManager: source=G['__builtins_dict___115']['str'], accessed_by=DictGetItemGuardAccessor(str)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___115']['str'], 111055818777536)
+| | | +- GuardManager: source=G['__builtins_dict___115']['isinstance'], accessed_by=DictGetItemGuardAccessor(isinstance)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___115']['isinstance'], 138006094274832)

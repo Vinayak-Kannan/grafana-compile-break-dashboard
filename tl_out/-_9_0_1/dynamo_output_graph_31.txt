@@ -1,0 +1,15 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_stack1_: "f64[290][1]cpu", L_xv_: "f64[300][1]cpu", L_yv_: "f64[300][1]cpu"):
+        l_stack1_ = L_stack1_
+        l_xv_ = L_xv_
+        l_yv_ = L_yv_
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1406 in torch_dynamo_resume_in_find_ab_params_at_1406, code: yv[xv >= min_dist] = np.exp(-(xv[xv >= min_dist] - min_dist) / spread)
+        wrapped_sub: "f64[290][1]cpu" = torch__dynamo_utils_wrapped_sub(l_stack1_, 0.1);  l_stack1_ = None
+        wrapped_neg: "f64[290][1]cpu" = torch__dynamo_utils_wrapped_neg(wrapped_sub);  wrapped_sub = None
+        wrapped_truediv: "f64[290][1]cpu" = torch__dynamo_utils_wrapped_truediv(wrapped_neg, 1.0);  wrapped_neg = None
+        wrapped_exp: "f64[290][1]cpu" = torch__dynamo_utils_wrapped_exp(wrapped_truediv);  wrapped_truediv = None
+        wrapped_ge: "b8[300][1]cpu" = torch__dynamo_utils_wrapped_ge(l_xv_, 0.1);  l_xv_ = None
+        wrapped___setitem__ = torch__dynamo_utils_wrapped___setitem__(l_yv_, wrapped_ge, wrapped_exp);  l_yv_ = wrapped_ge = wrapped_exp = wrapped___setitem__ = None
+        return ()
+        

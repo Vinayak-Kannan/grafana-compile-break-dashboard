@@ -1,0 +1,58 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['ftol'], accessed_by=DictGetItemGuardAccessor(ftol)
+| | +- EQUALS_MATCH: L['ftol'] == 1.49012e-08                                    
+| +- GuardManager: source=L['gtol'], accessed_by=DictGetItemGuardAccessor(gtol)
+| | +- EQUALS_MATCH: L['gtol'] == 0.0                                            
+| +- GuardManager: source=L['xtol'], accessed_by=DictGetItemGuardAccessor(xtol)
+| | +- EQUALS_MATCH: L['xtol'] == 1.49012e-08                                    
+| +- GuardManager: source=L['maxfev'], accessed_by=DictGetItemGuardAccessor(maxfev)
+| | +- EQUALS_MATCH: L['maxfev'] == 600                                          
+| +- GuardManager: source=L['___stack0'], accessed_by=DictGetItemGuardAccessor(___stack0)
+| | +- TYPE_MATCH: ___check_type_id(L['___stack0'], 111055818760256)           
+| | +- LENGTH_CHECK: len(L['___stack0']) == 3                                    
+| | +- GuardManager: source=L['___stack0'][1], accessed_by=TupleGetItemGuardAccessor(1)
+| | | +- DICT_LENGTH: len(L['___stack0'][1]) == 5                                 
+| | | +- GuardManager: source=L['___stack0'][1]['fvec'], accessed_by=DictGetItemGuardAccessor(fvec)
+| | | +- GuardManager: source=L['___stack0'][1]['nfev'], accessed_by=DictGetItemGuardAccessor(nfev)
+| | | +- GuardManager: source=L['___stack0'][1]['fjac'], accessed_by=DictGetItemGuardAccessor(fjac)
+| | | | +- GuardManager: source=___from_numpy(L['___stack0'][1]['fjac']), accessed_by=PythonLambdaGuardAccessor
+| | | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['___stack0'][1]['fjac']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2, 300], stride=[300, 1])
+| | | | | +- NO_HASATTR: hasattr(___from_numpy(L['___stack0'][1]['fjac']), '_dynamo_dynamic_indices') == False
+| | | | | +- NO_TENSOR_ALIASING: check_no_aliasing(___from_numpy(L['___stack0'][1]['fjac']), ___from_numpy(L['___stack0'][1]['ipvt']))
+| | | +- GuardManager: source=L['___stack0'][1]['ipvt'], accessed_by=DictGetItemGuardAccessor(ipvt)
+| | | | +- GuardManager: source=___from_numpy(L['___stack0'][1]['ipvt']), accessed_by=PythonLambdaGuardAccessor
+| | | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['___stack0'][1]['ipvt']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.int32, device=None, requires_grad=False, size=[2], stride=[1])
+| | | | | +- NO_HASATTR: hasattr(___from_numpy(L['___stack0'][1]['ipvt']), '_dynamo_dynamic_indices') == False
+| | | | | +- NO_TENSOR_ALIASING
+| | | +- GuardManager: source=L['___stack0'][1]['qtf'], accessed_by=DictGetItemGuardAccessor(qtf)
+| | +- GuardManager: source=L['___stack0'][2], accessed_by=TupleGetItemGuardAccessor(2)
+| | | +- EQUALS_MATCH: L['___stack0'][2] == 1                                      
+| +- GuardManager: source=L['full_output'], accessed_by=DictGetItemGuardAccessor(full_output)
+| | +- EQUALS_MATCH: L['full_output'] == 1                                       
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['triu'], accessed_by=DictGetItemGuardAccessor(triu)
+| | | +- ID_MATCH: ___check_obj_id(G['triu'], 138005632111792)                 
+| | +- GuardManager: source=G['linalg'], accessed_by=DictGetItemGuardAccessor(linalg)
+| | | +- ID_MATCH: ___check_obj_id(G['linalg'], 138005513724656)               
+| | | +- GuardManager: source=G['linalg'].get_lapack_funcs, accessed_by=GetAttrGuardAccessor(get_lapack_funcs)
+| | | | +- GuardManager: source=G['linalg'].get_lapack_funcs.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | +- ID_MATCH: ___check_obj_id(G['linalg'].get_lapack_funcs.__code__, 138005514362800)
+| | +- GuardManager: source=G['transpose'], accessed_by=DictGetItemGuardAccessor(transpose)
+| | | +- ID_MATCH: ___check_obj_id(G['transpose'], 138005633201712)            
+| | +- GuardManager: source=G['LEASTSQ_SUCCESS'], accessed_by=DictGetItemGuardAccessor(LEASTSQ_SUCCESS)
+| | | +- TYPE_MATCH: ___check_type_id(G['LEASTSQ_SUCCESS'], 111055818730400)     
+| | | +- LENGTH_CHECK: len(G['LEASTSQ_SUCCESS']) == 4                              
+| | | +- GuardManager: source=G['LEASTSQ_SUCCESS'][0], accessed_by=ListGetItemGuardAccessor(0)
+| | | | +- EQUALS_MATCH: G['LEASTSQ_SUCCESS'][0] == 1                                
+| | +- GuardManager: source=G['__builtins_dict___110'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___110)
+| | | +- GuardManager: source=G['__builtins_dict___110']['len'], accessed_by=DictGetItemGuardAccessor(len)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___110']['len'], 138006094275152)
+| | | +- GuardManager: source=G['__builtins_dict___110']['TypeError'], accessed_by=DictGetItemGuardAccessor(TypeError)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___110']['TypeError'], 111055818712544)
+| | | +- GuardManager: source=G['__builtins_dict___110']['ValueError'], accessed_by=DictGetItemGuardAccessor(ValueError)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___110']['ValueError'], 111055818694080)

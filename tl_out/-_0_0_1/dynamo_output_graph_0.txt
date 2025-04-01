@@ -1,0 +1,16 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_kwargs_input_ids_: "i64[1, 10][10, 1]cpu"):
+        l_kwargs_input_ids_ = L_kwargs_input_ids_
+        
+         # File: /workspaces/HPML-Project/pull_model_run_dynamo_explain.py:27 in forward_refined, code: modified_input_ids = input_ids.clone()
+        modified_input_ids: "i64[1, 10][10, 1]cpu" = l_kwargs_input_ids_.clone()
+        
+         # File: /workspaces/HPML-Project/pull_model_run_dynamo_explain.py:31 in forward_refined, code: modified_input_ids[0, 0] += seq_length
+        getitem: "i64[][]cpu" = modified_input_ids[(0, 0)]
+        getitem += 10;  iadd: "i64[][]cpu" = getitem;  getitem = None
+        modified_input_ids[(0, 0)] = iadd;  setitem = modified_input_ids;  iadd = setitem = None
+        
+         # File: /workspaces/HPML-Project/pull_model_run_dynamo_explain.py:34 in forward_refined, code: print(f"Original first element: {input_ids[0, 0]}")
+        getitem_1: "i64[][]cpu" = l_kwargs_input_ids_[(0, 0)];  l_kwargs_input_ids_ = None
+        return (getitem_1, modified_input_ids)
+        

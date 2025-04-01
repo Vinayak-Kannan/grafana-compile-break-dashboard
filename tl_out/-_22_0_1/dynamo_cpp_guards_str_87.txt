@@ -1,0 +1,29 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['args'], accessed_by=DictGetItemGuardAccessor(args)
+| | +- TYPE_MATCH: ___check_type_id(L['args'], 111055818760256)                
+| | +- LENGTH_CHECK: not L['args']                                               
+| +- GuardManager: source=L['func'], accessed_by=DictGetItemGuardAccessor(func)
+| | +- GuardManager: source=L['func'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | +- ID_MATCH: ___check_obj_id(L['func'].__code__, 138005366804752)        
+| +- GuardManager: source=L['x0'], accessed_by=DictGetItemGuardAccessor(x0)
+| | +- GuardManager: source=___from_numpy(L['x0']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['x0']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['x0']), '_dynamo_dynamic_indices') == False
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['asarray'], accessed_by=DictGetItemGuardAccessor(asarray)
+| | | +- ID_MATCH: ___check_obj_id(G['asarray'], 138006086609920)              
+| | +- GuardManager: source=G['_check_func'], accessed_by=DictGetItemGuardAccessor(_check_func)
+| | | +- GuardManager: source=G['_check_func'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | +- ID_MATCH: ___check_obj_id(G['_check_func'].__code__, 111056999968096) 
+| | +- GuardManager: source=G['__builtins_dict___74'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___74)
+| | | +- GuardManager: source=G['__builtins_dict___74']['len'], accessed_by=DictGetItemGuardAccessor(len)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___74']['len'], 138006094275152)
+| | | +- GuardManager: source=G['__builtins_dict___74']['tuple'], accessed_by=DictGetItemGuardAccessor(tuple)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___74']['tuple'], 111055818760256)
+| | | +- GuardManager: source=G['__builtins_dict___74']['isinstance'], accessed_by=DictGetItemGuardAccessor(isinstance)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___74']['isinstance'], 138006094274832)

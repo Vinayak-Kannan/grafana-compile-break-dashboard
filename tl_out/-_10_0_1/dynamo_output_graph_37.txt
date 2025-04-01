@@ -1,0 +1,13 @@
+class GraphModule(torch.nn.Module):
+    def forward(self):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/least_squares.py:96 in <genexpr>, code: lb, ub = (np.asarray(b, dtype=float) for b in bounds)
+        lb: "f64[][]cpu" = torch__dynamo_utils_wrapped_asarray(-inf, dtype = torch.float64)
+        ub: "f64[][]cpu" = torch__dynamo_utils_wrapped_asarray_1(inf, dtype = torch.float64)
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/least_squares.py:98 in prepare_bounds, code: lb = np.resize(lb, n)
+        lb_1: "f64[2][1]cpu" = torch__dynamo_utils_wrapped_resize(lb, 2);  lb = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/least_squares.py:101 in prepare_bounds, code: ub = np.resize(ub, n)
+        ub_1: "f64[2][1]cpu" = torch__dynamo_utils_wrapped_resize_1(ub, 2);  ub = None
+        return (lb_1, ub_1)
+        

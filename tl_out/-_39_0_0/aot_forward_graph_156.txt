@@ -1,0 +1,11 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[][]cpu", arg1_1: "f64[2, 2][2, 1]cpu"):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:1047 in torch_dynamo_resume_in_curve_fit_at_1040, code: s_sq = cost / (ysize - p0.size)
+        _tensor_constant0 = self._tensor_constant0
+        lift_fresh_copy: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant0);  _tensor_constant0 = None
+        div: "f64[][]cpu" = torch.ops.aten.div.Tensor(arg0_1, lift_fresh_copy);  arg0_1 = lift_fresh_copy = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:1048 in torch_dynamo_resume_in_curve_fit_at_1040, code: pcov = pcov * s_sq
+        mul: "f64[2, 2][2, 1]cpu" = torch.ops.aten.mul.Tensor(arg1_1, div);  arg1_1 = div = None
+        return (mul,)
+        

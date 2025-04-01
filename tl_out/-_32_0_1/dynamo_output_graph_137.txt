@@ -1,0 +1,14 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_stack0_1_ipvt_: "i32[2][1]cpu", L_stack0_1_fjac_: "f64[2, 300][300, 1]cpu"):
+        l_stack0_1_ipvt_ = L_stack0_1_ipvt_
+        l_stack0_1_fjac_ = L_stack0_1_fjac_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:489 in torch_dynamo_resume_in_leastsq_at_439, code: perm = retval[1]['ipvt'] - 1
+        perm: "i32[2][1]cpu" = torch__dynamo_utils_wrapped_sub(l_stack0_1_ipvt_, 1);  l_stack0_1_ipvt_ = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:491 in torch_dynamo_resume_in_leastsq_at_439, code: r = triu(transpose(retval[1]['fjac'])[:n, :])
+        wrapped_transpose: "f64[300, 2][1, 300]cpu" = torch__dynamo_utils_wrapped_transpose(l_stack0_1_fjac_);  l_stack0_1_fjac_ = None
+        wrapped_getitem: "f64[2, 2][1, 300]cpu" = torch__dynamo_utils_wrapped_getitem(wrapped_transpose, (slice(None, 2, None), slice(None, None, None)));  wrapped_transpose = None
+        r: "f64[2, 2][2, 1]cpu" = torch__dynamo_utils_wrapped_triu(wrapped_getitem);  wrapped_getitem = None
+        return (r, perm)
+        

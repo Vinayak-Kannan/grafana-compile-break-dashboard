@@ -1,0 +1,867 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['self'], accessed_by=DictGetItemGuardAccessor(self)
+| | +- TYPE_MATCH: ___check_type_id(L['self'], 111057051038704)                
+| | +- GuardManager: source=L['self'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | +- GuardManager: source=L['self'].config, accessed_by=DictGetItemGuardAccessor(config)
+| | | | +- TYPE_MATCH: ___check_type_id(L['self'].config, 111057046026224)         
+| | | | +- GuardManager: source=L['self'].config.is_decoder, accessed_by=GetAttrGuardAccessor(is_decoder)
+| | | | | +- ID_MATCH: ___check_obj_id(L['self'].config.is_decoder, 111055818658752)
+| | | | +- GuardManager: source=L['self'].config.use_return_dict, accessed_by=GetAttrGuardAccessor(use_return_dict)
+| | | | | +- ID_MATCH: ___check_obj_id(L['self'].config.use_return_dict, 111055818658720)
+| | | | +- GuardManager: source=L['self'].config.num_hidden_layers, accessed_by=GetAttrGuardAccessor(num_hidden_layers)
+| | | | | +- EQUALS_MATCH: L['self'].config.num_hidden_layers == 2                     
+| | | | +- GuardManager: source=L['self'].config.output_attentions, accessed_by=GetAttrGuardAccessor(output_attentions)
+| | | | | +- ID_MATCH: ___check_obj_id(L['self'].config.output_attentions, 111055818658752)
+| | | | +- GuardManager: source=L['self'].config.output_hidden_states, accessed_by=GetAttrGuardAccessor(output_hidden_states)
+| | | | | +- ID_MATCH: ___check_obj_id(L['self'].config.output_hidden_states, 111055818658752)
+| | | +- GuardManager: source=L['self']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | +- DICT_LENGTH: len(L['self']._modules) == 3                                
+| | | | +- GuardManager: source=L['self']._modules['embeddings'], accessed_by=DictGetItemGuardAccessor(embeddings)
+| | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['embeddings'], 111057050251056)
+| | | | | +- GuardManager: source=L['self']._modules['embeddings'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['embeddings'].__dict__)
+| | | | | | +- GuardManager: source=L['self']._modules['embeddings']._buffers, accessed_by=DictGetItemGuardAccessor(_buffers)
+| | | | | | | +- DICT_LENGTH: len(L['self']._modules['embeddings']._buffers) == 2         
+| | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._buffers['position_ids'], accessed_by=DictGetItemGuardAccessor(position_ids)
+| | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['embeddings']._buffers['position_ids'], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.int64, device=None, requires_grad=False, size=[1, 512], stride=[512, 1])
+| | | | | | | | +- NO_TENSOR_ALIASING: check_no_aliasing(L['input_ids'], L['self']._modules['embeddings']._buffers['position_ids'], L['self']._modules['embeddings']._buffers['token_type_ids'], L['self']._modules['pooler']._modules['dense']._parameters['bias'], L['self']._modules['pooler']._modules['dense']._parameters['weight'], L['self']._modules['embeddings']._modules['LayerNorm']._parameters['bias'], L['self']._modules['embeddings']._modules['LayerNorm']._parameters['weight'], L['self']._modules['embeddings']._modules['word_embeddings']._parameters['weight'], L['self']._modules['embeddings']._modules['position_embeddings']._parameters['weight'], L['self']._modules['embeddings']._modules['token_type_embeddings']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['bias'], L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['weight'], L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['weight'])
+| | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._buffers['token_type_ids'], accessed_by=DictGetItemGuardAccessor(token_type_ids)
+| | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['embeddings']._buffers['token_type_ids'], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.int64, device=None, requires_grad=False, size=[1, 512], stride=[512, 1])
+| | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | +- DICT_LENGTH: len(L['self']._modules['embeddings']._modules) == 5         
+| | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['word_embeddings'], accessed_by=DictGetItemGuardAccessor(word_embeddings)
+| | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['embeddings']._modules['word_embeddings'], 111056951365232)
+| | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['word_embeddings'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['embeddings']._modules['word_embeddings'].__dict__)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['word_embeddings'].sparse, accessed_by=DictGetItemGuardAccessor(sparse)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['word_embeddings'].sparse, 111055818658752)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['word_embeddings'].max_norm, accessed_by=DictGetItemGuardAccessor(max_norm)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['word_embeddings'].max_norm, 111055818751712)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['word_embeddings'].norm_type, accessed_by=DictGetItemGuardAccessor(norm_type)
+| | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['embeddings']._modules['word_embeddings'].norm_type == 2.0
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['word_embeddings']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['embeddings']._modules['word_embeddings']._parameters) == 1
+| | | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['word_embeddings']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['embeddings']._modules['word_embeddings']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[30522, 128], stride=[128, 1])
+| | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['word_embeddings'].padding_idx, accessed_by=DictGetItemGuardAccessor(padding_idx)
+| | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['embeddings']._modules['word_embeddings'].padding_idx == 0
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['word_embeddings'].scale_grad_by_freq, accessed_by=DictGetItemGuardAccessor(scale_grad_by_freq)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['word_embeddings'].scale_grad_by_freq, 111055818658752)
+| | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['position_embeddings'], accessed_by=DictGetItemGuardAccessor(position_embeddings)
+| | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['embeddings']._modules['position_embeddings'], 111056951365232)
+| | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['position_embeddings'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['embeddings']._modules['position_embeddings'].__dict__)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['position_embeddings'].sparse, accessed_by=DictGetItemGuardAccessor(sparse)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['position_embeddings'].sparse, 111055818658752)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['position_embeddings'].max_norm, accessed_by=DictGetItemGuardAccessor(max_norm)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['position_embeddings'].max_norm, 111055818751712)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['position_embeddings'].norm_type, accessed_by=DictGetItemGuardAccessor(norm_type)
+| | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['embeddings']._modules['position_embeddings'].norm_type == 2.0
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['position_embeddings']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['embeddings']._modules['position_embeddings']._parameters) == 1
+| | | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['position_embeddings']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['embeddings']._modules['position_embeddings']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[512, 128], stride=[128, 1])
+| | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['position_embeddings'].padding_idx, accessed_by=DictGetItemGuardAccessor(padding_idx)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['position_embeddings'].padding_idx, 111055818751712)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['position_embeddings'].scale_grad_by_freq, accessed_by=DictGetItemGuardAccessor(scale_grad_by_freq)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['position_embeddings'].scale_grad_by_freq, 111055818658752)
+| | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['token_type_embeddings'], accessed_by=DictGetItemGuardAccessor(token_type_embeddings)
+| | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['embeddings']._modules['token_type_embeddings'], 111056951365232)
+| | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['token_type_embeddings'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['embeddings']._modules['token_type_embeddings'].__dict__)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['token_type_embeddings'].sparse, accessed_by=DictGetItemGuardAccessor(sparse)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['token_type_embeddings'].sparse, 111055818658752)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['token_type_embeddings'].max_norm, accessed_by=DictGetItemGuardAccessor(max_norm)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['token_type_embeddings'].max_norm, 111055818751712)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['token_type_embeddings'].norm_type, accessed_by=DictGetItemGuardAccessor(norm_type)
+| | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['embeddings']._modules['token_type_embeddings'].norm_type == 2.0
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['token_type_embeddings']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['embeddings']._modules['token_type_embeddings']._parameters) == 1
+| | | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['token_type_embeddings']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['embeddings']._modules['token_type_embeddings']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[2, 128], stride=[128, 1])
+| | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['token_type_embeddings'].padding_idx, accessed_by=DictGetItemGuardAccessor(padding_idx)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['token_type_embeddings'].padding_idx, 111055818751712)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['token_type_embeddings'].scale_grad_by_freq, accessed_by=DictGetItemGuardAccessor(scale_grad_by_freq)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['token_type_embeddings'].scale_grad_by_freq, 111055818658752)
+| | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['LayerNorm'], accessed_by=DictGetItemGuardAccessor(LayerNorm)
+| | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['embeddings']._modules['LayerNorm'], 111056950804992)
+| | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['LayerNorm'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['embeddings']._modules['LayerNorm'].__dict__)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['LayerNorm'].eps, accessed_by=DictGetItemGuardAccessor(eps)
+| | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['embeddings']._modules['LayerNorm'].eps == 1e-12
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['LayerNorm']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['embeddings']._modules['LayerNorm']._parameters) == 2
+| | | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['LayerNorm']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['embeddings']._modules['LayerNorm']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['LayerNorm']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['embeddings']._modules['LayerNorm']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['LayerNorm'].normalized_shape, accessed_by=DictGetItemGuardAccessor(normalized_shape)
+| | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['embeddings']._modules['LayerNorm'].normalized_shape == (128,)
+| | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['embeddings']._modules['LayerNorm'].normalized_shape, 111055818760256)
+| | | | | | | | | | +- LENGTH_CHECK: len(L['self']._modules['embeddings']._modules['LayerNorm'].normalized_shape) == 1
+| | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['dropout'], accessed_by=DictGetItemGuardAccessor(dropout)
+| | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['embeddings']._modules['dropout'], 111056948550784)
+| | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['dropout'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['embeddings']._modules['dropout'].__dict__)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['dropout'].p, accessed_by=DictGetItemGuardAccessor(p)
+| | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['embeddings']._modules['dropout'].p == 0.1
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['dropout'].inplace, accessed_by=DictGetItemGuardAccessor(inplace)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['dropout'].inplace, 111055818658752)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['embeddings']._modules['dropout'].training, accessed_by=DictGetItemGuardAccessor(training)
+| | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['embeddings']._modules['dropout'].training, 111055818658752)
+| | | | | | +- GuardManager: source=L['self']._modules['embeddings']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | +- DICT_LENGTH: not L['self']._modules['embeddings']._parameters            
+| | | | | | +- DictSubclassGuardManager: source=L['self']._modules['embeddings']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | +- GuardManager: source=L['self']._modules['embeddings']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | +- DICT_LENGTH: not L['self']._modules['embeddings']._backward_hooks        
+| | | | | | +- DictSubclassGuardManager: source=L['self']._modules['embeddings']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | +- GuardManager: source=L['self']._modules['embeddings']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | +- DICT_LENGTH: not L['self']._modules['embeddings']._backward_pre_hooks    
+| | | | | | +- GuardManager: source=L['self']._modules['embeddings'].position_embedding_type, accessed_by=DictGetItemGuardAccessor(position_embedding_type)
+| | | | | | | +- EQUALS_MATCH: L['self']._modules['embeddings'].position_embedding_type == 'absolute'
+| | | | +- GuardManager: source=L['self']._modules['encoder'], accessed_by=DictGetItemGuardAccessor(encoder)
+| | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder'], 111056988489696)
+| | | | | +- GuardManager: source=L['self']._modules['encoder'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder'].__dict__)
+| | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules) == 1            
+| | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer'], accessed_by=DictGetItemGuardAccessor(layer)
+| | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer'], 111056949413008)
+| | | | | | | | +- LENGTH_CHECK: len(L['self']._modules['encoder']._modules['layer']) == 2   
+| | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | +- DictGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | +- KeyValueManager pair at index=0
+| | | | | | | | | | | +- KeyManager: GuardManager: source=list(L['self']._modules['encoder']._modules['layer']._modules.keys())[0]
+| | | | | | | | | | | | +- EQUALS_MATCH: list(L['self']._modules['encoder']._modules['layer']._modules.keys())[0] == '0'
+| | | | | | | | | | | +- ValueManager: GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']
+| | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0'], 111057050756640)
+| | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0'].__dict__)
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules) == 3
+| | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention'], accessed_by=DictGetItemGuardAccessor(attention)
+| | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention'], 111057050725792)
+| | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention'].__dict__)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules) == 2
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'], accessed_by=DictGetItemGuardAccessor(self)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'], 111057050672880)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules) == 4
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query'], accessed_by=DictGetItemGuardAccessor(query)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query'], 111056949993488)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 128], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['query']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key'], accessed_by=DictGetItemGuardAccessor(key)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key'], 111056949993488)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 128], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['key']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value'], accessed_by=DictGetItemGuardAccessor(value)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value'], 111056949993488)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 128], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['value']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._modules['dropout'], accessed_by=DictGetItemGuardAccessor(dropout)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].training, accessed_by=DictGetItemGuardAccessor(training)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].training, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].is_decoder, accessed_by=DictGetItemGuardAccessor(is_decoder)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].is_decoder, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._parameters
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].all_head_size, accessed_by=DictGetItemGuardAccessor(all_head_size)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].all_head_size == 128
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._backward_hooks
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self']._backward_pre_hooks
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].attention_head_size, accessed_by=DictGetItemGuardAccessor(attention_head_size)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].attention_head_size == 64
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].num_attention_heads, accessed_by=DictGetItemGuardAccessor(num_attention_heads)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].num_attention_heads == 2
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].require_contiguous_qkv, accessed_by=DictGetItemGuardAccessor(require_contiguous_qkv)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].require_contiguous_qkv, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].position_embedding_type, accessed_by=DictGetItemGuardAccessor(position_embedding_type)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['self'].position_embedding_type == 'absolute'
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output'], accessed_by=DictGetItemGuardAccessor(output)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output'], 111057050674656)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules) == 3
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense'], accessed_by=DictGetItemGuardAccessor(dense)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense'], 111056949993488)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 128], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dense']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'], accessed_by=DictGetItemGuardAccessor(LayerNorm)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'], 111056950804992)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'].eps, accessed_by=DictGetItemGuardAccessor(eps)
+| | | | | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'].eps == 1e-12
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'].normalized_shape, accessed_by=DictGetItemGuardAccessor(normalized_shape)
+| | | | | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'].normalized_shape == (128,)
+| | | | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'].normalized_shape, 111055818760256)
+| | | | | | | | | | | | | | | | | | | | | | | +- LENGTH_CHECK: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['LayerNorm'].normalized_shape) == 1
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'], accessed_by=DictGetItemGuardAccessor(dropout)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'], 111056948550784)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'].p, accessed_by=DictGetItemGuardAccessor(p)
+| | | | | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'].p == 0.1
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'].inplace, accessed_by=DictGetItemGuardAccessor(inplace)
+| | | | | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'].inplace, 111055818658752)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'].training, accessed_by=DictGetItemGuardAccessor(training)
+| | | | | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._modules['dropout'].training, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._parameters
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._backward_hooks
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._modules['output']._backward_pre_hooks
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._parameters
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._backward_hooks
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention']._backward_pre_hooks
+| | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention'].__class__, accessed_by=GetAttrGuardAccessor(__class__)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention'].__class__.forward, accessed_by=GetAttrGuardAccessor(forward)
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention'].__class__.forward, accessed_by=FuncDefaultsGuardAccessor
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention'].__class__.forward.__defaults__[2], accessed_by=GetItemGuardAccessor(2)
+| | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['attention'].__class__.forward.__defaults__[2], 111055818751712)
+| | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate'], accessed_by=DictGetItemGuardAccessor(intermediate)
+| | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate'], 111057050727568)
+| | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate'].__dict__)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules) == 2
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense'], accessed_by=DictGetItemGuardAccessor(dense)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense'], 111056949993488)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[512, 128], stride=[1, 512])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['dense']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[512], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn'], accessed_by=DictGetItemGuardAccessor(intermediate_act_fn)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn'], 111057050063840)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn'].act, accessed_by=DictGetItemGuardAccessor(act)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn'].act, 138005629074096)
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn']._backward_hooks
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._modules['intermediate_act_fn']._backward_pre_hooks
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._parameters
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._backward_hooks
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['intermediate']._backward_pre_hooks
+| | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output'], accessed_by=DictGetItemGuardAccessor(output)
+| | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output'], 111057050754864)
+| | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output'].__dict__)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules) == 3
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense'], accessed_by=DictGetItemGuardAccessor(dense)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense'], 111056949993488)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 512], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dense']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'], accessed_by=DictGetItemGuardAccessor(LayerNorm)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'], 111056950804992)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'].eps, accessed_by=DictGetItemGuardAccessor(eps)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'].eps == 1e-12
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'].normalized_shape, accessed_by=DictGetItemGuardAccessor(normalized_shape)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'].normalized_shape == (128,)
+| | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'].normalized_shape, 111055818760256)
+| | | | | | | | | | | | | | | | | | | | +- LENGTH_CHECK: len(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['LayerNorm'].normalized_shape) == 1
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'], accessed_by=DictGetItemGuardAccessor(dropout)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'], 111056948550784)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'].p, accessed_by=DictGetItemGuardAccessor(p)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'].p == 0.1
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'].inplace, accessed_by=DictGetItemGuardAccessor(inplace)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'].inplace, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'].training, accessed_by=DictGetItemGuardAccessor(training)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._modules['dropout'].training, 111055818658752)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._parameters
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._backward_hooks
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._modules['output']._backward_pre_hooks
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0'].is_decoder, accessed_by=DictGetItemGuardAccessor(is_decoder)
+| | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['0'].is_decoder, 111055818658752)
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._parameters
+| | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._backward_hooks
+| | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['0']._backward_pre_hooks
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['0'].chunk_size_feed_forward, accessed_by=DictGetItemGuardAccessor(chunk_size_feed_forward)
+| | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['0'].chunk_size_feed_forward == 0
+| | | | | | | | | | +- KeyValueManager pair at index=1
+| | | | | | | | | | | +- KeyManager: GuardManager: source=list(L['self']._modules['encoder']._modules['layer']._modules.keys())[1]
+| | | | | | | | | | | | +- EQUALS_MATCH: list(L['self']._modules['encoder']._modules['layer']._modules.keys())[1] == '1'
+| | | | | | | | | | | +- ValueManager: GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']
+| | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1'], 111057050756640)
+| | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1'].__dict__)
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules) == 3
+| | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention'], accessed_by=DictGetItemGuardAccessor(attention)
+| | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention'], 111057050725792)
+| | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention'].__dict__)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules) == 2
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'], accessed_by=DictGetItemGuardAccessor(self)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'], 111057050672880)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules) == 4
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query'], accessed_by=DictGetItemGuardAccessor(query)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query'], 111056949993488)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 128], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['query']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key'], accessed_by=DictGetItemGuardAccessor(key)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key'], 111056949993488)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 128], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['key']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value'], accessed_by=DictGetItemGuardAccessor(value)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value'], 111056949993488)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 128], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['value']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._modules['dropout'], accessed_by=DictGetItemGuardAccessor(dropout)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].training, accessed_by=DictGetItemGuardAccessor(training)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].training, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].is_decoder, accessed_by=DictGetItemGuardAccessor(is_decoder)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].is_decoder, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._parameters
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].all_head_size, accessed_by=DictGetItemGuardAccessor(all_head_size)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].all_head_size == 128
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._backward_hooks
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self']._backward_pre_hooks
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].attention_head_size, accessed_by=DictGetItemGuardAccessor(attention_head_size)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].attention_head_size == 64
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].num_attention_heads, accessed_by=DictGetItemGuardAccessor(num_attention_heads)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].num_attention_heads == 2
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].require_contiguous_qkv, accessed_by=DictGetItemGuardAccessor(require_contiguous_qkv)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].require_contiguous_qkv, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].position_embedding_type, accessed_by=DictGetItemGuardAccessor(position_embedding_type)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['self'].position_embedding_type == 'absolute'
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output'], accessed_by=DictGetItemGuardAccessor(output)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output'], 111057050674656)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules) == 3
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense'], accessed_by=DictGetItemGuardAccessor(dense)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense'], 111056949993488)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 128], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dense']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'], accessed_by=DictGetItemGuardAccessor(LayerNorm)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'], 111056950804992)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'].eps, accessed_by=DictGetItemGuardAccessor(eps)
+| | | | | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'].eps == 1e-12
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'].normalized_shape, accessed_by=DictGetItemGuardAccessor(normalized_shape)
+| | | | | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'].normalized_shape == (128,)
+| | | | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'].normalized_shape, 111055818760256)
+| | | | | | | | | | | | | | | | | | | | | | | +- LENGTH_CHECK: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['LayerNorm'].normalized_shape) == 1
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'], accessed_by=DictGetItemGuardAccessor(dropout)
+| | | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'], 111056948550784)
+| | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'].__dict__)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'].p, accessed_by=DictGetItemGuardAccessor(p)
+| | | | | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'].p == 0.1
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'].inplace, accessed_by=DictGetItemGuardAccessor(inplace)
+| | | | | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'].inplace, 111055818658752)
+| | | | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'].training, accessed_by=DictGetItemGuardAccessor(training)
+| | | | | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._modules['dropout'].training, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._parameters
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._backward_hooks
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._modules['output']._backward_pre_hooks
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._parameters
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._backward_hooks
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention']._backward_pre_hooks
+| | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention'].__class__, accessed_by=GetAttrGuardAccessor(__class__)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention'].__class__.forward, accessed_by=GetAttrGuardAccessor(forward)
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention'].__class__.forward, accessed_by=FuncDefaultsGuardAccessor
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention'].__class__.forward.__defaults__[2], accessed_by=GetItemGuardAccessor(2)
+| | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['attention'].__class__.forward.__defaults__[2], 111055818751712)
+| | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate'], accessed_by=DictGetItemGuardAccessor(intermediate)
+| | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate'], 111057050727568)
+| | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate'].__dict__)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules) == 2
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense'], accessed_by=DictGetItemGuardAccessor(dense)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense'], 111056949993488)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[512, 128], stride=[1, 512])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['dense']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[512], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn'], accessed_by=DictGetItemGuardAccessor(intermediate_act_fn)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn'], 111057050063840)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn'].act, accessed_by=DictGetItemGuardAccessor(act)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn'].act, 138005629074096)
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn']._backward_hooks
+| | | | | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._modules['intermediate_act_fn']._backward_pre_hooks
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._parameters
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._backward_hooks
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['intermediate']._backward_pre_hooks
+| | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output'], accessed_by=DictGetItemGuardAccessor(output)
+| | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output'], 111057050754864)
+| | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output'].__dict__)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules) == 3
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense'], accessed_by=DictGetItemGuardAccessor(dense)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense'], 111056949993488)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 512], stride=[1, 128])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dense']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'], accessed_by=DictGetItemGuardAccessor(LayerNorm)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'], 111056950804992)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'].eps, accessed_by=DictGetItemGuardAccessor(eps)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'].eps == 1e-12
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm']._parameters) == 2
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'].normalized_shape, accessed_by=DictGetItemGuardAccessor(normalized_shape)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'].normalized_shape == (128,)
+| | | | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'].normalized_shape, 111055818760256)
+| | | | | | | | | | | | | | | | | | | | +- LENGTH_CHECK: len(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['LayerNorm'].normalized_shape) == 1
+| | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'], accessed_by=DictGetItemGuardAccessor(dropout)
+| | | | | | | | | | | | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'], 111056948550784)
+| | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | | | | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'].__dict__)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'].p, accessed_by=DictGetItemGuardAccessor(p)
+| | | | | | | | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'].p == 0.1
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'].inplace, accessed_by=DictGetItemGuardAccessor(inplace)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'].inplace, 111055818658752)
+| | | | | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'].training, accessed_by=DictGetItemGuardAccessor(training)
+| | | | | | | | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._modules['dropout'].training, 111055818658752)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._parameters
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._backward_hooks
+| | | | | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._modules['output']._backward_pre_hooks
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1'].is_decoder, accessed_by=DictGetItemGuardAccessor(is_decoder)
+| | | | | | | | | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder']._modules['layer']._modules['1'].is_decoder, 111055818658752)
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._parameters
+| | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._backward_hooks
+| | | | | | | | | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | | | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._modules['layer']._modules['1']._backward_pre_hooks
+| | | | | | | | | | | | | +- GuardManager: source=L['self']._modules['encoder']._modules['layer']._modules['1'].chunk_size_feed_forward, accessed_by=DictGetItemGuardAccessor(chunk_size_feed_forward)
+| | | | | | | | | | | | | | +- EQUALS_MATCH: L['self']._modules['encoder']._modules['layer']._modules['1'].chunk_size_feed_forward == 0
+| | | | | | +- GuardManager: source=L['self']._modules['encoder']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._parameters               
+| | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | +- GuardManager: source=L['self']._modules['encoder']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._backward_hooks           
+| | | | | | +- DictSubclassGuardManager: source=L['self']._modules['encoder']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | +- GuardManager: source=L['self']._modules['encoder']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | +- DICT_LENGTH: not L['self']._modules['encoder']._backward_pre_hooks       
+| | | | | | +- GuardManager: source=L['self']._modules['encoder'].gradient_checkpointing, accessed_by=DictGetItemGuardAccessor(gradient_checkpointing)
+| | | | | | | +- ID_MATCH: ___check_obj_id(L['self']._modules['encoder'].gradient_checkpointing, 111055818658752)
+| | | | +- GuardManager: source=L['self']._modules['pooler'], accessed_by=DictGetItemGuardAccessor(pooler)
+| | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['pooler'], 111056988491472)
+| | | | | +- GuardManager: source=L['self']._modules['pooler'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['pooler'].__dict__)
+| | | | | | +- GuardManager: source=L['self']._modules['pooler']._modules, accessed_by=DictGetItemGuardAccessor(_modules)
+| | | | | | | +- DICT_LENGTH: len(L['self']._modules['pooler']._modules) == 2             
+| | | | | | | +- GuardManager: source=L['self']._modules['pooler']._modules['dense'], accessed_by=DictGetItemGuardAccessor(dense)
+| | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['pooler']._modules['dense'], 111056949993488)
+| | | | | | | | +- GuardManager: source=L['self']._modules['pooler']._modules['dense'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['pooler']._modules['dense'].__dict__)
+| | | | | | | | | +- GuardManager: source=L['self']._modules['pooler']._modules['dense']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | | | | +- DICT_LENGTH: len(L['self']._modules['pooler']._modules['dense']._parameters) == 2
+| | | | | | | | | | +- GuardManager: source=L['self']._modules['pooler']._modules['dense']._parameters['weight'], accessed_by=DictGetItemGuardAccessor(weight)
+| | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['pooler']._modules['dense']._parameters['weight'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128, 128], stride=[1, 128])
+| | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | | | | +- GuardManager: source=L['self']._modules['pooler']._modules['dense']._parameters['bias'], accessed_by=DictGetItemGuardAccessor(bias)
+| | | | | | | | | | | +- TENSOR_MATCH: check_tensor(L['self']._modules['pooler']._modules['dense']._parameters['bias'], Parameter, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float32, device=None, requires_grad=True, size=[128], stride=[1])
+| | | | | | | | | | | +- NO_TENSOR_ALIASING
+| | | | | | | +- GuardManager: source=L['self']._modules['pooler']._modules['activation'], accessed_by=DictGetItemGuardAccessor(activation)
+| | | | | | | | +- TYPE_MATCH: ___check_type_id(L['self']._modules['pooler']._modules['activation'], 111056949702112)
+| | | | | | | | +- GuardManager: source=L['self']._modules['pooler']._modules['activation'].__dict__, accessed_by=GetGenericDictGuardAccessor
+| | | | | | | | | +- DICT_CONTAINS: not ___dict_contains('forward', L['self']._modules['pooler']._modules['activation'].__dict__)
+| | | | | | +- GuardManager: source=L['self']._modules['pooler']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | | | | +- DICT_LENGTH: not L['self']._modules['pooler']._parameters                
+| | | | | | +- DictSubclassGuardManager: source=L['self']._modules['pooler']._forward_hooks, accessed_by=DictGetItemGuardAccessor(_forward_hooks)
+| | | | | | +- GuardManager: source=L['self']._modules['pooler']._backward_hooks, accessed_by=DictGetItemGuardAccessor(_backward_hooks)
+| | | | | | | +- DICT_LENGTH: not L['self']._modules['pooler']._backward_hooks            
+| | | | | | +- DictSubclassGuardManager: source=L['self']._modules['pooler']._forward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_forward_pre_hooks)
+| | | | | | +- GuardManager: source=L['self']._modules['pooler']._backward_pre_hooks, accessed_by=DictGetItemGuardAccessor(_backward_pre_hooks)
+| | | | | | | +- DICT_LENGTH: not L['self']._modules['pooler']._backward_pre_hooks        
+| | | +- GuardManager: source=L['self']._parameters, accessed_by=DictGetItemGuardAccessor(_parameters)
+| | | | +- DICT_LENGTH: not L['self']._parameters                                   
+| | | +- GuardManager: source=L['self'].attn_implementation, accessed_by=DictGetItemGuardAccessor(attn_implementation)
+| | | | +- EQUALS_MATCH: L['self'].attn_implementation == 'sdpa'                     
+| | | +- GuardManager: source=L['self'].position_embedding_type, accessed_by=DictGetItemGuardAccessor(position_embedding_type)
+| | | | +- EQUALS_MATCH: L['self'].position_embedding_type == 'absolute'             
+| +- GuardManager: source=L['head_mask'], accessed_by=DictGetItemGuardAccessor(head_mask)
+| | +- ID_MATCH: ___check_obj_id(L['head_mask'], 111055818751712)            
+| +- GuardManager: source=L['input_ids'], accessed_by=DictGetItemGuardAccessor(input_ids)
+| | +- TENSOR_MATCH: check_tensor(L['input_ids'], Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.int64, device=None, requires_grad=False, size=[1, 10], stride=[10, 1])
+| | +- NO_HASATTR: hasattr(L['input_ids'], '_dynamo_dynamic_indices') == False 
+| | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['return_dict'], accessed_by=DictGetItemGuardAccessor(return_dict)
+| | +- ID_MATCH: ___check_obj_id(L['return_dict'], 111055818751712)          
+| +- GuardManager: source=L['position_ids'], accessed_by=DictGetItemGuardAccessor(position_ids)
+| | +- ID_MATCH: ___check_obj_id(L['position_ids'], 111055818751712)         
+| +- GuardManager: source=L['inputs_embeds'], accessed_by=DictGetItemGuardAccessor(inputs_embeds)
+| | +- ID_MATCH: ___check_obj_id(L['inputs_embeds'], 111055818751712)        
+| +- GuardManager: source=L['attention_mask'], accessed_by=DictGetItemGuardAccessor(attention_mask)
+| | +- ID_MATCH: ___check_obj_id(L['attention_mask'], 111055818751712)       
+| +- GuardManager: source=L['token_type_ids'], accessed_by=DictGetItemGuardAccessor(token_type_ids)
+| | +- ID_MATCH: ___check_obj_id(L['token_type_ids'], 111055818751712)       
+| +- GuardManager: source=L['past_key_values'], accessed_by=DictGetItemGuardAccessor(past_key_values)
+| | +- ID_MATCH: ___check_obj_id(L['past_key_values'], 111055818751712)      
+| +- GuardManager: source=L['output_attentions'], accessed_by=DictGetItemGuardAccessor(output_attentions)
+| | +- ID_MATCH: ___check_obj_id(L['output_attentions'], 111055818751712)    
+| +- GuardManager: source=L['output_hidden_states'], accessed_by=DictGetItemGuardAccessor(output_hidden_states)
+| | +- ID_MATCH: ___check_obj_id(L['output_hidden_states'], 111055818751712) 
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['__import_torch'], accessed_by=DictGetItemGuardAccessor(__import_torch)
+| | | +- GuardManager: source=G['__import_torch'].fx, accessed_by=GetAttrGuardAccessor(fx)
+| | | | +- ID_MATCH: ___check_obj_id(G['__import_torch'].fx, 138005605510064)    
+| | | | +- OBJECT_ALIASING: G['__import_torch'].fx is G['__import_transformers_dot_modeling_utils'].torch.fx
+| | | | +- GuardManager: source=G['__import_torch'].fx.Proxy, accessed_by=GetAttrGuardAccessor(Proxy)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_torch'].fx.Proxy, 111056956451792)
+| | | +- GuardManager: source=G['__import_torch'].compiler, accessed_by=GetAttrGuardAccessor(compiler)
+| | | | +- ID_MATCH: ___check_obj_id(G['__import_torch'].compiler, 138005588529840)
+| | | | +- GuardManager: source=G['__import_torch'].compiler.is_compiling, accessed_by=GetAttrGuardAccessor(is_compiling)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_torch'].compiler.is_compiling, 138005588920416)
+| | +- GuardManager: source=G['apply_chunking_to_forward'], accessed_by=DictGetItemGuardAccessor(apply_chunking_to_forward)
+| | | +- GuardManager: source=G['apply_chunking_to_forward'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | +- ID_MATCH: ___check_obj_id(G['apply_chunking_to_forward'].__code__, 111056993199824)
+| | +- GuardManager: source=G['__builtins_dict___150'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___150)
+| | | +- GuardManager: source=G['__builtins_dict___150']['int'], accessed_by=DictGetItemGuardAccessor(int)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___150']['int'], 111055818732256)
+| | | +- GuardManager: source=G['__builtins_dict___150']['len'], accessed_by=DictGetItemGuardAccessor(len)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___150']['len'], 138006094275152)
+| | | +- GuardManager: source=G['__builtins_dict___150']['str'], accessed_by=DictGetItemGuardAccessor(str)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___150']['str'], 111055818777536)
+| | | +- GuardManager: source=G['__builtins_dict___150']['dict'], accessed_by=DictGetItemGuardAccessor(dict)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___150']['dict'], 111055818737888)
+| | | +- GuardManager: source=G['__builtins_dict___150']['iter'], accessed_by=DictGetItemGuardAccessor(iter)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___150']['iter'], 138006094274992)
+| | | +- GuardManager: source=G['__builtins_dict___150']['tuple'], accessed_by=DictGetItemGuardAccessor(tuple)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___150']['tuple'], 111055818760256)
+| | | +- GuardManager: source=G['__builtins_dict___150']['hasattr'], accessed_by=DictGetItemGuardAccessor(hasattr)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___150']['hasattr'], 138006094274432)
+| | | +- GuardManager: source=G['__builtins_dict___150']['enumerate'], accessed_by=DictGetItemGuardAccessor(enumerate)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___150']['enumerate'], 111055818680736)
+| | | +- GuardManager: source=G['__builtins_dict___150']['isinstance'], accessed_by=DictGetItemGuardAccessor(isinstance)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___150']['isinstance'], 138006094274832)
+| | +- GuardManager: source=G['_prepare_4d_attention_mask_for_sdpa'], accessed_by=DictGetItemGuardAccessor(_prepare_4d_attention_mask_for_sdpa)
+| | | +- GuardManager: source=G['_prepare_4d_attention_mask_for_sdpa'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | +- ID_MATCH: ___check_obj_id(G['_prepare_4d_attention_mask_for_sdpa'].__code__, 138005137764912)
+| | +- GuardManager: source=G['__import_transformers_dot_pytorch_utils'], accessed_by=DictGetItemGuardAccessor(__import_transformers_dot_pytorch_utils)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_pytorch_utils'], 138005523104768)
+| | | +- GuardManager: source=G['__import_transformers_dot_pytorch_utils'].inspect, accessed_by=GetAttrGuardAccessor(inspect)
+| | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_pytorch_utils'].inspect, 138006093226336)
+| | | | +- GuardManager: source=G['__import_transformers_dot_pytorch_utils'].inspect.signature, accessed_by=GetAttrGuardAccessor(signature)
+| | | | | +- GuardManager: source=G['__import_transformers_dot_pytorch_utils'].inspect.signature.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_pytorch_utils'].inspect.signature.__code__, 138006091046704)
+| | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'], accessed_by=DictGetItemGuardAccessor(__import_transformers_dot_modeling_utils)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'], 138005138004368)
+| | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch, accessed_by=GetAttrGuardAccessor(torch)
+| | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'].torch, 138006092370688)
+| | | | +- OBJECT_ALIASING: G['__import_transformers_dot_modeling_utils'].torch is G['torch']
+| | | | +- OBJECT_ALIASING: G['__import_transformers_dot_modeling_utils'].torch is G['__import_torch_dot_nn_dot_modules_dot_activation'].torch
+| | | | +- OBJECT_ALIASING: G['__import_transformers_dot_modeling_utils'].torch is G['__import_transformers_dot_modeling_attn_mask_utils'].torch
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch.nn, accessed_by=GetAttrGuardAccessor(nn)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'].torch.nn, 138005626326048)
+| | | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch.nn.functional, accessed_by=GetAttrGuardAccessor(functional)
+| | | | | | +- OBJECT_ALIASING: G['__import_torch_dot_nn_dot_modules_dot_sparse'].F is G['__import_transformers_dot_modeling_utils'].torch.nn.functional
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch.jit, accessed_by=GetAttrGuardAccessor(jit)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'].torch.jit, 138005612721344)
+| | | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch.jit.is_tracing, accessed_by=GetAttrGuardAccessor(is_tracing)
+| | | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'].torch.jit.is_tracing, 138005611461536)
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch.bool, accessed_by=GetAttrGuardAccessor(bool)
+| | | | | +- EQUALS_MATCH: G['__import_transformers_dot_modeling_utils'].torch.bool == torch.bool
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch.ones, accessed_by=GetAttrGuardAccessor(ones)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'].torch.ones, 138006086442480)
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch.tanh, accessed_by=GetAttrGuardAccessor(tanh)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'].torch.tanh, 138006086504896)
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch.finfo, accessed_by=GetAttrGuardAccessor(finfo)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'].torch.finfo, 138006083535136)
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].torch.fx, accessed_by=GetAttrGuardAccessor(fx)
+| | | | | +- OBJECT_ALIASING: G['__import_torch'].fx is G['__import_transformers_dot_modeling_utils'].torch.fx
+| | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].is_torch_fx_proxy, accessed_by=GetAttrGuardAccessor(is_torch_fx_proxy)
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].is_torch_fx_proxy.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'].is_torch_fx_proxy.__code__, 138005543296656)
+| | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].is_torchdynamo_compiling, accessed_by=GetAttrGuardAccessor(is_torchdynamo_compiling)
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_utils'].is_torchdynamo_compiling.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_utils'].is_torchdynamo_compiling.__code__, 138005543724864)
+| | +- GuardManager: source=G['BaseModelOutputWithPastAndCrossAttentions'], accessed_by=DictGetItemGuardAccessor(BaseModelOutputWithPastAndCrossAttentions)
+| | | +- ID_MATCH: ___check_obj_id(G['BaseModelOutputWithPastAndCrossAttentions'], 111056993072192)
+| | +- GuardManager: source=G['__import_transformers_dot_utils_dot_generic'], accessed_by=DictGetItemGuardAccessor(__import_transformers_dot_utils_dot_generic)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_utils_dot_generic'], 138005540034880)
+| | +- GuardManager: source=G['BaseModelOutputWithPoolingAndCrossAttentions'], accessed_by=DictGetItemGuardAccessor(BaseModelOutputWithPoolingAndCrossAttentions)
+| | | +- ID_MATCH: ___check_obj_id(G['BaseModelOutputWithPoolingAndCrossAttentions'], 111056993094832)
+| | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_linear'], accessed_by=DictGetItemGuardAccessor(__import_torch_dot_nn_dot_modules_dot_linear)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_linear'], 138005617454320)
+| | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_linear'].F, accessed_by=GetAttrGuardAccessor(F)
+| | | | +- OBJECT_ALIASING: G['__import_torch_dot_nn_dot_modules_dot_sparse'].F is G['__import_torch_dot_nn_dot_modules_dot_linear'].F
+| | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_module'], accessed_by=DictGetItemGuardAccessor(__import_torch_dot_nn_dot_modules_dot_module)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_module'], 138005626331648)
+| | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_module']._global_forward_hooks, accessed_by=GetAttrGuardAccessor(_global_forward_hooks)
+| | | | +- DICT_LENGTH: not G['__import_torch_dot_nn_dot_modules_dot_module']._global_forward_hooks
+| | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_module']._global_backward_hooks, accessed_by=GetAttrGuardAccessor(_global_backward_hooks)
+| | | | +- DICT_LENGTH: not G['__import_torch_dot_nn_dot_modules_dot_module']._global_backward_hooks
+| | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_module']._global_forward_pre_hooks, accessed_by=GetAttrGuardAccessor(_global_forward_pre_hooks)
+| | | | +- DICT_LENGTH: not G['__import_torch_dot_nn_dot_modules_dot_module']._global_forward_pre_hooks
+| | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_module']._global_backward_pre_hooks, accessed_by=GetAttrGuardAccessor(_global_backward_pre_hooks)
+| | | | +- DICT_LENGTH: not G['__import_torch_dot_nn_dot_modules_dot_module']._global_backward_pre_hooks
+| | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_sparse'], accessed_by=DictGetItemGuardAccessor(__import_torch_dot_nn_dot_modules_dot_sparse)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_sparse'], 138005615029328)
+| | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_sparse'].F, accessed_by=GetAttrGuardAccessor(F)
+| | | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_sparse'].F, 138005617454480)
+| | | | +- OBJECT_ALIASING: G['__import_torch_dot_nn_dot_modules_dot_sparse'].F is G['__import_torch_dot_nn_dot_modules_dot_linear'].F
+| | | | +- OBJECT_ALIASING: G['__import_torch_dot_nn_dot_modules_dot_sparse'].F is G['__import_torch_dot_nn_dot_modules_dot_dropout'].F
+| | | | +- OBJECT_ALIASING: G['__import_torch_dot_nn_dot_modules_dot_sparse'].F is G['__import_torch_dot_nn_dot_modules_dot_normalization'].F
+| | | | +- OBJECT_ALIASING: G['__import_torch_dot_nn_dot_modules_dot_sparse'].F is G['__import_transformers_dot_modeling_utils'].torch.nn.functional
+| | | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.linear, accessed_by=GetAttrGuardAccessor(linear)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.linear, 138005629075216)
+| | | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.dropout, accessed_by=GetAttrGuardAccessor(dropout)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.dropout, 138005615458112)
+| | | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.embedding, accessed_by=GetAttrGuardAccessor(embedding)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.embedding, 138005615544896)
+| | | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.layer_norm, accessed_by=GetAttrGuardAccessor(layer_norm)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.layer_norm, 138005615545856)
+| | | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.scaled_dot_product_attention, accessed_by=GetAttrGuardAccessor(scaled_dot_product_attention)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_sparse'].F.scaled_dot_product_attention, 138005629126992)
+| | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_dropout'], accessed_by=DictGetItemGuardAccessor(__import_torch_dot_nn_dot_modules_dot_dropout)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_dropout'], 138005614333200)
+| | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_dropout'].F, accessed_by=GetAttrGuardAccessor(F)
+| | | | +- OBJECT_ALIASING: G['__import_torch_dot_nn_dot_modules_dot_sparse'].F is G['__import_torch_dot_nn_dot_modules_dot_dropout'].F
+| | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_container'], accessed_by=DictGetItemGuardAccessor(__import_torch_dot_nn_dot_modules_dot_container)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_container'], 138005614058992)
+| | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_activation'], accessed_by=DictGetItemGuardAccessor(__import_torch_dot_nn_dot_modules_dot_activation)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_activation'], 138005616045856)
+| | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_activation'].torch, accessed_by=GetAttrGuardAccessor(torch)
+| | | | +- OBJECT_ALIASING: G['__import_transformers_dot_modeling_utils'].torch is G['__import_torch_dot_nn_dot_modules_dot_activation'].torch
+| | +- GuardManager: source=G['__import_transformers_dot_utils_dot_import_utils'], accessed_by=DictGetItemGuardAccessor(__import_transformers_dot_utils_dot_import_utils)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_utils_dot_import_utils'], 138005543643520)
+| | | +- GuardManager: source=G['__import_transformers_dot_utils_dot_import_utils']._torch_available, accessed_by=GetAttrGuardAccessor(_torch_available)
+| | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_utils_dot_import_utils']._torch_available, 111055818658720)
+| | | +- GuardManager: source=G['__import_transformers_dot_utils_dot_import_utils'].is_torch_available, accessed_by=GetAttrGuardAccessor(is_torch_available)
+| | | | +- GuardManager: source=G['__import_transformers_dot_utils_dot_import_utils'].is_torch_available.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_utils_dot_import_utils'].is_torch_available.__code__, 138005541710656)
+| | | +- GuardManager: source=G['__import_transformers_dot_utils_dot_import_utils']._torch_fx_available, accessed_by=GetAttrGuardAccessor(_torch_fx_available)
+| | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_utils_dot_import_utils']._torch_fx_available, 111055818658720)
+| | | +- GuardManager: source=G['__import_transformers_dot_utils_dot_import_utils'].is_torch_fx_available, accessed_by=GetAttrGuardAccessor(is_torch_fx_available)
+| | | | +- GuardManager: source=G['__import_transformers_dot_utils_dot_import_utils'].is_torch_fx_available.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_utils_dot_import_utils'].is_torch_fx_available.__code__, 138005541713568)
+| | +- GuardManager: source=G['__import_transformers_dot_modeling_attn_mask_utils'], accessed_by=DictGetItemGuardAccessor(__import_transformers_dot_modeling_attn_mask_utils)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_attn_mask_utils'], 138005138008208)
+| | | +- GuardManager: source=G['__import_transformers_dot_modeling_attn_mask_utils'].AttentionMaskConverter, accessed_by=GetAttrGuardAccessor(AttentionMaskConverter)
+| | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_attn_mask_utils'].AttentionMaskConverter, 111057050223296)
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_attn_mask_utils'].AttentionMaskConverter._expand_mask, accessed_by=GetAttrGuardAccessor(_expand_mask)
+| | | | | +- GuardManager: source=G['__import_transformers_dot_modeling_attn_mask_utils'].AttentionMaskConverter._expand_mask.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_attn_mask_utils'].AttentionMaskConverter._expand_mask.__code__, 138005137763888)
+| | | +- GuardManager: source=G['__import_transformers_dot_modeling_attn_mask_utils'].is_torchdynamo_compiling, accessed_by=GetAttrGuardAccessor(is_torchdynamo_compiling)
+| | | | +- GuardManager: source=G['__import_transformers_dot_modeling_attn_mask_utils'].is_torchdynamo_compiling.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | +- ID_MATCH: ___check_obj_id(G['__import_transformers_dot_modeling_attn_mask_utils'].is_torchdynamo_compiling.__code__, 138005543724864)
+| | | +- GuardManager: source=G['__import_transformers_dot_modeling_attn_mask_utils'].torch, accessed_by=GetAttrGuardAccessor(torch)
+| | | | +- OBJECT_ALIASING: G['__import_transformers_dot_modeling_utils'].torch is G['__import_transformers_dot_modeling_attn_mask_utils'].torch
+| | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_normalization'], accessed_by=DictGetItemGuardAccessor(__import_torch_dot_nn_dot_modules_dot_normalization)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot_nn_dot_modules_dot_normalization'], 138005614450048)
+| | | +- GuardManager: source=G['__import_torch_dot_nn_dot_modules_dot_normalization'].F, accessed_by=GetAttrGuardAccessor(F)
+| | | | +- OBJECT_ALIASING: G['__import_torch_dot_nn_dot_modules_dot_sparse'].F is G['__import_torch_dot_nn_dot_modules_dot_normalization'].F
+| | +- GuardManager: source=G['__import_torch_dot__dynamo_dot_polyfills_dot_builtins'], accessed_by=DictGetItemGuardAccessor(__import_torch_dot__dynamo_dot_polyfills_dot_builtins)
+| | | +- ID_MATCH: ___check_obj_id(G['__import_torch_dot__dynamo_dot_polyfills_dot_builtins'], 138005551329536)
+| | +- GuardManager: source=G['torch'], accessed_by=DictGetItemGuardAccessor(torch)
+| | | +- OBJECT_ALIASING: G['__import_transformers_dot_modeling_utils'].torch is G['torch']

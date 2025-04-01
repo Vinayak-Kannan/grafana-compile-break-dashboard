@@ -1,0 +1,14 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[290][1]cpu", arg1_1: "f64[300][1]cpu", arg2_1: "f64[300][1]cpu"):
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1406 in torch_dynamo_resume_in_find_ab_params_at_1406, code: yv[xv >= min_dist] = np.exp(-(xv[xv >= min_dist] - min_dist) / spread)
+        sub: "f64[290][1]cpu" = torch.ops.aten.sub.Tensor(arg0_1, 0.1);  arg0_1 = None
+        neg: "f64[290][1]cpu" = torch.ops.aten.neg.default(sub);  sub = None
+        div: "f64[290][1]cpu" = torch.ops.aten.div.Tensor(neg, 1.0);  neg = None
+        exp: "f64[290][1]cpu" = torch.ops.aten.exp.default(div);  div = None
+        _tensor_constant0 = self._tensor_constant0
+        lift_fresh_copy: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant0);  _tensor_constant0 = None
+        ge: "b8[300][1]cpu" = torch.ops.aten.ge.Tensor(arg1_1, lift_fresh_copy);  arg1_1 = lift_fresh_copy = None
+        index_put: "f64[300][1]cpu" = torch.ops.aten.index_put.default(arg2_1, [ge], exp);  ge = exp = None
+        copy_: "f64[300][1]cpu" = torch.ops.aten.copy_.default(arg2_1, index_put);  arg2_1 = index_put = copy_ = None
+        return ()
+        

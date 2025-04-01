@@ -1,0 +1,21 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[2][1]cpu", arg1_1: "f64[2][1]cpu"):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:575 in _initialize_feasible, code: p0 = np.ones_like(lb)
+        full: "f64[2][1]cpu" = torch.ops.aten.full.default([2], 1, dtype = torch.float64, layout = torch.strided, device = device(type='cpu'), pin_memory = False)
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:576 in _initialize_feasible, code: lb_finite = np.isfinite(lb)
+        abs_1: "f64[2][1]cpu" = torch.ops.aten.abs.default(arg0_1)
+        ne: "b8[2][1]cpu" = torch.ops.aten.ne.Scalar(abs_1, inf);  abs_1 = None
+        eq: "b8[2][1]cpu" = torch.ops.aten.eq.Tensor(arg0_1, arg0_1);  arg0_1 = None
+        mul: "b8[2][1]cpu" = torch.ops.aten.mul.Tensor(eq, ne);  eq = ne = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:577 in _initialize_feasible, code: ub_finite = np.isfinite(ub)
+        abs_2: "f64[2][1]cpu" = torch.ops.aten.abs.default(arg1_1)
+        ne_1: "b8[2][1]cpu" = torch.ops.aten.ne.Scalar(abs_2, inf);  abs_2 = None
+        eq_1: "b8[2][1]cpu" = torch.ops.aten.eq.Tensor(arg1_1, arg1_1);  arg1_1 = None
+        mul_1: "b8[2][1]cpu" = torch.ops.aten.mul.Tensor(eq_1, ne_1);  eq_1 = ne_1 = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:579 in _initialize_feasible, code: mask = lb_finite & ub_finite
+        bitwise_and: "b8[2][1]cpu" = torch.ops.aten.bitwise_and.Tensor(mul, mul_1)
+        return (bitwise_and, full, mul, mul_1)
+        

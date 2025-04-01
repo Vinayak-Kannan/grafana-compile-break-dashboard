@@ -1,0 +1,16 @@
+class GraphModule(torch.nn.Module):
+    def forward(self):
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1403 in find_ab_params, code: xv = np.linspace(0, spread * 3, 300)
+        xv: "f64[300][1]cpu" = torch__dynamo_utils_wrapped_linspace(0, 3.0, 300)
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1404 in find_ab_params, code: yv = np.zeros(xv.shape)
+        yv: "f64[300][1]cpu" = torch__dynamo_utils_wrapped_zeros((300,))
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1405 in find_ab_params, code: yv[xv < min_dist] = 1.0
+        wrapped_lt: "b8[300][1]cpu" = torch__dynamo_utils_wrapped_lt(xv, 0.1)
+        wrapped___setitem__ = torch__dynamo_utils_wrapped___setitem__(yv, wrapped_lt, 1.0);  wrapped_lt = wrapped___setitem__ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1406 in find_ab_params, code: yv[xv >= min_dist] = np.exp(-(xv[xv >= min_dist] - min_dist) / spread)
+        wrapped_ge: "b8[300][1]cpu" = torch__dynamo_utils_wrapped_ge(xv, 0.1)
+        return (xv, wrapped_ge, yv)
+        

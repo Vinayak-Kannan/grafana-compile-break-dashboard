@@ -1,0 +1,39 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['f'], accessed_by=DictGetItemGuardAccessor(f)
+| | +- GuardManager: source=L['f'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | +- ID_MATCH: ___check_obj_id(L['f'].__code__, 138005367243024)           
+| | +- GuardManager: source=L['f'].__closure__, accessed_by=GetAttrGuardAccessor(__closure__)
+| | | +- GuardManager: source=L['f'].__closure__[0], accessed_by=TupleGetItemGuardAccessor(0)
+| | | | +- GuardManager: source=L['f'].__closure__[0].cell_contents, accessed_by=GetAttrGuardAccessor(cell_contents)
+| | | | | +- GuardManager: source=L['f'].__closure__[0].cell_contents.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | | +- ID_MATCH: ___check_obj_id(L['f'].__closure__[0].cell_contents.__code__, 138005303065888)
+| | | +- GuardManager: source=L['f'].__closure__[1], accessed_by=TupleGetItemGuardAccessor(1)
+| | | | +- GuardManager: source=L['f'].__closure__[1].cell_contents, accessed_by=GetAttrGuardAccessor(cell_contents)
+| | | | | +- GuardManager: source=___from_numpy(L['f'].__closure__[1].cell_contents), accessed_by=PythonLambdaGuardAccessor
+| | | | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['f'].__closure__[1].cell_contents), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[300], stride=[1])
+| | | | | | +- NO_HASATTR: hasattr(___from_numpy(L['f'].__closure__[1].cell_contents), '_dynamo_dynamic_indices') == False
+| | | | | | +- NO_TENSOR_ALIASING: check_no_aliasing(___from_numpy(L['params']), ___from_numpy(L['_memoized_func'].last_params), ___from_numpy(L['f'].__closure__[1].cell_contents), ___from_numpy(L['f'].__closure__[2].cell_contents))
+| | | +- GuardManager: source=L['f'].__closure__[2], accessed_by=TupleGetItemGuardAccessor(2)
+| | | | +- GuardManager: source=L['f'].__closure__[2].cell_contents, accessed_by=GetAttrGuardAccessor(cell_contents)
+| | | | | +- GuardManager: source=___from_numpy(L['f'].__closure__[2].cell_contents), accessed_by=PythonLambdaGuardAccessor
+| | | | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['f'].__closure__[2].cell_contents), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[300], stride=[1])
+| | | | | | +- NO_HASATTR: hasattr(___from_numpy(L['f'].__closure__[2].cell_contents), '_dynamo_dynamic_indices') == False
+| | | | | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['_memoized_func'], accessed_by=DictGetItemGuardAccessor(_memoized_func)
+| | +- GuardManager: source=L['_memoized_func'].__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | +- ID_MATCH: ___check_obj_id(L['_memoized_func'].__code__, 138005366804752)
+| | +- GuardManager: source=L['_memoized_func'].last_params, accessed_by=GetAttrGuardAccessor(last_params)
+| | | +- GuardManager: source=___from_numpy(L['_memoized_func'].last_params), accessed_by=PythonLambdaGuardAccessor
+| | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['_memoized_func'].last_params), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | | +- NO_HASATTR: hasattr(___from_numpy(L['_memoized_func'].last_params), '_dynamo_dynamic_indices') == False
+| | | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['params'], accessed_by=DictGetItemGuardAccessor(params)
+| | +- GuardManager: source=___from_numpy(L['params']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['params']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['params']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING

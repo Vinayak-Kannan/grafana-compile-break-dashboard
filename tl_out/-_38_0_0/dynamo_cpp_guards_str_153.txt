@@ -1,0 +1,44 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['___stack0'], accessed_by=DictGetItemGuardAccessor(___stack0)
+| | +- TYPE_MATCH: ___check_type_id(L['___stack0'], 111055818760256)           
+| | +- LENGTH_CHECK: len(L['___stack0']) == 5                                    
+| | +- GuardManager: source=L['___stack0'][2], accessed_by=TupleGetItemGuardAccessor(2)
+| | | +- DICT_LENGTH: len(L['___stack0'][2]) == 5                                 
+| | | +- GuardManager: source=L['___stack0'][2]['fvec'], accessed_by=DictGetItemGuardAccessor(fvec)
+| | | | +- GuardManager: source=___from_numpy(L['___stack0'][2]['fvec']), accessed_by=PythonLambdaGuardAccessor
+| | | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['___stack0'][2]['fvec']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[300], stride=[1])
+| | | | | +- NO_HASATTR: hasattr(___from_numpy(L['___stack0'][2]['fvec']), '_dynamo_dynamic_indices') == False
+| | | | | +- NO_TENSOR_ALIASING: check_no_aliasing(___from_numpy(L['___stack0'][0]), ___from_numpy(L['___stack0'][1]), ___from_numpy(L['___stack0'][2]['fvec']))
+| | | +- GuardManager: source=L['___stack0'][2]['nfev'], accessed_by=DictGetItemGuardAccessor(nfev)
+| | | +- GuardManager: source=L['___stack0'][2]['fjac'], accessed_by=DictGetItemGuardAccessor(fjac)
+| | | +- GuardManager: source=L['___stack0'][2]['ipvt'], accessed_by=DictGetItemGuardAccessor(ipvt)
+| | | +- GuardManager: source=L['___stack0'][2]['qtf'], accessed_by=DictGetItemGuardAccessor(qtf)
+| | +- GuardManager: source=L['___stack0'][3], accessed_by=TupleGetItemGuardAccessor(3)
+| | | +- EQUALS_MATCH: L['___stack0'][3] == 'Both actual and predicted relative reductions in the sum of squares\n  are at most 0.000000'
+| | +- GuardManager: source=L['___stack0'][4], accessed_by=TupleGetItemGuardAccessor(4)
+| | | +- EQUALS_MATCH: L['___stack0'][4] == 1                                      
+| | +- GuardManager: source=L['___stack0'][0], accessed_by=TupleGetItemGuardAccessor(0)
+| | | +- GuardManager: source=___from_numpy(L['___stack0'][0]), accessed_by=PythonLambdaGuardAccessor
+| | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['___stack0'][0]), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | | +- NO_HASATTR: hasattr(___from_numpy(L['___stack0'][0]), '_dynamo_dynamic_indices') == False
+| | | | +- NO_TENSOR_ALIASING
+| | +- GuardManager: source=L['___stack0'][1], accessed_by=TupleGetItemGuardAccessor(1)
+| | | +- GuardManager: source=___from_numpy(L['___stack0'][1]), accessed_by=PythonLambdaGuardAccessor
+| | | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['___stack0'][1]), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2, 2], stride=[2, 1])
+| | | | +- NO_HASATTR: hasattr(___from_numpy(L['___stack0'][1]), '_dynamo_dynamic_indices') == False
+| | | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['np'], accessed_by=DictGetItemGuardAccessor(np)
+| | | +- ID_MATCH: ___check_obj_id(G['np'], 138006086600640)                   
+| | | +- GuardManager: source=G['np'].sum, accessed_by=GetAttrGuardAccessor(sum)
+| | | | +- ID_MATCH: ___check_obj_id(G['np'].sum, 138005633276848)               
+| | | +- GuardManager: source=G['np'].isnan, accessed_by=GetAttrGuardAccessor(isnan)
+| | | | +- ID_MATCH: ___check_obj_id(G['np'].isnan, 138006087268928)             
+| | +- GuardManager: source=G['__builtins_dict___120'], accessed_by=DictGetItemGuardAccessor(__builtins_dict___120)
+| | | +- GuardManager: source=G['__builtins_dict___120']['len'], accessed_by=DictGetItemGuardAccessor(len)
+| | | | +- ID_MATCH: ___check_obj_id(G['__builtins_dict___120']['len'], 138006094275152)

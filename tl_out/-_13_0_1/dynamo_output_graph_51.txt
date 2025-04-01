@@ -1,0 +1,19 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_stack1_: "f64[0][0]cpu", L_stack2_: "f64[0][0]cpu", L_p0_: "f64[2][1]cpu", L_mask_: "b8[2][1]cpu", L_ub_finite_: "b8[2][1]cpu", L_lb_finite_: "b8[2][1]cpu"):
+        l_stack1_ = L_stack1_
+        l_stack2_ = L_stack2_
+        l_p0_ = L_p0_
+        l_mask_ = L_mask_
+        l_ub_finite_ = L_ub_finite_
+        l_lb_finite_ = L_lb_finite_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:580 in torch_dynamo_resume_in__initialize_feasible_at_580, code: p0[mask] = 0.5 * (lb[mask] + ub[mask])
+        wrapped_add: "f64[0][1]cpu" = torch__dynamo_utils_wrapped_add(l_stack1_, l_stack2_);  l_stack1_ = l_stack2_ = None
+        wrapped_mul: "f64[0][1]cpu" = torch__dynamo_utils_wrapped_mul(0.5, wrapped_add);  wrapped_add = None
+        wrapped___setitem__ = torch__dynamo_utils_wrapped___setitem__(l_p0_, l_mask_, wrapped_mul);  l_p0_ = l_mask_ = wrapped_mul = wrapped___setitem__ = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:582 in torch_dynamo_resume_in__initialize_feasible_at_580, code: mask = lb_finite & ~ub_finite
+        wrapped_invert: "b8[2][1]cpu" = torch__dynamo_utils_wrapped_invert(l_ub_finite_);  l_ub_finite_ = None
+        mask: "b8[2][1]cpu" = torch__dynamo_utils_wrapped_and_(l_lb_finite_, wrapped_invert);  l_lb_finite_ = wrapped_invert = None
+        return (mask,)
+        

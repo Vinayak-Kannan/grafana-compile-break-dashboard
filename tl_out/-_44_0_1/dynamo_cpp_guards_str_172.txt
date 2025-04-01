@@ -1,0 +1,16 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['self'], accessed_by=DictGetItemGuardAccessor(self)
+| | +- TYPE_MATCH: ___check_type_id(L['self'], 111057029776464)                
+| | +- GuardManager: source=L['self'].verbose, accessed_by=GetAttrGuardAccessor(verbose)
+| | | +- ID_MATCH: ___check_obj_id(L['self'].verbose, 111055818658752)         
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['numba'], accessed_by=DictGetItemGuardAccessor(numba)
+| | | +- ID_MATCH: ___check_obj_id(G['numba'], 138005296667584)                
+| | | +- GuardManager: source=G['numba'].get_num_threads, accessed_by=GetAttrGuardAccessor(get_num_threads)
+| | | | +- GuardManager: source=G['numba'].get_num_threads.__code__, accessed_by=GetAttrGuardAccessor(__code__)
+| | | | | +- ID_MATCH: ___check_obj_id(G['numba'].get_num_threads.__code__, 138005173828192)

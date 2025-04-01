@@ -1,0 +1,43 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['___stack0'], accessed_by=DictGetItemGuardAccessor(___stack0)
+| | +- EQUALS_MATCH: L['___stack0'] == 0.5                                       
+| +- GuardManager: source=L['lb'], accessed_by=DictGetItemGuardAccessor(lb)
+| | +- GuardManager: source=___from_numpy(L['lb']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['lb']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['lb']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING: check_no_aliasing(___from_numpy(L['lb']), ___from_numpy(L['p0']), ___from_numpy(L['mask']), ___from_numpy(L['___stack1']), ___from_numpy(L['___stack2']), ___from_numpy(L['lb_finite']), ___from_numpy(L['ub_finite']))
+| +- GuardManager: source=L['p0'], accessed_by=DictGetItemGuardAccessor(p0)
+| | +- GuardManager: source=___from_numpy(L['p0']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['p0']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['p0']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['mask'], accessed_by=DictGetItemGuardAccessor(mask)
+| | +- GuardManager: source=___from_numpy(L['mask']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['mask']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.bool, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['mask']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['___stack1'], accessed_by=DictGetItemGuardAccessor(___stack1)
+| | +- GuardManager: source=___from_numpy(L['___stack1']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['___stack1']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[0], stride=[0])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['___stack1']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['___stack2'], accessed_by=DictGetItemGuardAccessor(___stack2)
+| | +- GuardManager: source=___from_numpy(L['___stack2']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['___stack2']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[0], stride=[0])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['___stack2']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['lb_finite'], accessed_by=DictGetItemGuardAccessor(lb_finite)
+| | +- GuardManager: source=___from_numpy(L['lb_finite']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['lb_finite']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.bool, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['lb_finite']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['ub_finite'], accessed_by=DictGetItemGuardAccessor(ub_finite)
+| | +- GuardManager: source=___from_numpy(L['ub_finite']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['ub_finite']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.bool, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['ub_finite']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING

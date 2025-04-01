@@ -1,0 +1,224 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_input_ids_: "i64[1, 10][10, 1]cpu", L_self_modules_embeddings_buffers_token_type_ids_: "i64[1, 512][512, 1]cpu", L_self_modules_embeddings_buffers_position_ids_: "i64[1, 512][512, 1]cpu", L_self_modules_embeddings_modules_word_embeddings_parameters_weight_: "f32[30522, 128][128, 1]cpu", L_self_modules_embeddings_modules_token_type_embeddings_parameters_weight_: "f32[2, 128][128, 1]cpu", L_self_modules_embeddings_modules_position_embeddings_parameters_weight_: "f32[512, 128][128, 1]cpu", L_self_modules_embeddings_modules_LayerNorm_parameters_weight_: "f32[128][1]cpu", L_self_modules_embeddings_modules_LayerNorm_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_weight_: "f32[128, 128][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_weight_: "f32[128, 128][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_weight_: "f32[128, 128][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_weight_: "f32[128, 128][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_LayerNorm_parameters_weight_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_LayerNorm_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_weight_: "f32[512, 128][1, 512]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_bias_: "f32[512][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_weight_: "f32[128, 512][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_output_modules_LayerNorm_parameters_weight_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_0_modules_output_modules_LayerNorm_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_weight_: "f32[128, 128][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_weight_: "f32[128, 128][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_weight_: "f32[128, 128][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_weight_: "f32[128, 128][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_LayerNorm_parameters_weight_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_LayerNorm_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_weight_: "f32[512, 128][1, 512]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_bias_: "f32[512][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_weight_: "f32[128, 512][1, 128]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_bias_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_output_modules_LayerNorm_parameters_weight_: "f32[128][1]cpu", L_self_modules_encoder_modules_layer_modules_1_modules_output_modules_LayerNorm_parameters_bias_: "f32[128][1]cpu", L_self_modules_pooler_modules_dense_parameters_weight_: "f32[128, 128][1, 128]cpu", L_self_modules_pooler_modules_dense_parameters_bias_: "f32[128][1]cpu"):
+        l_input_ids_ = L_input_ids_
+        l_self_modules_embeddings_buffers_token_type_ids_ = L_self_modules_embeddings_buffers_token_type_ids_
+        l_self_modules_embeddings_buffers_position_ids_ = L_self_modules_embeddings_buffers_position_ids_
+        l_self_modules_embeddings_modules_word_embeddings_parameters_weight_ = L_self_modules_embeddings_modules_word_embeddings_parameters_weight_
+        l_self_modules_embeddings_modules_token_type_embeddings_parameters_weight_ = L_self_modules_embeddings_modules_token_type_embeddings_parameters_weight_
+        l_self_modules_embeddings_modules_position_embeddings_parameters_weight_ = L_self_modules_embeddings_modules_position_embeddings_parameters_weight_
+        l_self_modules_embeddings_modules_layer_norm_parameters_weight_ = L_self_modules_embeddings_modules_LayerNorm_parameters_weight_
+        l_self_modules_embeddings_modules_layer_norm_parameters_bias_ = L_self_modules_embeddings_modules_LayerNorm_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_layer_norm_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_LayerNorm_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_layer_norm_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_LayerNorm_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_layer_norm_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_0_modules_output_modules_LayerNorm_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_layer_norm_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_0_modules_output_modules_LayerNorm_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_layer_norm_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_LayerNorm_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_layer_norm_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_LayerNorm_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_bias_
+        l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_layer_norm_parameters_weight_ = L_self_modules_encoder_modules_layer_modules_1_modules_output_modules_LayerNorm_parameters_weight_
+        l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_layer_norm_parameters_bias_ = L_self_modules_encoder_modules_layer_modules_1_modules_output_modules_LayerNorm_parameters_bias_
+        l_self_modules_pooler_modules_dense_parameters_weight_ = L_self_modules_pooler_modules_dense_parameters_weight_
+        l_self_modules_pooler_modules_dense_parameters_bias_ = L_self_modules_pooler_modules_dense_parameters_bias_
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:1072 in forward, code: buffered_token_type_ids = self.embeddings.token_type_ids[:, :seq_length]
+        buffered_token_type_ids: "i64[1, 10][512, 1]cpu" = l_self_modules_embeddings_buffers_token_type_ids_[(slice(None, None, None), slice(None, 10, None))];  l_self_modules_embeddings_buffers_token_type_ids_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:1073 in forward, code: buffered_token_type_ids_expanded = buffered_token_type_ids.expand(batch_size, seq_length)
+        buffered_token_type_ids_expanded: "i64[1, 10][512, 1]cpu" = buffered_token_type_ids.expand(1, 10);  buffered_token_type_ids = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:197 in forward, code: position_ids = self.position_ids[:, past_key_values_length : seq_length + past_key_values_length]
+        position_ids: "i64[1, 10][512, 1]cpu" = l_self_modules_embeddings_buffers_position_ids_[(slice(None, None, None), slice(0, 10, None))];  l_self_modules_embeddings_buffers_position_ids_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:211 in forward, code: inputs_embeds = self.word_embeddings(input_ids)
+        inputs_embeds: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.embedding(l_input_ids_, l_self_modules_embeddings_modules_word_embeddings_parameters_weight_, 0, None, 2.0, False, False);  l_input_ids_ = l_self_modules_embeddings_modules_word_embeddings_parameters_weight_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:212 in forward, code: token_type_embeddings = self.token_type_embeddings(token_type_ids)
+        token_type_embeddings: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.embedding(buffered_token_type_ids_expanded, l_self_modules_embeddings_modules_token_type_embeddings_parameters_weight_, None, None, 2.0, False, False);  buffered_token_type_ids_expanded = l_self_modules_embeddings_modules_token_type_embeddings_parameters_weight_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:214 in forward, code: embeddings = inputs_embeds + token_type_embeddings
+        embeddings: "f32[1, 10, 128][1280, 128, 1]cpu" = inputs_embeds + token_type_embeddings;  inputs_embeds = token_type_embeddings = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:216 in forward, code: position_embeddings = self.position_embeddings(position_ids)
+        position_embeddings: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.embedding(position_ids, l_self_modules_embeddings_modules_position_embeddings_parameters_weight_, None, None, 2.0, False, False);  position_ids = l_self_modules_embeddings_modules_position_embeddings_parameters_weight_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:217 in forward, code: embeddings += position_embeddings
+        embeddings += position_embeddings;  embeddings_1: "f32[1, 10, 128][1280, 128, 1]cpu" = embeddings;  embeddings = position_embeddings = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:218 in forward, code: embeddings = self.LayerNorm(embeddings)
+        embeddings_2: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.layer_norm(embeddings_1, (128,), l_self_modules_embeddings_modules_layer_norm_parameters_weight_, l_self_modules_embeddings_modules_layer_norm_parameters_bias_, 1e-12);  embeddings_1 = l_self_modules_embeddings_modules_layer_norm_parameters_weight_ = l_self_modules_embeddings_modules_layer_norm_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:219 in forward, code: embeddings = self.dropout(embeddings)
+        embeddings_3: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.dropout(embeddings_2, 0.1, False, False);  embeddings_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:1087 in forward, code: attention_mask = torch.ones((batch_size, seq_length + past_key_values_length), device=device)
+        attention_mask: "f32[1, 10][10, 1]cpu" = torch.ones((1, 10), device = device(type='cpu'))
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/modeling_attn_mask_utils.py:188 in _expand_mask, code: expanded_mask = mask[:, None, None, :].expand(bsz, 1, tgt_len, src_len).to(dtype)
+        getitem_2: "f32[1, 1, 1, 10][10, 10, 10, 1]cpu" = attention_mask[(slice(None, None, None), None, None, slice(None, None, None))];  attention_mask = None
+        expand_1: "f32[1, 1, 10, 10][10, 10, 0, 1]cpu" = getitem_2.expand(1, 1, 10, 10);  getitem_2 = None
+        expanded_mask: "f32[1, 1, 10, 10][10, 10, 0, 1]cpu" = expand_1.to(torch.float32);  expand_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/modeling_attn_mask_utils.py:190 in _expand_mask, code: inverted_mask = 1.0 - expanded_mask
+        inverted_mask: "f32[1, 1, 10, 10][100, 100, 10, 1]cpu" = 1.0 - expanded_mask;  expanded_mask = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/modeling_attn_mask_utils.py:192 in _expand_mask, code: return inverted_mask.masked_fill(inverted_mask.to(torch.bool), torch.finfo(dtype).min)
+        to_1: "b8[1, 1, 10, 10][100, 100, 10, 1]cpu" = inverted_mask.to(torch.bool)
+        extended_attention_mask: "f32[1, 1, 10, 10][100, 100, 10, 1]cpu" = inverted_mask.masked_fill(to_1, -3.4028234663852886e+38);  inverted_mask = to_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:395 in forward, code: query_layer = self.transpose_for_scores(self.query(hidden_states))
+        linear: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(embeddings_3, l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_weight_, l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_bias_);  l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_query_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        x: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = linear.view((1, 10, 2, 64));  linear = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        query_layer: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = x.permute(0, 2, 1, 3);  x = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:408 in forward, code: key_layer = self.transpose_for_scores(self.key(current_states))
+        linear_1: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(embeddings_3, l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_weight_, l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_bias_);  l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_key_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        x_1: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = linear_1.view((1, 10, 2, 64));  linear_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        key_layer: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = x_1.permute(0, 2, 1, 3);  x_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:409 in forward, code: value_layer = self.transpose_for_scores(self.value(current_states))
+        linear_2: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(embeddings_3, l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_weight_, l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_bias_);  l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_self_modules_value_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        x_2: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = linear_2.view((1, 10, 2, 64));  linear_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        value_layer: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = x_2.permute(0, 2, 1, 3);  x_2 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:440 in forward, code: attn_output = torch.nn.functional.scaled_dot_product_attention(
+        attn_output: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch._C._nn.scaled_dot_product_attention(query_layer, key_layer, value_layer, attn_mask = extended_attention_mask, dropout_p = 0.0, is_causal = False);  query_layer = key_layer = value_layer = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:449 in forward, code: attn_output = attn_output.transpose(1, 2)
+        attn_output_1: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = attn_output.transpose(1, 2);  attn_output = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:450 in forward, code: attn_output = attn_output.reshape(bsz, tgt_len, self.all_head_size)
+        attn_output_2: "f32[1, 10, 128][1280, 128, 1]cpu" = attn_output_1.reshape(1, 10, 128);  attn_output_1 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:466 in forward, code: hidden_states = self.dense(hidden_states)
+        hidden_states: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(attn_output_2, l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_weight_, l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_bias_);  attn_output_2 = l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_dense_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:467 in forward, code: hidden_states = self.dropout(hidden_states)
+        hidden_states_1: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.dropout(hidden_states, 0.1, False, False);  hidden_states = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:468 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        add_1: "f32[1, 10, 128][1280, 128, 1]cpu" = hidden_states_1 + embeddings_3;  hidden_states_1 = embeddings_3 = None
+        hidden_states_2: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.layer_norm(add_1, (128,), l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_layer_norm_parameters_weight_, l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_layer_norm_parameters_bias_, 1e-12);  add_1 = l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_layer_norm_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_0_modules_attention_modules_output_modules_layer_norm_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:539 in forward, code: hidden_states = self.dense(hidden_states)
+        hidden_states_3: "f32[1, 10, 512][5120, 512, 1]cpu" = torch._C._nn.linear(hidden_states_2, l_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_weight_, l_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_bias_);  l_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_0_modules_intermediate_modules_dense_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/activations.py:78 in forward, code: return self.act(input)
+        hidden_states_4: "f32[1, 10, 512][5120, 512, 1]cpu" = torch._C._nn.gelu(hidden_states_3);  hidden_states_3 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:552 in forward, code: hidden_states = self.dense(hidden_states)
+        hidden_states_5: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(hidden_states_4, l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_weight_, l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_bias_);  hidden_states_4 = l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_dense_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:553 in forward, code: hidden_states = self.dropout(hidden_states)
+        hidden_states_6: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.dropout(hidden_states_5, 0.1, False, False);  hidden_states_5 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:554 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        add_2: "f32[1, 10, 128][1280, 128, 1]cpu" = hidden_states_6 + hidden_states_2;  hidden_states_6 = hidden_states_2 = None
+        hidden_states_7: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.layer_norm(add_2, (128,), l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_layer_norm_parameters_weight_, l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_layer_norm_parameters_bias_, 1e-12);  add_2 = l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_layer_norm_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_0_modules_output_modules_layer_norm_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:395 in forward, code: query_layer = self.transpose_for_scores(self.query(hidden_states))
+        linear_6: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(hidden_states_7, l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_weight_, l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_bias_);  l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_query_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        x_3: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = linear_6.view((1, 10, 2, 64));  linear_6 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        query_layer_1: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = x_3.permute(0, 2, 1, 3);  x_3 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:408 in forward, code: key_layer = self.transpose_for_scores(self.key(current_states))
+        linear_7: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(hidden_states_7, l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_weight_, l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_bias_);  l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_key_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        x_4: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = linear_7.view((1, 10, 2, 64));  linear_7 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        key_layer_1: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = x_4.permute(0, 2, 1, 3);  x_4 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:409 in forward, code: value_layer = self.transpose_for_scores(self.value(current_states))
+        linear_8: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(hidden_states_7, l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_weight_, l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_bias_);  l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_self_modules_value_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:252 in transpose_for_scores, code: x = x.view(new_x_shape)
+        x_5: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = linear_8.view((1, 10, 2, 64));  linear_8 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:253 in transpose_for_scores, code: return x.permute(0, 2, 1, 3)
+        value_layer_1: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = x_5.permute(0, 2, 1, 3);  x_5 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:440 in forward, code: attn_output = torch.nn.functional.scaled_dot_product_attention(
+        attn_output_3: "f32[1, 2, 10, 64][1280, 64, 128, 1]cpu" = torch._C._nn.scaled_dot_product_attention(query_layer_1, key_layer_1, value_layer_1, attn_mask = extended_attention_mask, dropout_p = 0.0, is_causal = False);  query_layer_1 = key_layer_1 = value_layer_1 = extended_attention_mask = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:449 in forward, code: attn_output = attn_output.transpose(1, 2)
+        attn_output_4: "f32[1, 10, 2, 64][1280, 128, 64, 1]cpu" = attn_output_3.transpose(1, 2);  attn_output_3 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:450 in forward, code: attn_output = attn_output.reshape(bsz, tgt_len, self.all_head_size)
+        attn_output_5: "f32[1, 10, 128][1280, 128, 1]cpu" = attn_output_4.reshape(1, 10, 128);  attn_output_4 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:466 in forward, code: hidden_states = self.dense(hidden_states)
+        hidden_states_8: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(attn_output_5, l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_weight_, l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_bias_);  attn_output_5 = l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_dense_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:467 in forward, code: hidden_states = self.dropout(hidden_states)
+        hidden_states_9: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.dropout(hidden_states_8, 0.1, False, False);  hidden_states_8 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:468 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        add_3: "f32[1, 10, 128][1280, 128, 1]cpu" = hidden_states_9 + hidden_states_7;  hidden_states_9 = hidden_states_7 = None
+        hidden_states_10: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.layer_norm(add_3, (128,), l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_layer_norm_parameters_weight_, l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_layer_norm_parameters_bias_, 1e-12);  add_3 = l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_layer_norm_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_1_modules_attention_modules_output_modules_layer_norm_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:539 in forward, code: hidden_states = self.dense(hidden_states)
+        hidden_states_11: "f32[1, 10, 512][5120, 512, 1]cpu" = torch._C._nn.linear(hidden_states_10, l_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_weight_, l_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_bias_);  l_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_1_modules_intermediate_modules_dense_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/activations.py:78 in forward, code: return self.act(input)
+        hidden_states_12: "f32[1, 10, 512][5120, 512, 1]cpu" = torch._C._nn.gelu(hidden_states_11);  hidden_states_11 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:552 in forward, code: hidden_states = self.dense(hidden_states)
+        hidden_states_13: "f32[1, 10, 128][1280, 128, 1]cpu" = torch._C._nn.linear(hidden_states_12, l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_weight_, l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_bias_);  hidden_states_12 = l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_dense_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:553 in forward, code: hidden_states = self.dropout(hidden_states)
+        hidden_states_14: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.dropout(hidden_states_13, 0.1, False, False);  hidden_states_13 = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:554 in forward, code: hidden_states = self.LayerNorm(hidden_states + input_tensor)
+        add_4: "f32[1, 10, 128][1280, 128, 1]cpu" = hidden_states_14 + hidden_states_10;  hidden_states_14 = hidden_states_10 = None
+        hidden_states_15: "f32[1, 10, 128][1280, 128, 1]cpu" = torch.nn.functional.layer_norm(add_4, (128,), l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_layer_norm_parameters_weight_, l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_layer_norm_parameters_bias_, 1e-12);  add_4 = l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_layer_norm_parameters_weight_ = l_self_modules_encoder_modules_layer_modules_1_modules_output_modules_layer_norm_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:746 in forward, code: first_token_tensor = hidden_states[:, 0]
+        first_token_tensor: "f32[1, 128][1280, 1]cpu" = hidden_states_15[(slice(None, None, None), 0)]
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:747 in forward, code: pooled_output = self.dense(first_token_tensor)
+        pooled_output: "f32[1, 128][128, 1]cpu" = torch._C._nn.linear(first_token_tensor, l_self_modules_pooler_modules_dense_parameters_weight_, l_self_modules_pooler_modules_dense_parameters_bias_);  first_token_tensor = l_self_modules_pooler_modules_dense_parameters_weight_ = l_self_modules_pooler_modules_dense_parameters_bias_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/transformers/models/bert/modeling_bert.py:748 in forward, code: pooled_output = self.activation(pooled_output)
+        pooled_output_1: "f32[1, 128][128, 1]cpu" = torch.tanh(pooled_output);  pooled_output = None
+        return (hidden_states_15, pooled_output_1)
+        

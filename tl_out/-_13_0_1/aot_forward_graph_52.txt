@@ -1,0 +1,15 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[0][0]cpu", arg1_1: "f64[0][0]cpu", arg2_1: "f64[2][1]cpu", arg3_1: "b8[2][1]cpu", arg4_1: "b8[2][1]cpu", arg5_1: "b8[2][1]cpu"):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:580 in torch_dynamo_resume_in__initialize_feasible_at_580, code: p0[mask] = 0.5 * (lb[mask] + ub[mask])
+        add: "f64[0][1]cpu" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
+        mul: "f64[0][1]cpu" = torch.ops.aten.mul.Tensor(0.5, add);  add = None
+        index_put: "f64[2][1]cpu" = torch.ops.aten.index_put.default(arg2_1, [arg3_1], mul);  arg3_1 = mul = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:582 in torch_dynamo_resume_in__initialize_feasible_at_580, code: mask = lb_finite & ~ub_finite
+        bitwise_not: "b8[2][1]cpu" = torch.ops.aten.bitwise_not.default(arg4_1);  arg4_1 = None
+        bitwise_and: "b8[2][1]cpu" = torch.ops.aten.bitwise_and.Tensor(arg5_1, bitwise_not);  arg5_1 = bitwise_not = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:580 in torch_dynamo_resume_in__initialize_feasible_at_580, code: p0[mask] = 0.5 * (lb[mask] + ub[mask])
+        copy_: "f64[2][1]cpu" = torch.ops.aten.copy_.default(arg2_1, index_put);  arg2_1 = index_put = copy_ = None
+        return (bitwise_and,)
+        

@@ -1,0 +1,23 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['lb'], accessed_by=DictGetItemGuardAccessor(lb)
+| | +- GuardManager: source=___from_numpy(L['lb']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['lb']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['lb']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING: check_no_aliasing(___from_numpy(L['lb']), ___from_numpy(L['ub']))
+| +- GuardManager: source=L['ub'], accessed_by=DictGetItemGuardAccessor(ub)
+| | +- GuardManager: source=___from_numpy(L['ub']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['ub']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['ub']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['np'], accessed_by=DictGetItemGuardAccessor(np)
+| | | +- ID_MATCH: ___check_obj_id(G['np'], 138006086600640)                   
+| | | +- GuardManager: source=G['np'].isfinite, accessed_by=GetAttrGuardAccessor(isfinite)
+| | | | +- ID_MATCH: ___check_obj_id(G['np'].isfinite, 138006087268160)          
+| | | +- GuardManager: source=G['np'].ones_like, accessed_by=GetAttrGuardAccessor(ones_like)
+| | | | +- ID_MATCH: ___check_obj_id(G['np'].ones_like, 138005631209008)         

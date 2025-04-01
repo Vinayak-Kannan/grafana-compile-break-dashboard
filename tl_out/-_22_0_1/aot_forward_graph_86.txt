@@ -1,0 +1,4 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[2][1]cpu"):
+        return (arg0_1,)
+        

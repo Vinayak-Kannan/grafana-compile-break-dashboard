@@ -1,0 +1,6 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f32[1, 10][10, 1]cpu"):
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:2457 in torch_dynamo_resume_in_fit_at_2415, code: self.embedding_ = np.zeros(
+        full: "f64[1, 2][2, 1]cpu" = torch.ops.aten.full.default([1, 2], 0, dtype = torch.float64, layout = torch.strided, device = device(type='cpu'), pin_memory = False)
+        return (full,)
+        

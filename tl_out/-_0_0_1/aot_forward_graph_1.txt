@@ -1,0 +1,26 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "i64[1, 10][10, 1]cpu"):
+         # File: /workspaces/HPML-Project/pull_model_run_dynamo_explain.py:27 in forward_refined, code: modified_input_ids = input_ids.clone()
+        clone: "i64[1, 10][10, 1]cpu" = torch.ops.aten.clone.default(arg0_1)
+        
+         # File: /workspaces/HPML-Project/pull_model_run_dynamo_explain.py:31 in forward_refined, code: modified_input_ids[0, 0] += seq_length
+        select: "i64[10][1]cpu" = torch.ops.aten.select.int(clone, 0, 0)
+        select_1: "i64[][]cpu" = torch.ops.aten.select.int(select, 0, 0);  select = None
+        add: "i64[][]cpu" = torch.ops.aten.add.Tensor(select_1, 10);  select_1 = None
+        select_2: "i64[10][1]cpu" = torch.ops.aten.select.int(clone, 0, 0)
+        select_scatter: "i64[10][1]cpu" = torch.ops.aten.select_scatter.default(select_2, add, 0, 0);  select_2 = add = None
+        select_scatter_1: "i64[1, 10][10, 1]cpu" = torch.ops.aten.select_scatter.default(clone, select_scatter, 0, 0);  clone = select_scatter = None
+        select_3: "i64[10][1]cpu" = torch.ops.aten.select.int(select_scatter_1, 0, 0)
+        select_4: "i64[][]cpu" = torch.ops.aten.select.int(select_3, 0, 0);  select_3 = None
+        select_7: "i64[10][1]cpu" = torch.ops.aten.select.int(select_scatter_1, 0, 0)
+        select_8: "i64[][]cpu" = torch.ops.aten.select.int(select_7, 0, 0);  select_7 = None
+        copy: "i64[][]cpu" = torch.ops.aten.copy.default(select_8, select_4);  select_8 = select_4 = None
+        select_9: "i64[10][1]cpu" = torch.ops.aten.select.int(select_scatter_1, 0, 0)
+        select_scatter_2: "i64[10][1]cpu" = torch.ops.aten.select_scatter.default(select_9, copy, 0, 0);  select_9 = copy = None
+        select_scatter_3: "i64[1, 10][10, 1]cpu" = torch.ops.aten.select_scatter.default(select_scatter_1, select_scatter_2, 0, 0);  select_scatter_1 = select_scatter_2 = None
+        
+         # File: /workspaces/HPML-Project/pull_model_run_dynamo_explain.py:34 in forward_refined, code: print(f"Original first element: {input_ids[0, 0]}")
+        select_12: "i64[10][1]cpu" = torch.ops.aten.select.int(arg0_1, 0, 0);  arg0_1 = None
+        select_13: "i64[][]cpu" = torch.ops.aten.select.int(select_12, 0, 0);  select_12 = None
+        return (select_13, select_scatter_3)
+        

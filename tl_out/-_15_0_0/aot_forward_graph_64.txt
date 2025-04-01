@@ -1,0 +1,10 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[0][0]cpu", arg1_1: "f64[2][1]cpu", arg2_1: "b8[2][1]cpu"):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:586 in torch_dynamo_resume_in__initialize_feasible_at_586, code: p0[mask] = ub[mask] - 1
+        _tensor_constant0 = self._tensor_constant0
+        lift_fresh_copy: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant0);  _tensor_constant0 = None
+        sub: "f64[0][1]cpu" = torch.ops.aten.sub.Tensor(arg0_1, lift_fresh_copy);  arg0_1 = lift_fresh_copy = None
+        index_put: "f64[2][1]cpu" = torch.ops.aten.index_put.default(arg1_1, [arg2_1], sub);  arg2_1 = sub = None
+        copy_: "f64[2][1]cpu" = torch.ops.aten.copy_.default(arg1_1, index_put);  arg1_1 = index_put = copy_ = None
+        return ()
+        

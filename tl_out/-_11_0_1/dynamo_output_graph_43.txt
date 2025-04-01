@@ -1,0 +1,18 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_lb_: "f64[2][1]cpu", L_ub_: "f64[2][1]cpu"):
+        l_lb_ = L_lb_
+        l_ub_ = L_ub_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:575 in _initialize_feasible, code: p0 = np.ones_like(lb)
+        p0: "f64[2][1]cpu" = torch__dynamo_utils_wrapped_ones_like(l_lb_)
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:576 in _initialize_feasible, code: lb_finite = np.isfinite(lb)
+        lb_finite: "b8[2][1]cpu" = torch__dynamo_utils_wrapped_isfinite(l_lb_);  l_lb_ = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:577 in _initialize_feasible, code: ub_finite = np.isfinite(ub)
+        ub_finite: "b8[2][1]cpu" = torch__dynamo_utils_wrapped_isfinite_1(l_ub_);  l_ub_ = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:579 in _initialize_feasible, code: mask = lb_finite & ub_finite
+        mask: "b8[2][1]cpu" = torch__dynamo_utils_wrapped_and_(lb_finite, ub_finite)
+        return (mask, p0, lb_finite, ub_finite)
+        

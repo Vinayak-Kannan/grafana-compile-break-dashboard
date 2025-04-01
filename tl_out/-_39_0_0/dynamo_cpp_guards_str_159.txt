@@ -1,0 +1,35 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['ysize'], accessed_by=DictGetItemGuardAccessor(ysize)
+| | +- EQUALS_MATCH: L['ysize'] == 300                                           
+| +- GuardManager: source=L['warn_cov'], accessed_by=DictGetItemGuardAccessor(warn_cov)
+| | +- ID_MATCH: ___check_obj_id(L['warn_cov'], 111055818658752)             
+| +- GuardManager: source=L['full_output'], accessed_by=DictGetItemGuardAccessor(full_output)
+| | +- ID_MATCH: ___check_obj_id(L['full_output'], 111055818658752)          
+| +- GuardManager: source=L['absolute_sigma'], accessed_by=DictGetItemGuardAccessor(absolute_sigma)
+| | +- ID_MATCH: ___check_obj_id(L['absolute_sigma'], 111055818658752)       
+| +- GuardManager: source=L['p0'], accessed_by=DictGetItemGuardAccessor(p0)
+| | +- GuardManager: source=___from_numpy(L['p0']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['p0']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['p0']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING: check_no_aliasing(___from_numpy(L['p0']), ___from_numpy(L['cost']), ___from_numpy(L['pcov']), ___from_numpy(L['popt']))
+| +- GuardManager: source=L['cost'], accessed_by=DictGetItemGuardAccessor(cost)
+| | +- GuardManager: source=___from_numpy(L['cost']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['cost']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[], stride=[])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['cost']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['pcov'], accessed_by=DictGetItemGuardAccessor(pcov)
+| | +- GuardManager: source=___from_numpy(L['pcov']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['pcov']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2, 2], stride=[2, 1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['pcov']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
+| +- GuardManager: source=L['popt'], accessed_by=DictGetItemGuardAccessor(popt)
+| | +- GuardManager: source=___from_numpy(L['popt']), accessed_by=PythonLambdaGuardAccessor
+| | | +- TENSOR_MATCH: check_tensor(___from_numpy(L['popt']), Tensor, DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), torch.float64, device=None, requires_grad=False, size=[2], stride=[1])
+| | | +- NO_HASATTR: hasattr(___from_numpy(L['popt']), '_dynamo_dynamic_indices') == False
+| | | +- NO_TENSOR_ALIASING
++- LAMBDA_GUARD: not __math_isnan(___from_numpy(L['cost']).item())             # _dynamo/output_graph.py:463 in init_ambient_guards

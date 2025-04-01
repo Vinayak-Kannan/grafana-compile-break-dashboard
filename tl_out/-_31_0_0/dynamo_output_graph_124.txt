@@ -1,0 +1,21 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_f_closure_1_cell_contents: "f64[300][1]cpu", L_f_closure_2_cell_contents: "f64[300][1]cpu", L_params_: "f64[2][1]cpu"):
+        l_f_closure_1_cell_contents = L_f_closure_1_cell_contents
+        l_f_closure_2_cell_contents = L_f_closure_2_cell_contents
+        l_params_ = L_params_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:541 in func_wrapped, code: return func(xdata, *params) - ydata
+        getitem: "f64[][]cpu" = l_params_[0]
+        getitem_1: "f64[][]cpu" = l_params_[1];  l_params_ = None
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1401 in curve, code: return 1.0 / (1.0 + a * x ** (2 * b))
+        wrapped_mul: "f64[][]cpu" = torch__dynamo_utils_wrapped_mul(2, getitem_1);  getitem_1 = None
+        wrapped_pow: "f64[300][1]cpu" = torch__dynamo_utils_wrapped_pow(l_f_closure_1_cell_contents, wrapped_mul);  l_f_closure_1_cell_contents = wrapped_mul = None
+        wrapped_mul_1: "f64[300][1]cpu" = torch__dynamo_utils_wrapped_mul_1(getitem, wrapped_pow);  getitem = wrapped_pow = None
+        wrapped_add: "f64[300][1]cpu" = torch__dynamo_utils_wrapped_add(1.0, wrapped_mul_1);  wrapped_mul_1 = None
+        wrapped_truediv: "f64[300][1]cpu" = torch__dynamo_utils_wrapped_truediv(1.0, wrapped_add);  wrapped_add = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:541 in func_wrapped, code: return func(xdata, *params) - ydata
+        val: "f64[300][1]cpu" = torch__dynamo_utils_wrapped_sub(wrapped_truediv, l_f_closure_2_cell_contents);  wrapped_truediv = l_f_closure_2_cell_contents = None
+        return (val,)
+        

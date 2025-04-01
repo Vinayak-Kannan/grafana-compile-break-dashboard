@@ -1,0 +1,21 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "i32[2][1]cpu", arg1_1: "f64[2, 300][300, 1]cpu"):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:489 in torch_dynamo_resume_in_leastsq_at_439, code: perm = retval[1]['ipvt'] - 1
+        _tensor_constant0 = self._tensor_constant0
+        lift_fresh_copy: "i32[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant0);  _tensor_constant0 = None
+        sub: "i32[2][1]cpu" = torch.ops.aten.sub.Tensor(arg0_1, lift_fresh_copy);  arg0_1 = lift_fresh_copy = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:491 in torch_dynamo_resume_in_leastsq_at_439, code: r = triu(transpose(retval[1]['fjac'])[:n, :])
+        permute: "f64[300, 2][1, 300]cpu" = torch.ops.aten.permute.default(arg1_1, [1, 0]);  arg1_1 = None
+        slice_1: "f64[2, 2][1, 300]cpu" = torch.ops.aten.slice.Tensor(permute, 0, 0, 2);  permute = None
+        slice_2: "f64[2, 2][1, 300]cpu" = torch.ops.aten.slice.Tensor(slice_1, 1, 0, 9223372036854775807);  slice_1 = None
+        iota: "i64[2][1]cpu" = torch.ops.prims.iota.default(2, start = 0, step = 1, dtype = torch.int64, device = device(type='cpu'), requires_grad = False)
+        unsqueeze: "i64[1, 2][2, 1]cpu" = torch.ops.aten.unsqueeze.default(iota, -2);  iota = None
+        iota_1: "i64[2][1]cpu" = torch.ops.prims.iota.default(2, start = 0, step = 1, dtype = torch.int64, device = device(type='cpu'), requires_grad = False)
+        unsqueeze_1: "i64[2, 1][1, 1]cpu" = torch.ops.aten.unsqueeze.default(iota_1, -1);  iota_1 = None
+        sub_1: "i64[2, 2][2, 1]cpu" = torch.ops.aten.sub.Tensor(unsqueeze, unsqueeze_1);  unsqueeze = unsqueeze_1 = None
+        ge: "b8[2, 2][2, 1]cpu" = torch.ops.aten.ge.Scalar(sub_1, 0);  sub_1 = None
+        scalar_tensor: "f64[][]cpu" = torch.ops.aten.scalar_tensor.default(0, dtype = torch.float64, layout = torch.strided, device = device(type='cpu'))
+        where: "f64[2, 2][2, 1]cpu" = torch.ops.aten.where.self(ge, slice_2, scalar_tensor);  ge = slice_2 = scalar_tensor = None
+        return (where, sub)
+        

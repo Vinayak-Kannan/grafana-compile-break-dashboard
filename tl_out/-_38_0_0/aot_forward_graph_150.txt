@@ -1,0 +1,13 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[2, 2][2, 1]cpu", arg1_1: "f64[300][1]cpu"):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:1010 in torch_dynamo_resume_in_curve_fit_at_1007, code: cost = np.sum(infodict['fvec'] ** 2)
+        _tensor_constant0 = self._tensor_constant0
+        lift_fresh_copy: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant0);  _tensor_constant0 = None
+        pow_1: "f64[300][1]cpu" = torch.ops.aten.pow.Tensor_Tensor(arg1_1, lift_fresh_copy);  arg1_1 = lift_fresh_copy = None
+        sum_1: "f64[][]cpu" = torch.ops.aten.sum.default(pow_1);  pow_1 = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:1040 in torch_dynamo_resume_in_curve_fit_at_1007, code: if pcov is None or np.isnan(pcov).any():
+        isnan: "b8[2, 2][2, 1]cpu" = torch.ops.aten.isnan.default(arg0_1);  arg0_1 = None
+        any_1: "b8[][]cpu" = torch.ops.aten.any.default(isnan);  isnan = None
+        return (any_1, sum_1)
+        

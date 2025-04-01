@@ -1,0 +1,22 @@
+class <lambda>(torch.nn.Module):
+    def forward(self, arg0_1: "f64[300][1]cpu", arg1_1: "f64[300][1]cpu", arg2_1: "f64[2][1]cpu"):
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:541 in func_wrapped, code: return func(xdata, *params) - ydata
+        select: "f64[][]cpu" = torch.ops.aten.select.int(arg2_1, 0, 0)
+        select_1: "f64[][]cpu" = torch.ops.aten.select.int(arg2_1, 0, 1)
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1401 in curve, code: return 1.0 / (1.0 + a * x ** (2 * b))
+        _tensor_constant0 = self._tensor_constant0
+        lift_fresh_copy: "f64[][]cpu" = torch.ops.aten.lift_fresh_copy.default(_tensor_constant0);  _tensor_constant0 = None
+        mul: "f64[][]cpu" = torch.ops.aten.mul.Tensor(lift_fresh_copy, select_1);  lift_fresh_copy = select_1 = None
+        pow_1: "f64[300][1]cpu" = torch.ops.aten.pow.Tensor_Tensor(arg0_1, mul);  arg0_1 = mul = None
+        mul_1: "f64[300][1]cpu" = torch.ops.aten.mul.Tensor(select, pow_1);  select = pow_1 = None
+        add: "f64[300][1]cpu" = torch.ops.aten.add.Tensor(1.0, mul_1);  mul_1 = None
+        div: "f64[300][1]cpu" = torch.ops.aten.div.Tensor(1.0, add);  add = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:541 in func_wrapped, code: return func(xdata, *params) - ydata
+        sub: "f64[300][1]cpu" = torch.ops.aten.sub.Tensor(div, arg1_1);  div = arg1_1 = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:527 in torch_dynamo_resume_in__memoized_func_at_519, code: _memoized_func.last_params = np.copy(params)
+        clone: "f64[2][1]cpu" = torch.ops.aten.clone.default(arg2_1);  arg2_1 = None
+        return (clone, sub)
+        

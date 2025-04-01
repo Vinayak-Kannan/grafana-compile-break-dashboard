@@ -1,0 +1,9 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_stack0_0_: "f64[2][1]cpu"):
+        l_stack0_0_ = L_stack0_0_
+        
+         # File: /home/codespace/.python/current/lib/python3.12/site-packages/umap/umap_.py:1408 in torch_dynamo_resume_in_find_ab_params_at_1407, code: return params[0], params[1]
+        wrapped_getitem: "f64[][]cpu" = torch__dynamo_utils_wrapped_getitem(l_stack0_0_, 0)
+        wrapped_getitem_1: "f64[][]cpu" = torch__dynamo_utils_wrapped_getitem_1(l_stack0_0_, 1);  l_stack0_0_ = None
+        return (wrapped_getitem, wrapped_getitem_1)
+        

@@ -1,0 +1,11 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_stack0_: "f64[0][0]cpu", L_p0_: "f64[2][1]cpu", L_mask_: "b8[2][1]cpu"):
+        l_stack0_ = L_stack0_
+        l_p0_ = L_p0_
+        l_mask_ = L_mask_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:586 in torch_dynamo_resume_in__initialize_feasible_at_586, code: p0[mask] = ub[mask] - 1
+        wrapped_sub: "f64[0][1]cpu" = torch__dynamo_utils_wrapped_sub(l_stack0_, 1);  l_stack0_ = None
+        wrapped___setitem__ = torch__dynamo_utils_wrapped___setitem__(l_p0_, l_mask_, wrapped_sub);  l_p0_ = l_mask_ = wrapped_sub = wrapped___setitem__ = None
+        return ()
+        

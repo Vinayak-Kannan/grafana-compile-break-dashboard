@@ -1,0 +1,19 @@
+
+TREE_GUARD_MANAGER:
++- RootGuardManager
+| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:471 in init_ambient_guards
+| +- GLOBAL_STATE: ___check_global_state()
+| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
+| +- GuardManager: source=L['spread'], accessed_by=DictGetItemGuardAccessor(spread)
+| | +- EQUALS_MATCH: L['spread'] == 1.0                                          
+| +- GuardManager: source=L['min_dist'], accessed_by=DictGetItemGuardAccessor(min_dist)
+| | +- EQUALS_MATCH: L['min_dist'] == 0.1                                        
+| +- GuardManager: source=G, accessed_by=GlobalsGuardAccessor
+| | +- GuardManager: source=G['np'], accessed_by=DictGetItemGuardAccessor(np)
+| | | +- ID_MATCH: ___check_obj_id(G['np'], 138006086600640)                   
+| | | +- GuardManager: source=G['np'].exp, accessed_by=GetAttrGuardAccessor(exp)
+| | | | +- ID_MATCH: ___check_obj_id(G['np'].exp, 138006087262272)               
+| | | +- GuardManager: source=G['np'].zeros, accessed_by=GetAttrGuardAccessor(zeros)
+| | | | +- ID_MATCH: ___check_obj_id(G['np'].zeros, 138006086610480)             
+| | | +- GuardManager: source=G['np'].linspace, accessed_by=GetAttrGuardAccessor(linspace)
+| | | | +- ID_MATCH: ___check_obj_id(G['np'].linspace, 138005631360304)          

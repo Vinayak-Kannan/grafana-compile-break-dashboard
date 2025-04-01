@@ -1,0 +1,12 @@
+class GraphModule(torch.nn.Module):
+    def forward(self, L_cost_: "f64[][]cpu", L_pcov_: "f64[2, 2][2, 1]cpu"):
+        l_cost_ = L_cost_
+        l_pcov_ = L_pcov_
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:1047 in torch_dynamo_resume_in_curve_fit_at_1040, code: s_sq = cost / (ysize - p0.size)
+        s_sq: "f64[][]cpu" = torch__dynamo_utils_wrapped_truediv(l_cost_, 298);  l_cost_ = None
+        
+         # File: /home/codespace/.local/lib/python3.12/site-packages/scipy/optimize/_minpack_py.py:1048 in torch_dynamo_resume_in_curve_fit_at_1040, code: pcov = pcov * s_sq
+        pcov: "f64[2, 2][2, 1]cpu" = torch__dynamo_utils_wrapped_mul(l_pcov_, s_sq);  l_pcov_ = s_sq = None
+        return (pcov,)
+        
