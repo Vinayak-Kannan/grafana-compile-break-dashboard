@@ -1,3 +1,9 @@
 .qodo
 __pycache__*
 .idea
+.*
+logs
+scratch*
+tl_out
+venv2
+.gitignore

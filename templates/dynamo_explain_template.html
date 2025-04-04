@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PyTorch Dynamo Explain Output</title>
+    <link rel="stylesheet" href="dynamo_explain_style.css">
+</head>
+<body>
+    <h1>PyTorch Dynamo Explain Output</h1>
+    
+    <div class="summary section">
+        <h2>Summary</h2>
+        <div class="summary-item">Graph Count: <span id="graph-count">{{ graph_count }}</span></div>
+        <div class="summary-item">Graph Break Count: <span id="graph-break-count">{{ graph_break_count }}</span></div>
+        <div class="summary-item">Operation Count: <span id="op-count">{{ op_count }}</span></div>
+        {{ compile_times_html | safe }}
+    </div>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'breakReasonsTab')">Break Reasons</button>
+        <button class="tab-button" onclick="openTab(event, 'opsPerGraphTab')">Ops Per Graph</button>
+        <button class="tab-button" onclick="openTab(event, 'outGuardsTab')">Out Guards</button>
+        <button class="tab-button" onclick="openTab(event, 'additionalDataTab')">Additional Data</button>
+    </div>
+
+    <div id="breakReasonsTab" class="tab-content active">
+        <div class="break-reasons">
+            <h2>Break Reasons</h2>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search break reasons..." onkeyup="filterTable()">
+            </div>
+            <table id="breakReasonsTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">#</th>
+                        <th onclick="sortTable(1)">Reason</th>
+                        <th>User Stack</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ break_reasons_rows | safe }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="opsPerGraphTab" class="tab-content">
+        <h2>Operations Per Graph</h2>
+        {{ ops_per_graph_html | safe }}
+    </div>
+
+    <div id="outGuardsTab" class="tab-content">
+        <h2>Out Guards</h2>
+        {{ out_guards_html | safe }}
+    </div>
+
+    <div id="additionalDataTab" class="tab-content">
+        <h2>Additional Data</h2>
+        <div class="additional-data">
+            {{ additional_data_html | safe }}
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tab buttons
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            // Show the current tab and add active class to the button
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("breakReasonsTable");
+            switching = true;
+            dir = "asc";
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+        function filterTable() {
+            var input = document.getElementById("searchInput");
+            var filter = input.value.toLowerCase();
+            var table = document.getElementById("breakReasonsTable");
+            var tr = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < tr.length; i++) {
+                var td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    var txtValue = td.textContent || td.innerText;
+                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].classList.remove("hidden");
+                    } else {
+                        tr[i].classList.add("hidden");
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 20px; 
+}
+
+.summary { 
+    margin-bottom: 20px; 
+}
+
+.summary-item { 
+    margin: 10px 0; 
+}
+
+.break-reasons { 
+    margin-top: 20px; 
+}
+
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin-bottom: 20px; 
+}
+
+th, td { 
+    border: 1px solid #ddd; 
+    padding: 8px; 
+    text-align: left; 
+}
+
+th { 
+    background-color: #f2f2f2; 
+    cursor: pointer; 
+}
+
+th:hover { 
+    background-color: #ddd; 
+}
+
+.stack-trace { 
+    font-family: monospace; 
+    white-space: pre; 
+}
+
+.search-box { 
+    margin: 10px 0; 
+}
+
+.hidden { 
+    display: none; 
+}
+
+.section { 
+    margin-bottom: 30px; 
+}
+
+.tabs { 
+    overflow: hidden; 
+    border: 1px solid #ccc; 
+    background-color: #f1f1f1; 
+}
+
+.tabs button { 
+    background-color: inherit; 
+    float: left; 
+    border: none; 
+    outline: none; 
+    cursor: pointer; 
+    padding: 14px 16px; 
+    transition: 0.3s; 
+}
+
+.tabs button:hover { 
+    background-color: #ddd; 
+}
+
+.tabs button.active { 
+    background-color: #ccc; 
+}
+
+.tab-content { 
+    display: none; 
+    padding: 6px 12px; 
+    border: 1px solid #ccc; 
+    border-top: none; 
+}
+
+.tab-content.active { 
+    display: block; 
+}
+
+.additional-data { 
+    margin-top: 20px; 
+}

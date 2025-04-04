@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PyTorch Dynamo Explain Output</title>
+    <link rel="stylesheet" href="dynamo_explain_style.css">
+</head>
+<body>
+    <h1>PyTorch Dynamo Explain Output</h1>
+    
+    <div class="summary section">
+        <h2>Summary</h2>
+        <div class="summary-item">Graph Count: <span id="graph-count">1</span></div>
+        <div class="summary-item">Graph Break Count: <span id="graph-break-count">0</span></div>
+        <div class="summary-item">Operation Count: <span id="op-count">1</span></div>
+        
+                <div class="summary-item">Total Compile Time: 0.022099999999999998s</div>
+                <div class="summary-item">Compile Time Details:</div>
+                <ul>
+            <li>_compile.compile_inner: 0.022s</li><li>OutputGraph.call_user_compiler: 0.0001s</li></ul>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'breakReasonsTab')">Break Reasons</button>
+        <button class="tab-button" onclick="openTab(event, 'opsPerGraphTab')">Ops Per Graph</button>
+        <button class="tab-button" onclick="openTab(event, 'outGuardsTab')">Out Guards</button>
+        <button class="tab-button" onclick="openTab(event, 'additionalDataTab')">Additional Data</button>
+    </div>
+
+    <div id="breakReasonsTab" class="tab-content active">
+        <div class="break-reasons">
+            <h2>Break Reasons</h2>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search break reasons..." onkeyup="filterTable()">
+            </div>
+            <table id="breakReasonsTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">#</th>
+                        <th onclick="sortTable(1)">Reason</th>
+                        <th>User Stack</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="opsPerGraphTab" class="tab-content">
+        <h2>Operations Per Graph</h2>
+        <h3>Ops 1</h3><div class='stack-trace'><div><function relu at 0x104953560></div></div>
+    </div>
+
+    <div id="outGuardsTab" class="tab-content">
+        <h2>Out Guards</h2>
+        <table><thead><tr><th>#</th><th>Guard</th></tr></thead><tbody><tr><td>Guard 1</td><td>Name: ''
+    Source: global
+    Create Function: DETERMINISTIC_ALGORITHMS
+    Guard Types: None
+    Code List: None
+    Object Weakref: None
+    Guarded Class Weakref: None
+</td></tr><tr><td>Guard 2</td><td>Name: ''
+    Source: shape_env
+    Create Function: SHAPE_ENV
+    Guard Types: None
+    Code List: None
+    Object Weakref: None
+    Guarded Class Weakref: None
+</td></tr><tr><td>Guard 3</td><td>Name: "G['torch'].nn.functional"
+    Source: global
+    Create Function: FUNCTION_MATCH
+    Guard Types: ['ID_MATCH']
+    Code List: ["___check_obj_id(G['torch'].nn.functional, 4338014848)"]
+    Object Weakref: <weakref at 0x1155e8bd0; to 'module' at 0x10290da80>
+    Guarded Class Weakref: <weakref at 0x100f0bc90; to 'type' at 0x100c68478 (module)>
+</td></tr><tr><td>Guard 4</td><td>Name: "G['torch'].nn.functional.relu"
+    Source: global
+    Create Function: FUNCTION_MATCH
+    Guard Types: ['ID_MATCH']
+    Code List: ["___check_obj_id(G['torch'].nn.functional.relu, 4371854688)"]
+    Object Weakref: <weakref at 0x1155e8db0; to 'function' at 0x104953560>
+    Guarded Class Weakref: <weakref at 0x100efba10; to 'type' at 0x100c68610 (function)>
+</td></tr><tr><td>Guard 5</td><td>Name: ''
+    Source: global
+    Create Function: TORCH_FUNCTION_STATE
+    Guard Types: None
+    Code List: None
+    Object Weakref: None
+    Guarded Class Weakref: None
+</td></tr><tr><td>Guard 6</td><td>Name: "L['x']"
+    Source: local
+    Create Function: TENSOR_MATCH
+    Guard Types: ['TENSOR_MATCH']
+    Code List: ["hasattr(L['x'], '_dynamo_dynamic_indices') == False"]
+    Object Weakref: <weakref at 0x1151cc180; to 'Tensor' at 0x11535f410>
+    Guarded Class Weakref: <weakref at 0x10125b100; to 'torch._C._TensorMeta' at 0x1120818d0 (Tensor)>
+</td></tr><tr><td>Guard 7</td><td>Name: "G['torch'].nn"
+    Source: global
+    Create Function: FUNCTION_MATCH
+    Guard Types: ['ID_MATCH']
+    Code List: ["___check_obj_id(G['torch'].nn, 4334496208)"]
+    Object Weakref: <weakref at 0x1155e89a0; to 'module' at 0x1025b29d0>
+    Guarded Class Weakref: <weakref at 0x100f0bc90; to 'type' at 0x100c68478 (module)>
+</td></tr><tr><td>Guard 8</td><td>Name: ''
+    Source: global
+    Create Function: DEFAULT_DEVICE
+    Guard Types: ['DEFAULT_DEVICE']
+    Code List: ['utils_device.CURRENT_DEVICE == None']
+    Object Weakref: None
+    Guarded Class Weakref: None
+</td></tr><tr><td>Guard 9</td><td>Name: ''
+    Source: global
+    Create Function: GRAD_MODE
+    Guard Types: None
+    Code List: None
+    Object Weakref: None
+    Guarded Class Weakref: None
+</td></tr><tr><td>Guard 10</td><td>Name: "G['torch']"
+    Source: global
+    Create Function: FUNCTION_MATCH
+    Guard Types: ['ID_MATCH']
+    Code List: ["___check_obj_id(G['torch'], 4313484000)"]
+    Object Weakref: <weakref at 0x1155e8860; to 'module' at 0x1011a8ae0>
+    Guarded Class Weakref: <weakref at 0x100f0bc90; to 'type' at 0x100c68478 (module)>
+</td></tr></tbody></table>
+    </div>
+
+    <div id="additionalDataTab" class="tab-content">
+        <h2>Additional Data</h2>
+        <div class="additional-data">
+            <table><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody><tr><td>analysis_timestamp</td><td>2024-04-04</td></tr><tr><td>model_name</td><td>example_model</td></tr></tbody></table>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tab buttons
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            // Show the current tab and add active class to the button
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("breakReasonsTable");
+            switching = true;
+            dir = "asc";
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+        function filterTable() {
+            var input = document.getElementById("searchInput");
+            var filter = input.value.toLowerCase();
+            var table = document.getElementById("breakReasonsTable");
+            var tr = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < tr.length; i++) {
+                var td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    var txtValue = td.textContent || td.innerText;
+                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].classList.remove("hidden");
+                    } else {
+                        tr[i].classList.add("hidden");
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
