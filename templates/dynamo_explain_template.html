@@ -12,7 +12,7 @@
         <div class="summary-item">Graph Count: <span id="graph-count">{{ graph_count }}</span></div>
         <div class="summary-item">Graph Break Count: <span id="graph-break-count">{{ graph_break_count }}</span></div>
         <div class="summary-item">Operation Count: <span id="op-count">{{ op_count }}</span></div>
-        {{ compile_times_html | safe }}
+        {{ compile_times_html }}
     </div>
 
     <div class="tabs">
@@ -37,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ break_reasons_rows | safe }}
+                    {{ break_reasons_rows }}
                 </tbody>
             </table>
         </div>
@@ -45,18 +45,18 @@
 
     <div id="opsPerGraphTab" class="tab-content">
         <h2>Operations Per Graph</h2>
-        {{ ops_per_graph_html | safe }}
+        {{ ops_per_graph_html }}
     </div>
 
     <div id="outGuardsTab" class="tab-content">
         <h2>Out Guards</h2>
-        {{ out_guards_html | safe }}
+        {{ out_guards_html }}
     </div>
 
     <div id="additionalDataTab" class="tab-content">
         <h2>Additional Data</h2>
         <div class="additional-data">
-            {{ additional_data_html | safe }}
+            {{ additional_data_html }}
         </div>
     </div>
 

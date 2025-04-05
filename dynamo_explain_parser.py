@@ -4,6 +4,7 @@ import re
 from datetime import datetime
 import torch
 from torch._dynamo.backends.debugging import ExplainOutput
+import html
 
 @dataclass
 class BreakReason:
@@ -41,8 +42,8 @@ class DynamoExplainParser:
         
         break_reasons = []
         for idx, break_reason in enumerate(explain_output.break_reasons):
-            reason = break_reason.reason
-            user_stack = [str(frame) for frame in break_reason.user_stack]
+            reason = html.escape(break_reason.reason)
+            user_stack = [html.escape(str(frame)) for frame in break_reason.user_stack]
             break_reasons.append(BreakReason(idx+1, reason, user_stack))
         
         compile_times = None
@@ -77,12 +78,12 @@ class DynamoExplainParser:
         if explain_output.ops_per_graph is not None:
             ops_per_graph = []
             for ops in explain_output.ops_per_graph:
-                ops_per_graph.append([str(op) for op in ops])
+                ops_per_graph.append([html.escape(str(op)) for op in ops])
             data.additional_data['ops_per_graph'] = ops_per_graph
         
         # Add out_guards if available
         if explain_output.out_guards is not None:
-            out_guards = [str(guard) for guard in explain_output.out_guards]
+            out_guards = [html.escape(str(guard)) for guard in explain_output.out_guards]
             data.additional_data['out_guards'] = out_guards
         
         return data
