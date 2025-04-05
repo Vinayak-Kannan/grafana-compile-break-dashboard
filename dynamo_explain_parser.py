@@ -26,6 +26,7 @@ class DynamoExplainData:
     compile_times: Optional[CompileTime] = None
     # Extensible field for additional data
     additional_data: Dict[str, Any] = None
+    graphs: List[str] = None
 
     def __post_init__(self):
         if self.additional_data is None:
@@ -35,6 +36,10 @@ class DynamoExplainParser:
     @staticmethod
     def parse_explain_output(explain_output: ExplainOutput) -> DynamoExplainData:
         """Parse the ExplainOutput object from torch._dynamo.explain()"""
+
+        graphs = []
+        for graph in explain_output.graphs:
+            graphs.append(graph.print_readable())
         
         graph_count = explain_output.graph_count
         graph_break_count = explain_output.graph_break_count
@@ -71,7 +76,8 @@ class DynamoExplainParser:
             graph_break_count=graph_break_count,
             op_count=op_count,
             break_reasons=break_reasons,
-            compile_times=compile_times
+            compile_times=compile_times,
+            graphs=graphs
         )
         
         # Add ops_per_graph if available

@@ -19,6 +19,7 @@
         <button class="tab-button active" onclick="openTab(event, 'breakReasonsTab')">Break Reasons</button>
         <button class="tab-button" onclick="openTab(event, 'opsPerGraphTab')">Ops Per Graph</button>
         <button class="tab-button" onclick="openTab(event, 'outGuardsTab')">Out Guards</button>
+        <button class="tab-button" onclick="openTab(event, 'graphsTab')">Graphs</button>
         <button class="tab-button" onclick="openTab(event, 'additionalDataTab')">Additional Data</button>
     </div>
 
@@ -51,6 +52,11 @@
     <div id="outGuardsTab" class="tab-content">
         <h2>Out Guards</h2>
         {{ out_guards_html }}
+    </div>
+
+    <div id="graphsTab" class="tab-content">
+        <h2>Graphs</h2>
+        {{ graphs_html }}
     </div>
 
     <div id="additionalDataTab" class="tab-content">

@@ -76,6 +76,21 @@ class DynamoExplainViewer:
         else:
             additional_data_html = "<p>No additional data available.</p>"
         
+        # Generate graphs HTML if available
+        graphs_html = ""
+        if data.graphs and len(data.graphs) > 0:
+            graphs_html = "<div class='graphs-container'>"
+            for i, graph in enumerate(data.graphs):
+                graphs_html += f"""
+                    <div class="graph-item">
+                        <h3>Graph {i+1}</h3>
+                        <pre class="graph-content">{graph}</pre>
+                    </div>
+                """
+            graphs_html += "</div>"
+        else:
+            graphs_html = "<p>No graph data available.</p>"
+        
         # Render the template with Jinja2
         html_content = template.render(
             graph_count=data.graph_count,
@@ -85,7 +100,8 @@ class DynamoExplainViewer:
             compile_times_html=compile_times_html,
             ops_per_graph_html=ops_per_graph_html,
             out_guards_html=out_guards_html,
-            additional_data_html=additional_data_html
+            additional_data_html=additional_data_html,
+            graphs_html=graphs_html
         )
         
         # Write to file
