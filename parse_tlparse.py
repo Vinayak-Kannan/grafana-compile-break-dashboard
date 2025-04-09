@@ -50,7 +50,43 @@ def parse_compilation_metrics(html_path):
     except Exception as e:
         print(f"Error reading file {html_path}: {e}")
         return metrics
+    
+    # Find all <p> elements (many of the metrics are in <p> tags)
+    p_tags = soup.find_all("p")
+    for p in p_tags:
+        text = p.get_text(strip=True)
+        # Debug: Uncomment the following line to inspect each p tag's content.
+        # print("DEBUG p tag:", text)
+        if "entire frame" in text.lower():
+            # Assume text like: "Entire Frame [?]: 0.043419"
+            try:
+                metrics["entire_frame"] = float(text.split(":")[-1].strip())
+            except ValueError:
+                metrics["entire_frame"] = None
+        elif "backend" in text.lower():
+            try:
+                metrics["backend"] = float(text.split(":")[-1].strip())
+            except ValueError:
+                metrics["backend"] = None
+        elif "inductor" in text.lower():
+            try:
+                metrics["inductor"] = float(text.split(":")[-1].strip())
+            except ValueError:
+                metrics["inductor"] = None
+        elif "dynamo time before restart" in text.lower():
+            try:
+                metrics["dynamo_time"] = float(text.split(":")[-1].strip())
+            except ValueError:
+                metrics["dynamo_time"] = None
+        elif "no failures" in text.lower():
+            metrics["failures"] = 0
 
+    # For simplicity, we are not parsing restart reasons here beyond checking for "No failures!".
+    # You can extend this by finding the section "Restart Reasons:" and parsing any <li> elements.
+    
+    return metrics
+
+    '''
     # Look for table rows that have exactly two cells (assumed to be key-value pairs)
     for row in soup.find_all("tr"):
         cells = row.find_all(["th", "td"])
@@ -74,6 +110,7 @@ def parse_compilation_metrics(html_path):
                 metrics["failures"] = val
 
     return metrics
+    '''
 
 def aggregate_metrics(directory):
     """
