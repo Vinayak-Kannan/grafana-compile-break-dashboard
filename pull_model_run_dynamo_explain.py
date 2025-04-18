@@ -1,14 +1,16 @@
 import torch
 import torch._dynamo as dynamo
-from transformers import AutoModel
+from transformers import AutoModel, utils
 import numpy as np
 import umap
+from torch.export import export
+from transformers.utils.fx import symbolic_trace
 
 model = AutoModel.from_pretrained("prajjwal1/bert-tiny")
 inputs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
 
 # explanation = dynamo.explain(model.forward)(**inputs)
-
+#
 # # Save to a text file
 # with open("dynamo_explanation.txt", "w") as f:
 #     f.write(str(explanation))
@@ -16,10 +18,10 @@ inputs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
 
 # Option 1: Modify your forward_refined function to accept keyword argumentsimport umap
 
-def forward_refined(**kwargs):
-    # Get the input_ids tensor
-    input_ids = kwargs["input_ids"]
-    
+def forward_refined(input_ids):
+    # if "input_ids" in kwargs and "inputs_embeds" in kwargs:
+    #     del kwargs["inputs_embeds"]
+
     # Get the second value in the shape (which is the sequence length)
     seq_length = input_ids.shape[1]
     
@@ -51,10 +53,10 @@ def forward_refined(**kwargs):
     modified_input_ids[0, 0] += umap_value
 
     # Update the kwargs with the modified input_ids
-    kwargs["input_ids"] = modified_input_ids
+    # kwargs["input_ids"] = modified_input_ids
     
     # Call the original forward method with the modified inputs
-    return model.original_forward(**kwargs)
+    return model.original_forward({'input_ids': modified_input_ids, 'input_embeds': None})
 
 
 # Not broken: tlparse logs/dedicated_log_torch_trace_v3ixwcdv.log -o tl_out/ --overwrite
@@ -64,6 +66,26 @@ model.original_forward = model.forward
 # Replace with your custom method
 model.forward = forward_refined
 # Compile the model
-model = torch.compile(model)
+# model = torch.compile(model)
 # Call the model
-model.forward(**inputs)
+# model.forward(**inputs)
+
+# Trace the module to get a GraphModule
+symbolic_traced = symbolic_trace(model)
+
+# Print the graph representation
+print(symbolic_traced.code)
+
+# example_args = ()
+# example_kwargs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
+# print(export(model, args=example_args, kwargs=example_kwargs))
+#
+explanation = dynamo.explain(model.forward)(**inputs)
+explanation2 = dynamo.explain(model.forward)(**inputs)
+print(explanation)
+#
+# # Save to a text file
+# with open("dynamo_explanation.txt", "w") as f:
+#     f.write(str(explanation))
+hello = "1"
+print(hello)

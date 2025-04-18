@@ -6,6 +6,40 @@ import re
 from graphviz import Digraph, Source
 
 
+"""
+import torch
+from torch.fx import symbolic_trace, Tracer
+
+# Define your model
+class MyModel(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.linear = torch.nn.Linear(10, 5)
+
+    def forward(self, x):
+        return self.linear(x)
+
+# Instantiate the model
+model = MyModel()
+
+# Create a custom tracer with stack trace recording enabled
+class CustomTracer(Tracer):
+    def __init__(self):
+        super().__init__()
+        self.record_stack_traces = True  # Enable stack trace recording
+
+# Use the custom tracer for symbolic tracing
+tracer = CustomTracer()
+graph = tracer.trace(model)
+
+# Wrap the graph into a GraphModule
+graph_module = torch.fx.GraphModule(model, graph)
+
+# Access a node's stack trace
+for node in graph.nodes:
+    print(f"Node: {node.name}, Stack Trace: {node.stack_trace}")
+"""
+
 class GraphBreakVisualizer:
     def __init__(self, module, inputs):
         self.module = module
@@ -42,7 +76,27 @@ class GraphBreakVisualizer:
         enhanced_dot.attr(rankdir='TB')
 
         # Extract break information
-        break_reasons = self.dynamo_explanation.break_reasons
+        # Extract break locations
+        break_locations = set()
+        for reason in self.dynamo_explanation.break_reasons:
+            if hasattr(reason, 'user_stack'):
+                for frame in reason.user_stack:
+                    break_locations.add((frame.filename, frame.lineno))
+
+        print(f"Break locations: {break_locations}")
+        # Map FX nodes to break locations
+        break_nodes = set()
+        for node in self.traced_module.graph.nodes:
+            print(dir(node))
+            print(node.stack_trace)
+            if node.stack_trace:
+                for frame in node.stack_trace:
+                    print(frame)
+                    loc = (frame.filename, frame.lineno)
+                    if loc in break_locations:
+                        break_nodes.add(node.name)
+
+        print(f"Break nodes: {break_nodes}")
 
         # Parse the original dot source to extract nodes and edges
         node_pattern = re.compile(r'(\w+)\s+\[([^\]]+)\]')
@@ -96,9 +150,7 @@ class GraphBreakModule(nn.Module):
 
     def forward(self, x):
         x = self.linear1(x)
-
         print("break")
-
         return self.linear2(x)
 
 # Usage
