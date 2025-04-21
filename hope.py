@@ -5,8 +5,10 @@ import torch.nn as nn
 import torch._dynamo as dynamo
 from torch._dynamo.output_graph import GraphCompileReason
 from torch.fx import passes, symbolic_trace
-import re
+from optimum.utils import DummyInputGenerator
 from graphviz import Digraph, Source
+from transformers import AutoModelForVision2Seq
+
 
 class GraphBreakVisualizer:
     def __init__(self, module, inputs):
@@ -98,9 +100,27 @@ class GraphBreakModule(nn.Module):
         print("break")
         return self.linear2(x)
 
+# HOPE
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+model_path = "ibm-granite/granite-vision-3.2-2b"
+module = AutoModelForVision2Seq.from_pretrained(model_path).to(device)
+
+# Create dummy input generator
+dummy_gen = DummyInputGenerator()
+
+# Generate dummy inputs for the model's forward method
+inputs_model = {}
+for input_name in module.forward.__code__.co_varnames:
+    if dummy_gen.supports_input(input_name):
+        inputs_model[input_name] = dummy_gen.generate(input_name, framework="pt")
+
+# Move all inputs to the correct device
+inputs_model = {k: v.to(device) for k, v in inputs_model.items()}
+
 # Usage
-module = GraphBreakModule()
-inputs = torch.randn(1, 10)
-visualizer = GraphBreakVisualizer(module, inputs)
-enhanced_graph_path = visualizer.create_visualization()
+# module = GraphBreakModule()
+# inputs = torch.randn(1, 10)
+visualizer = GraphBreakVisualizer(module, inputs_model)
+enhanced_graph_path = visualizer.create_visualization("actually_useful")
 print(f"Enhanced graph created at: {enhanced_graph_path}")
