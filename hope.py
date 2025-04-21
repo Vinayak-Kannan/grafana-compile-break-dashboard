@@ -7,8 +7,9 @@ from torch._dynamo.output_graph import GraphCompileReason
 from torch.fx import passes, symbolic_trace
 from optimum.utils import DummyInputGenerator
 from graphviz import Digraph, Source
-from transformers import AutoModelForVision2Seq
-
+from transformers import AutoImageProcessor, AutoModel
+from PIL import Image
+import requests
 
 class GraphBreakVisualizer:
     def __init__(self, module, inputs):
@@ -16,13 +17,11 @@ class GraphBreakVisualizer:
         self.inputs = inputs
 
         # Get dynamo explanation
-        self.dynamo_explanation = dynamo.explain(module.forward)(inputs)
+        self.dynamo_explanation = dynamo.explain(module.forward)(**inputs)
 
         # Get FX graph
-        with torch.fx.traceback.preserve_node_meta():
-            self.traced_module = symbolic_trace(module)
-            self.graph_drawer = passes.graph_drawer.FxGraphDrawer(
-                self.traced_module, module.__class__.__name__, parse_stack_trace=True)
+        self.traced_module = symbolic_trace(module)
+        self.graph_drawer = passes.graph_drawer.FxGraphDrawer(self.traced_module, module.__class__.__name__, parse_stack_trace=True)
 
 
     def modify_node_style(self, node, tooltip: str):
@@ -103,20 +102,15 @@ class GraphBreakModule(nn.Module):
 # HOPE
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-model_path = "ibm-granite/granite-vision-3.2-2b"
-module = AutoModelForVision2Seq.from_pretrained(model_path).to(device)
+url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
+image = Image.open(requests.get(url, stream=True).raw)
 
-# Create dummy input generator
-dummy_gen = DummyInputGenerator()
+processor = AutoImageProcessor.from_pretrained('facebook/dinov2-small')
+module = AutoModel.from_pretrained('facebook/dinov2-small')
 
-# Generate dummy inputs for the model's forward method
-inputs_model = {}
-for input_name in module.forward.__code__.co_varnames:
-    if dummy_gen.supports_input(input_name):
-        inputs_model[input_name] = dummy_gen.generate(input_name, framework="pt")
-
-# Move all inputs to the correct device
-inputs_model = {k: v.to(device) for k, v in inputs_model.items()}
+inputs_model = processor(images=image, return_tensors="pt")
+outputs = module(**inputs_model)
+print(outputs)
 
 # Usage
 # module = GraphBreakModule()
