@@ -3,6 +3,7 @@ from traceback import FrameSummary
 import torch
 import torch.nn as nn
 import torch._dynamo as dynamo
+from torch._dynamo.output_graph import GraphCompileReason
 from torch.fx import passes, symbolic_trace
 import re
 from graphviz import Digraph, Source
@@ -22,9 +23,22 @@ class GraphBreakVisualizer:
                 self.traced_module, module.__class__.__name__, parse_stack_trace=True)
 
 
-    def modify_node_style(self, node):
+    def modify_node_style(self, node, tooltip: str):
         node['attributes']['fontcolor'] = '#880808'
+        node['attributes']['tooltip'] = tooltip
         return node
+
+    def format_break_reason(self, break_reason: GraphCompileReason):
+        # Format the break reason string
+        formatted_reason = break_reason.reason
+        if "builtin: print" in formatted_reason:
+            formatted_reason = f"Unsupported print statement. {formatted_reason}"
+
+        if break_reason.user_stack:
+            formatted_reason += "\n\nUser Stack:\n"
+            for frame in break_reason.user_stack:
+                formatted_reason += f"{frame.filename}:{frame.lineno}\n"
+        return formatted_reason
 
     def align_graph_break_to_node(self, break_frame: list[FrameSummary], nodes: dict):
         target_file = break_frame[0].filename
@@ -61,7 +75,8 @@ class GraphBreakVisualizer:
         for break_reason in self.dynamo_explanation.break_reasons:
             user_stack = break_reason.user_stack
             best_node_name, _ = self.align_graph_break_to_node(user_stack, dot_graph.obj_dict['nodes'])
-            updated_node = self.modify_node_style(dot_graph.obj_dict['nodes'][best_node_name][0])
+            tooltip_str = self.format_break_reason(break_reason)
+            updated_node = self.modify_node_style(dot_graph.obj_dict['nodes'][best_node_name][0], tooltip_str)
             dot_graph.obj_dict['nodes'][best_node_name][0] = updated_node
 
 
