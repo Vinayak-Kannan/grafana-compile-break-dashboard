@@ -5,5 +5,5 @@ __pycache__*
 logs
 scratch*
 tl_out
-venv2
+venv*
 .gitignore
