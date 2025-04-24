@@ -1,13 +1,17 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.12-bookworm'
+        }
+    }
+
+    environment {
+        PROM_USERNAME          = credentials('grafana-cloud-prom-user')
+        LOKI_USERNAME          = credentials('grafana-cloud-logs-user')
+        GRAFANA_CLOUD_API_KEY  = credentials('grafana-cloud-api-key')
+    }
     
     stages {
-        stage('Testing') {
-            steps {
-                echo 'Testing'
-            }
-        }
-
         stage('Hello') {
             steps {
                 echo 'Hello World'
@@ -15,26 +19,23 @@ pipeline {
         }
 
         stage('Download Requirements') {
-                steps {
-                    sh 'pip install -r requirements.txt'
-                }
-            }
-
-        stage('Run Dynamo Explain') {
-                steps {
-                    // Execute a Python script that runs dynamo.explain
-                    sh '''
-                        python3 pull_model_run_dynamo_explain.py
-                    '''
-                }
-            }
-
-        stage('Get Number Graph Breaks') {
             steps {
-                // Execute a Python script that runs dynamo.explain
+                sh 'pip install -r requirements.txt'
+            }
+        }
+
+        stage('Collect compile-breaks') {
+            steps {
                 sh '''
-                    python3 parse_dynamo_explain.py
+                python scripts/collect_compile_breaks.py
                 '''
+            }
+        }
+
+        stage('Archive artifacts') {
+            steps {
+                archiveArtifacts artifacts: 'metrics/**',
+                fingerprint: true
             }
         }
     }

@@ -1,0 +1,24 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    container_name: jenkins
+    user: root
+    ports: ["8080:8080"]
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+  alloy:
+    image: grafana/alloy:latest
+    container_name: alloy
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - /etc/alloy/config.alloy
+    env_file: ./alloy/env.secrets
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - jenkins_home:/var/jenkins_home:ro
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:

@@ -1,0 +1,38 @@
+/*  Compile-break logs → Loki  */
+loki.source.file "compile_breaks" {
+  targets = [{__path__ = "/var/jenkins_home/metrics/compile_breaks.log"}]
+  labels  = {job = "compile_breaks"}
+  forward_to = [loki.write.cloud.receiver]
+}
+
+/*  Ship to Grafana Cloud – credentials kept in Jenkins secrets  */
+loki.write "cloud" {
+  endpoint {
+    url = "https://logs-prod-036.grafana.net/loki/api/v1/push"
+    basic_auth {
+      username = env("LOKI_USERNAME")
+      password = env("GRAFANA_CLOUD_API_KEY")
+    }
+  }
+}
+
+/*  Expose the same file as a metrics endpoint (textfile pattern)  */
+local.file_match "break_files" {
+  path_targets = [{__path__ = "/var/jenkins_home/metrics/compile_breaks.prom"}]
+}
+prometheus.scrape "compile_break_metrics" {
+  targets    = local.file_match.break_files.targets
+  forward_to = [prometheus.remote_write.metrics_hosted_prometheus.receiver]
+  scrape_interval = "30s"
+}
+
+prometheus.remote_write "metrics_hosted_prometheus" {
+  endpoint {
+    name = "hosted-prometheus"
+    url = "https://prometheus-prod-56-prod-us-east-2.grafana.net/api/prom/push"
+    basic_auth {
+      username = env("PROM_USERNAME")
+      password = env("GRAFANA_CLOUD_API_KEY")
+    }
+  }
+}
