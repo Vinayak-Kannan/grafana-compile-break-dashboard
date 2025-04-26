@@ -1,7 +1,6 @@
 /*  Compile-break logs → Loki  */
 loki.source.file "compile_breaks" {
   targets = [{__path__ = "/var/jenkins_home/metrics/compile_breaks.log"}]
-  labels  = {job = "compile_breaks"}
   forward_to = [loki.write.cloud.receiver]
 }
 

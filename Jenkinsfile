@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.12-bookworm'
-        }
-    }
+    agent any
 
     environment {
         PROM_USERNAME          = credentials('grafana-cloud-prom-user')
