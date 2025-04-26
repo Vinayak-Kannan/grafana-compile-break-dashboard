@@ -14,6 +14,12 @@ pipeline {
             }
         }
 
+        stage('Python?') {
+            steps {
+                sh 'python --version'
+            }
+        }
+
         stage('Download Requirements') {
             steps {
                 sh 'pip install -r requirements.txt'
