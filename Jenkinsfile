@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        PROM_USERNAME          = credentials('grafana-cloud-prom-user')
-        LOKI_USERNAME          = credentials('grafana-cloud-logs-user')
-        GRAFANA_CLOUD_API_KEY  = credentials('grafana-cloud-api-key')
-    }
+    // environment {
+    //     PROM_USERNAME          = credentials('grafana-cloud-prom-user')
+    //     LOKI_USERNAME          = credentials('grafana-cloud-logs-user')
+    //     GRAFANA_CLOUD_API_KEY  = credentials('grafana-cloud-api-key')
+    // }
     
     stages {
         stage('Hello') {
