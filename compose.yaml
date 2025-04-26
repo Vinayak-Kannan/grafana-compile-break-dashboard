@@ -3,9 +3,26 @@ services:
     image: jenkins/jenkins:lts-jdk17
     container_name: jenkins
     user: root
-    ports: ["8080:8080"]
+    ports:
+      - "8080:8080"   # Jenkins UI / API
+      - "50000:50000" # JNLP (agent) port
     volumes:
       - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins-net
+
+  python-agent:
+    build: ./jenkins-agent-python
+    container_name: jenkins-python-agent
+    environment:
+      - JENKINS_AGENT_LABELS=python-agent
+      - JENKINS_URL=http://jenkins:8080
+      - JENKINS_AGENT_NAME=python-agent
+      - JENKINS_AGENT_SECRET=0370e9899a91c6fde55e374f93338db38371e6f8f07531875a76ea3467fcd03f
+    depends_on:
+      - jenkins
+    networks:
+      - jenkins-net
 
   alloy:
     image: grafana/alloy:latest
@@ -22,3 +39,6 @@ services:
 
 volumes:
   jenkins_home:
+
+networks:
+  jenkins-net:
