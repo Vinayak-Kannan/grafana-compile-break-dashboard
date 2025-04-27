@@ -18,6 +18,7 @@ pipeline {
             steps {
                 sh 'python --version'
                 sh 'pip --version'
+                sh 'pwd'
             }
         }
 
