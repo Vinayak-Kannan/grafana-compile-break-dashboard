@@ -23,7 +23,10 @@ pipeline {
 
         stage('Download Requirements') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh '''
+                    source /opt/venv/bin/activate
+                    pip install -r requirements.txt
+                '''
             }
         }
 
