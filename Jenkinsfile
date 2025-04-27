@@ -33,6 +33,7 @@ pipeline {
         stage('Collect compile-breaks') {
             steps {
                 sh '''
+                . /opt/venv/bin/activate
                 python scripts/collect_compile_breaks.py
                 '''
             }
