@@ -1,6 +1,6 @@
 services:
   jenkins:
-    build: ./jenkins-with-python
+    build: .
     container_name: jenkins
     user: root
     ports:
