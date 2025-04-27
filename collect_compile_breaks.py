@@ -6,7 +6,6 @@ from transformers import AutoModel
 import numpy as np
 import umap
 from dynamo_explain_parser import DynamoExplainParser
-from dynamo_explain_viewer import DynamoExplainViewer
 
 PROM_FILE = pathlib.Path("metrics/compile_breaks.prom")
 LOG_FILE  = pathlib.Path("metrics/compile_breaks.log")

@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh '''
                 . /opt/venv/bin/activate
-                python scripts/collect_compile_breaks.py
+                python collect_compile_breaks.py
                 '''
             }
         }
