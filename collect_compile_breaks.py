@@ -1,17 +1,19 @@
 # collect_compile_breaks.py  (snippet)
-import time, json, prometheus_client, pathlib, sys, os
+import time
+import pathlib
 import torch
 import torch._dynamo as dynamo
 from transformers import AutoModel
 import numpy as np
 import umap
 from dynamo_explain_parser import DynamoExplainParser
+import prometheus_client
 
 PROM_FILE = pathlib.Path("metrics/compile_breaks.prom")
 LOG_FILE  = pathlib.Path("metrics/compile_breaks.log")
 PROM_FILE.parent.mkdir(parents=True, exist_ok=True)
 
-breaks_total = prometheus_client.Counter(
+breaks_counter = prometheus_client.Counter(
     "compile_breaks_total",
     "Torch.compile breaks per commit",
     ["model", "commit", "reason"]
@@ -19,7 +21,7 @@ breaks_total = prometheus_client.Counter(
 
 def record(model, commit, reason):
     # 1. update Prometheus counter
-    breaks_total.labels(model, commit, reason).inc()
+    breaks_counter.labels(model, commit, reason).inc()
 
     # 2. append log-fmt line for richer queries
     ts = int(time.time()*1e9)
@@ -91,7 +93,7 @@ explanation = dynamo.explain(model.forward)(**inputs)
 data = DynamoExplainParser.parse_explain_output(explanation)
 
 for break_reason in data.break_reasons:
-    record(model_name, break_reason.number, break_reason.reason)
+    record(model_name, 1, break_reason.reason)
 
 # Save to a text file
 with open("dynamo_explanation.txt", "w") as f:
