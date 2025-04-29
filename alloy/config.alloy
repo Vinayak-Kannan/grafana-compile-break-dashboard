@@ -26,10 +26,10 @@ loki.write "cloud" {
 local.file_match "break_files" {
   path_targets = [{__path__ = "/var/jenkins_home/metrics/compile_breaks.prom"}]
 }
-prometheus.scrape "compile_break_metrics" {
-  targets    = prometheus.exporter.unix.jenkins_textfile.targets
+
+prometheus.scrape "pushgateway" {
+  targets    = [{"__address__" = "pushgateway:9091",}]
   forward_to = [prometheus.remote_write.metrics_hosted_prometheus.receiver]
-  scrape_interval = "30s"
 }
 
 prometheus.remote_write "metrics_hosted_prometheus" {

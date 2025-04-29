@@ -1,5 +1,6 @@
 # collect_compile_breaks.py  (snippet)
 import time
+import os
 import pathlib
 import torch
 import torch._dynamo as dynamo
@@ -7,16 +8,21 @@ from transformers import AutoModel
 import numpy as np
 import umap
 from dynamo_explain_parser import DynamoExplainParser
-import prometheus_client
+from prometheus_client import CollectorRegistry, Counter, push_to_gateway, generate_latest
 
 PROM_FILE = pathlib.Path("metrics/compile_breaks.prom")
 LOG_FILE  = pathlib.Path("metrics/compile_breaks.log")
 PROM_FILE.parent.mkdir(parents=True, exist_ok=True)
+PUSHGATEWAY_URL = "http://localhost:9091"
 
-breaks_counter = prometheus_client.Counter(
+# group and isolate metrics in its own registry
+registry = CollectorRegistry()
+
+breaks_counter = Counter(
     "compile_breaks_total",
     "Torch.compile breaks per commit",
-    ["model", "commit", "reason"]
+    ["model", "commit", "reason"],
+    registry=registry
 )
 
 def record(model, commit, reason):
@@ -27,6 +33,14 @@ def record(model, commit, reason):
     ts = int(time.time()*1e9)
     LOG_FILE.open("a").write(
         f"time={ts} model={model} commit={commit} reason=\"{reason}\"\n"
+    )
+
+def flush(job_name="compile_breaks", grouping_key=None):
+    push_to_gateway(
+        PUSHGATEWAY_URL,
+        job=job_name,  # top-level name in Pushgateway
+        grouping_key=grouping_key or {"model": model},  # job + grouping_key is the composite key
+        registry=registry,
     )
 
 # ...call `record()` for every failed commit...
@@ -95,10 +109,12 @@ data = DynamoExplainParser.parse_explain_output(explanation)
 for break_reason in data.break_reasons:
     record(model_name, 1, break_reason.reason)
 
+flush(grouping_key={"pipeline": os.getenv("BUILD_NUMBER")})
+
 # Save to a text file
 with open("dynamo_explanation.txt", "w") as f:
     f.write(str(explanation))
 
 # finally, dump current metrics snapshot
 with PROM_FILE.open("w") as f:
-    f.write(prometheus_client.generate_latest().decode())
+    f.write(generate_latest().decode())

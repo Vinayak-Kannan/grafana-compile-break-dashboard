@@ -8,6 +8,13 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
 
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: pushgateway
+    ports:
+      - "9091:9091"        # exposable to Alloy or your browser
+    restart: unless-stopped
+
   alloy:
     image: grafana/alloy:latest
     container_name: alloy
