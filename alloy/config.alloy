@@ -1,6 +1,12 @@
 /*  Compile-break logs → Loki  */
+local.file_match "logs" {
+  path_targets = [
+    {__path__ = "/var/jenkins_home/workspace/*/metrics/compile_breaks.log"},
+  ]
+}
+
 loki.source.file "compile_breaks" {
-  targets = [{__path__ = "/var/jenkins_home/workspace/*/metrics/compile_breaks.log"}]
+  targets = local.file_match.logs.targets
   forward_to = [loki.write.cloud.receiver]
 }
 
