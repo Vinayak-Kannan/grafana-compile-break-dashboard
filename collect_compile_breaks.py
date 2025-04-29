@@ -13,7 +13,7 @@ from prometheus_client import CollectorRegistry, Counter, push_to_gateway, gener
 PROM_FILE = pathlib.Path("metrics/compile_breaks.prom")
 LOG_FILE  = pathlib.Path("metrics/compile_breaks.log")
 PROM_FILE.parent.mkdir(parents=True, exist_ok=True)
-PUSHGATEWAY_URL = "http://localhost:9091"
+PUSHGATEWAY_URL = "http://pushgateway:9091"
 
 # group and isolate metrics in its own registry
 registry = CollectorRegistry()
