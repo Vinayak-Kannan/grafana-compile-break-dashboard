@@ -1,12 +1,51 @@
+# collect_compile_breaks.py  (snippet)
+import time
+import os
+import pathlib
 import torch
 import torch._dynamo as dynamo
 from transformers import AutoModel
 import numpy as np
 import umap
 from dynamo_explain_parser import DynamoExplainParser
-from dynamo_explain_viewer import DynamoExplainViewer
+from prometheus_client import CollectorRegistry, Counter, push_to_gateway, generate_latest
 
-model = AutoModel.from_pretrained("prajjwal1/bert-tiny")
+PROM_FILE = pathlib.Path("metrics/compile_breaks.prom")
+LOG_FILE  = pathlib.Path("metrics/compile_breaks.log")
+PROM_FILE.parent.mkdir(parents=True, exist_ok=True)
+PUSHGATEWAY_URL = "http://pushgateway:9091"
+
+# group and isolate metrics in its own registry
+registry = CollectorRegistry()
+
+breaks_counter = Counter(
+    "compile_breaks_total",
+    "Torch.compile breaks per commit",
+    ["model", "commit", "reason"],
+    registry=registry
+)
+
+def record(model, commit, reason):
+    # 1. update Prometheus counter
+    breaks_counter.labels(model, commit, reason).inc()
+
+    # 2. append log-fmt line for richer queries
+    ts = int(time.time()*1e9)
+    LOG_FILE.open("a").write(
+        f"time={ts} model={model} commit={commit} reason=\"{reason}\"\n"
+    )
+
+def flush(job_name="compile_breaks", grouping_key=None):
+    push_to_gateway(
+        PUSHGATEWAY_URL,
+        job=job_name,  # top-level name in Pushgateway
+        grouping_key=grouping_key or {"model": model},  # job + grouping_key is the composite key
+        registry=registry,
+    )
+
+# ...call `record()` for every failed commit...
+model_name = "prajjwal1/bert-tiny"
+model = AutoModel.from_pretrained(model_name)
 inputs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
 
 
@@ -66,9 +105,16 @@ model.forward = forward_refined
 
 explanation = dynamo.explain(model.forward)(**inputs)
 data = DynamoExplainParser.parse_explain_output(explanation)
-DynamoExplainViewer.view_explain_output(data)
 
+for break_reason in data.break_reasons:
+    record(model_name, 1, break_reason.reason)
+
+flush(grouping_key={"pipeline": os.getenv("BUILD_NUMBER")})
 
 # Save to a text file
 with open("dynamo_explanation.txt", "w") as f:
     f.write(str(explanation))
+
+# finally, dump current metrics snapshot
+with PROM_FILE.open("w") as f:
+    f.write(generate_latest().decode())

@@ -1,5 +1,12 @@
 pipeline {
     agent any
+
+    environment {
+    //     PROM_USERNAME          = credentials('grafana-cloud-prom-user')
+    //     LOKI_USERNAME          = credentials('grafana-cloud-logs-user')
+    //     GRAFANA_CLOUD_API_KEY  = credentials('grafana-cloud-api-key')
+        PUSHGATEWAY_URL = 'http://pushgateway:9091'
+    }
     
     stages {
         stage('Hello') {
@@ -8,27 +15,36 @@ pipeline {
             }
         }
 
-        stage('Download Requirements') {
-                steps {
-                    sh 'pip install -r requirements.txt'
-                }
-            }
-
-        stage('Run Dynamo Explain') {
-                steps {
-                    // Execute a Python script that runs dynamo.explain
-                    sh '''
-                        python3 pull_model_run_dynamo_explain.py
-                    '''
-                }
-            }
-
-        stage('Get Number Graph Breaks') {
+        stage('Python?') {
             steps {
-                // Execute a Python script that runs dynamo.explain
+                sh 'python --version'
+                sh 'pip --version'
+                sh 'pwd'
+            }
+        }
+
+        stage('Download Requirements') {
+            steps {
                 sh '''
-                    python3 parse_dynamo_explain.py
+                    . /opt/venv/bin/activate
+                    pip install -r requirements.txt
                 '''
+            }
+        }
+
+        stage('Collect compile-breaks') {
+            steps {
+                sh '''
+                . /opt/venv/bin/activate
+                python collect_compile_breaks.py
+                '''
+            }
+        }
+
+        stage('Archive artifacts') {
+            steps {
+                archiveArtifacts artifacts: 'metrics/**',
+                fingerprint: true
             }
         }
     }
