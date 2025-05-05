@@ -1,5 +1,84 @@
-# How to set up Jenkins pipeline on GCP
+# How to run Grafana Pipeline
+## Prerequisites
 
+1. **Docker and Docker Compose**: Ensure Docker and Docker Compose are installed on your machine.
+2. **Grafana Cloud Account**: Create an account on [Grafana Cloud](https://grafana.com/) to obtain the necessary credentials.
+
+---
+
+## Step 1: Running Docker Compose
+
+1. Start the services using Docker Compose:
+   ```bash
+   docker-compose up -d
+   ```
+
+2. Verify that the following services are running:
+   - Jenkins: Accessible at http://localhost:8080
+   - Pushgateway: Accessible at http://localhost:9091
+   - Alloy: Accessible at http://localhost:12345
+
+---
+
+## Step 2: Setting Up Grafana Cloud Credentials
+1. Log in to your Grafana Cloud account and navigate to "Connections" -> "Add new connection" section. The necessary credentials can be obtained as follows.
+2. Select "Hosted Prometheus Metrics" and generate a new API token.
+   - Choose a method for forwarding metrics: "Via Grafana Alloy"
+   - Set the configuration: "Create a new token"
+   - The "url" will be your `PROM_URL`, the "username" will be your `PROM_USERNAME`, and the "password" will be your `PROM_GRAFANA_CLOUD_API_KEY`
+
+3. Select `Hosted logs` and generate an Access Policy token.
+   - Choose your use case: "Send logs from a standalone host"
+   - Select: "Create a new token"
+   - The "client: url:" contains https://`LOKI_USERNAME`:`LOKI_GRAFANA_CLOUD_API_KEY`@ENDPOINT
+   - The `LOKI_URL` will be the ENDPOINT appended with "loki/api/v1/push" instead of "api/prom/push" (i.e. https://logs-prod-XXX.grafana.net/loki/api/v1/push)
+
+4. Update the `env.secrets` file located at `alloy/env.secrets` with your credentials:
+   - LOKI_URL=\<Your Loki Push API URL\>
+   - LOKI_USERNAME=\<Your Loki Username\>
+   - LOKI_GRAFANA_CLOUD_API_KEY=\<Your Loki API Key\>
+
+   - PROM_URL=\<Your Prometheus URL\>
+   - PROM_USERNAME=\<Your Prometheus Username\>
+   - PROM_GRAFANA_CLOUD_API_KEY=\<Your Prometheus API Key\>
+
+5. Restart the Alloy service to apply the changes:
+   ```bash
+      docker compose restart alloy
+   ```
+
+---
+## Step 3: Triggering the Jenkins Pipeline
+1. Access the Jenkins UI at http://localhost:8080.
+2. During the initial setup:
+   - Retrieve the admin password by running:
+     ```bash
+        docker logs jenkins
+     ```
+   - Copy the password and paste it into the Jenkins setup page.
+3. Install the recommended plugins and set up a new **Multibranch Pipeline** project.
+4. Configure the pipeline:
+   - Link it to your GitHub repository containing this project.
+   - Add your GitHub credentials (use a Personal Access Token with repo access).
+5. Trigger the pipeline:
+   - Jenkins will automatically detect the Jenkinsfile in the repository and start running the pipeline.
+  
+---
+## Step 4: Verifying Metrics and Logs
+1. Prometheus Metrics: Metrics are pushed to the Prometheus Pushgateway and can be viewed in Grafana Cloud Dashboards.
+   - Select the default Prometheus data source.
+   - Select `compile_breaks_total` as the metric.
+   - Run the query `sum by(model, commit, reason) (compile_breaks_total)`.
+   - View the total compile breaks as a line graph or bar chart.
+2. Loki Logs: Compile-break logs are sent to Loki and can be visualized in Grafana Cloud Dashboards.
+   - Select the default Loki data source.
+   - Filter by label.
+4. Artifacts:
+   - Pipeline artifacts (e.g., metrics files) are archived in Jenkins and can be downloaded from the Jenkins UI.
+
+---
+
+### How to set up Jenkins pipeline on GCP
 1. Download Docker Desktop
 2. Run the command `docker build --platform=linux/amd64 -t jenkins-custom:latest .`
 3. Go to here: https://cloud.google.com/artifact-registry/docs/docker/store-docker-container-images
@@ -31,4 +110,3 @@
 9. Create a multibranch pipeline project
 10. Sync it up with the github repository. Make sure you add your github credentials (I recommend using a personal access token (classic with repo access))
 11. You should see it start running our Jenkinsfile after creation
-
