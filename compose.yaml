@@ -2,6 +2,7 @@ services:
   jenkins:
     build: .
     container_name: jenkins
+    user: root
     ports:
       - "8080:8080"   # expose Jenkins UI
     volumes:
