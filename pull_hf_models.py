@@ -33,6 +33,7 @@ from analyze_model import analyze_model
 
 # State file for commit SHAs
 STATE_FILE = "last_model_commits.json"
+OUTPUT_FILE = "analysis_results.json"
 
 
 def load_state() -> Dict[str, str]:
@@ -47,18 +48,25 @@ def save_state(state: Dict[str, str]):
         json.dump(state, f, indent=2)
 
 
-def fetch_top_models_hf_api(limit: int) -> List[ModelInfo]:
-    api = HfApi()
-    print(f"Fetching top {limit} models via huggingface_hub client…")
-    return api.list_models(limit=limit, sort="downloads", direction=-1)
+def save_results(results: Dict[str, dict]):
+    """Write the collected analysis outputs to JSON for Grafana pipeline."""
+    os.makedirs(os.path.dirname(OUTPUT_FILE) or '.', exist_ok=True)
+    with open(OUTPUT_FILE, "w") as f:
+        json.dump(results, f, indent=2)
+    print(f"[+] Saved analysis results to {OUTPUT_FILE}")
 
 
-def fetch_top_models_http(limit: int) -> List[Dict]:
+def fetch_top_models(limit: int) -> List[str]:
+    if HfApi:
+        api = HfApi()
+        infos = api.list_models(limit=limit, sort="downloads", direction=-1)
+        return [m.modelId for m in infos]
+    # HTTP fallback
     url = "https://huggingface.co/api/models"
     params = {"sort": "downloads", "direction": -1, "limit": limit}
     resp = requests.get(url, params=params, timeout=10)
     resp.raise_for_status()
-    return resp.json()
+    return [m['id'] for m in resp.json()]
 
 
 def get_latest_commit(model_id: str, api: 'HfApi') -> str:
@@ -67,54 +75,62 @@ def get_latest_commit(model_id: str, api: 'HfApi') -> str:
 
 
 def single_scan(n: int):
-    if HfApi is not None:
-        models = fetch_top_models_hf_api(n)
-        for i, m in enumerate(models, start=1):
-            print(f"{i:2d}. {m.modelId}  (downloads={m.downloads:,}, likes={m.likes:,})")
-    else:
-        models = fetch_top_models_http(n)
-        for i, m in enumerate(models, start=1):
-            print(f"{i:2d}. {m['id']}  (downloads={m.get('downloads','n/a')}, likes={m.get('likes','n/a')})")
+    """Print top-N models."""
+    for i, mid in enumerate(fetch_top_models(n), start=1):
+        print(f"{i:2d}. {mid}")
 
 
 def scheduled_scan(n: int):
-    if HfApi is None:
+    """One-time scan: detect new commits, run analysis for updated models, save results."""
+    if not HfApi:
         print("Error: huggingface_hub not installed. Cannot perform scheduled scan.")
         return
     api = HfApi()
-    last_state = load_state()
+    last = load_state()
+    
     new_state: Dict[str, str] = {}
-    models = fetch_top_models_hf_api(n)
-    for m in models:
-        mid = m.modelId
+    results: Dict[str, dict] = {}
+
+    for mid in fetch_top_models(n):
         sha = get_latest_commit(mid, api)
         new_state[mid] = sha
-        if last_state.get(mid) != sha:
-            print(f"[+] New commit for {mid}: {sha[:7]} – running analysis")
-            analyze_model(mid)
+        if last.get(mid) != sha:
+            print(f"[+] New commit for {mid}: {sha[:7]} – analyzing")
+            metrics = analyze_model(mid)
+            # Expect analyze_model to return a dict of metrics
+            results[mid] = metrics
+
     save_state(new_state)
+    if results:
+        save_results(results)
+    else:
+        print("[*] No updates detected; no results to save.")
 
 
 def watch_loop(n: int, interval: int):
-    if HfApi is None:
+    if not HfApi:
         print("Error: huggingface_hub not installed. Cannot watch models.")
         return
     api = HfApi()
     last_state = load_state()
+
     while True:
         new_state: Dict[str, str] = {}
-        models = fetch_top_models_hf_api(n)
-        for m in models:
-            mid = m.modelId
+        results: Dict[str, dict] = {}
+
+        for mid in fetch_top_models(n):
             sha = get_latest_commit(mid, api)
             new_state[mid] = sha
             if last_state.get(mid) != sha:
                 print(f"[+] Detected new commit for {mid}: {sha[:7]} – analyzing")
-                analyze_model(mid)
+                metrics = analyze_model(mid)
+                results[mid] = metrics
+
         save_state(new_state)
-        last_state = new_state
-        print(f"Sleeping {interval}s before next check...")
+        if results:
+            save_results(results)
         time.sleep(interval)
+        last_state = new_state
 
 
 def main():
@@ -139,72 +155,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-'''
-
-#!/usr/bin/env python3
-"""
-fetch_hf_models.py
-
-Fetch the top-N models from the Hugging Face Hub, sorted by download count.
-Later, you can extend this script to pull metadata (e.g., graph breaks or compilations)
-and ship metrics into your Grafana pipeline.
-
-Usage:
-    pip install huggingface_hub requests
-    python fetch_hf_models.py [N]
-"""
-
-import sys
-from typing import List, Dict
-
-try:
-    from huggingface_hub import HfApi, ModelInfo
-except ImportError:
-    HfApi = None
-
-import requests
-
-
-def fetch_top_models_hf_api(limit: int = 15) -> List[ModelInfo]:
-    """
-    Use the official huggingface_hub client to fetch models.
-    """
-    api = HfApi()
-    # sort by downloads descending
-    return api.list_models(limit=limit, sort="downloads", direction=-1)
-
-
-def fetch_top_models_http(limit: int = 15) -> List[Dict]:
-    """
-    Fallback: use the public REST API to fetch models.
-    """
-    url = "https://huggingface.co/api/models"
-    params = {"sort": "downloads", "direction": -1, "limit": limit}
-    resp = requests.get(url, params=params, timeout=10)
-    resp.raise_for_status()
-    return resp.json()
-
-
-def main(n: int = 15):
-    if HfApi is not None:
-        print(f"Fetching top {n} models via huggingface_hub client…")
-        models = fetch_top_models_hf_api(n)
-        for i, m in enumerate(models, start=1):
-            print(f"{i:2d}. {m.modelId}  (downloads={m.downloads:,}, likes={m.likes:,})")
-    else:
-        print("huggingface_hub not installed—falling back to HTTP API…")
-        models = fetch_top_models_http(n)
-        for i, m in enumerate(models, start=1):
-            print(f"{i:2d}. {m['id']}  (downloads={m.get('downloads', 'n/a')}, likes={m.get('likes', 'n/a')})")
-
-if __name__ == "__main__":
-    try:
-        count = int(sys.argv[1]) if len(sys.argv) > 1 else 15
-    except ValueError:
-        print("Usage: python fetch_hf_models.py [number_of_models]")
-        sys.exit(1)
-    main(count)
-
-'''
