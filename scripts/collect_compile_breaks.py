@@ -112,7 +112,7 @@ for break_reason in data.break_reasons:
 flush(grouping_key={"pipeline": os.getenv("BUILD_NUMBER")})
 
 # Save to a text file
-with open("dynamo_explanation.txt", "w") as f:
+with open("metrics/dynamo_explanation.txt", "w") as f:
     f.write(str(explanation))
 
 # finally, dump current metrics snapshot
