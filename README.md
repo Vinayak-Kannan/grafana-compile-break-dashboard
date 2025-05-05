@@ -10,7 +10,7 @@
 
 1. Start the services using Docker Compose:
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 2. Verify that the following services are running:
