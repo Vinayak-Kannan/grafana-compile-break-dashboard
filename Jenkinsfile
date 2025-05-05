@@ -48,7 +48,7 @@ pipeline {
                 sh '''
                    . /opt/venv/bin/activate
                    # environment SCHEDULED_SCAN=1, set in the enviornment block above, triggers the scan→analyze logic
-                   python fetch_hf_models.py 15
+                   python pull_hf_models.py 15
                 '''
             }
         }

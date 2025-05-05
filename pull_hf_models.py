@@ -116,7 +116,7 @@ def analyze_model_raw(model_id: str) -> DynamoExplainData:
     inputs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
     explain_out = dynamo.explain(model.forward)(**inputs)
 
-    data = DynamoExplainParser.parse_explain_output(explain_out)
+    data = DynamoExplainParser.parse_explain_output(explain_out)   # Important for Grafana 
 
     # Save raw explanation text
     out_txt = f"{model_id.replace('/', '_')}_dynamo_explanation.txt"
@@ -153,28 +153,6 @@ def scheduled_scan(n: int):
         save_results(results)
     else:
         print("[*] No updates detected; no results to save.")
-
-
-def watch_loop(n: int, interval: int):
-    last = load_state()
-    while True:
-        new_state = {}
-        results = {}
-        for mid in fetch_top_models(n):
-            sha = get_latest_commit(mid)
-            new_state[mid] = sha
-            if last.get(mid) != sha:
-                print(f"[+] Detected new commit for {mid}: {sha[:7]} – analyzing")
-                data = analyze_model_raw(mid)
-                for br in data.break_reasons:
-                    record(model=mid, commit=sha, reason=br.reason)
-                flush(grouping_key={"model": mid, "commit": sha})
-                results[mid] = dataclasses.asdict(data)
-        save_state(new_state)
-        if results:
-            save_results(results)
-        time.sleep(interval)
-        last = new_state
 
 
 ### Main function to parse arguments and run the appropriate mode ###
