@@ -46,6 +46,7 @@ from transformers import AutoModel
 # Parser and metrics
 from dynamo_explain_parser import DynamoExplainParser, DynamoExplainData
 # from collect_compile_breaks import record, flush
+from run_model_sample_code import get_model_sample_code
 
 # File paths
 STATE_FILE = "last_model_commits.json"
@@ -73,18 +74,48 @@ def save_results(results: Dict[str, dict]):
         json.dump(results, f, indent=2)
     print(f"[+] Saved analysis results to {OUTPUT_FILE}")
 
+def count_trainable_parameters(model):
+    model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+    params = sum([np.prod(p.size()) for p in model_parameters])
+    return params
+
 
 def fetch_top_models(limit: int) -> List[str]:
-    if HfApi:
-        api = HfApi()
-        infos = api.list_models(limit=limit, sort="downloads", direction=-1)
-        return [m.modelId for m in infos]
-    # HTTP fallback
-    url = "https://huggingface.co/api/models"
-    params = {"sort": "downloads", "direction": -1, "limit": limit}
-    resp = requests.get(url, params=params, timeout=10)
-    resp.raise_for_status()
-    return [m['id'] for m in resp.json()]
+        models = []
+        count = 0
+        if HfApi:
+                api = HfApi()
+                infos = api.list_models(limit=limit * 3, sort="downloads", direction=-1)
+                for m in infos:
+                        if count >= limit:
+                                break
+                        try:
+                                model = AutoModel.from_pretrained(m.modelId)
+                                num_params = count_trainable_parameters(model)
+                                print(num_params)
+                                if num_params < 1_000_000_000:
+                                        models.append(m.modelId)
+                                        count += 1
+                        except Exception:
+                                continue
+                return models
+        # HTTP fallback
+        url = "https://huggingface.co/api/models"
+        params = {"sort": "downloads", "direction": -1, "limit": limit * 3}
+        resp = requests.get(url, params=params, timeout=10)
+        resp.raise_for_status()
+        for m in resp.json():
+                if count >= limit:
+                        break
+                try:
+                        model = AutoModel.from_pretrained(m['id'])
+                        num_params = count_trainable_parameters(model)
+                        if num_params < 1_000_000_000:
+                                models.append(m['id'])
+                                count += 1
+                except Exception:
+                        continue
+        return models
 
 
 def get_latest_commit(model_id: str, api) -> str:
@@ -152,9 +183,14 @@ def analyze_model_raw(model_id: str) -> DynamoExplainData:
     """
     print(f"[*] Loading model {model_id}")
     model = AutoModel.from_pretrained(model_id)
+    get_model_sample_code(model_id)
 
     # Dynamically build inputs and patch model.forward if needed
-    inputs = build_model_inputs(model)
+#     inputs = build_model_inputs(model)
+
+    # Load inputs from the dictionary in text.txt
+    with open('temp.txt', 'r') as f:
+        inputs = json.load(f)
 
     print(f"[*] Running TorchDynamo explain for {model_id} with inputs {list(inputs)}")
     explain_out = dynamo.explain(model.forward)(**inputs)
