@@ -49,6 +49,7 @@ def save_state(state: Dict[str, str]):
 
 def fetch_top_models_hf_api(limit: int) -> List[ModelInfo]:
     api = HfApi()
+    print(f"Fetching top {limit} models via huggingface_hub client…")
     return api.list_models(limit=limit, sort="downloads", direction=-1)
 
 
