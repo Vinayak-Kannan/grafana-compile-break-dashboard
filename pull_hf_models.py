@@ -53,6 +53,61 @@ import ast
 STATE_FILE = "last_model_commits.json"
 OUTPUT_FILE = "analysis_results.json"
 
+model_family_dict = {
+        k.lower().replace(' ', '-'): v
+        for k, v in {
+                "Audio-Text-to-Text": "Multimodal",
+                "Image-Text-to-Text": "Multimodal",
+                "Visual Question Answering": "Multimodal",
+                "Document Question Answering": "Multimodal",
+                "Video-Text-to-Text": "Multimodal",
+                "Visual Document Retrieval": "Multimodal",
+                "Any-to-Any": "Multimodal",
+                "Depth Estimation": "Computer Vision",
+                "Image Classification": "Computer Vision",
+                "Object Detection": "Computer Vision",
+                "Image Segmentation": "Computer Vision",
+                "Text-to-Image": "Computer Vision",
+                "Image-to-Text": "Computer Vision",
+                "Image-to-Image": "Computer Vision",
+                "Image-to-Video": "Computer Vision",
+                "Unconditional Image Generation": "Computer Vision",
+                "Video Classification": "Computer Vision",
+                "Text-to-Video": "Computer Vision",
+                "Zero-Shot Image Classification": "Computer Vision",
+                "Mask Generation": "Computer Vision",
+                "Zero-Shot Object Detection": "Computer Vision",
+                "Text-to-3D": "Computer Vision",
+                "Image-to-3D": "Computer Vision",
+                "Image Feature Extraction": "Computer Vision",
+                "Keypoint Detection": "Computer Vision",
+                "Text Classification": "Natural Language Processing",
+                "Token Classification": "Natural Language Processing",
+                "Table Question Answering": "Natural Language Processing",
+                "Question Answering": "Natural Language Processing",
+                "Zero-Shot Classification": "Natural Language Processing",
+                "Translation": "Natural Language Processing",
+                "Summarization": "Natural Language Processing",
+                "Feature Extraction": "Natural Language Processing",
+                "Text Generation": "Natural Language Processing",
+                "Text2Text Generation": "Natural Language Processing",
+                "Fill-Mask": "Natural Language Processing",
+                "Sentence Similarity": "Natural Language Processing",
+                "Text Ranking": "Natural Language Processing",
+                "Text-to-Speech": "Audio",
+                "Text-to-Audio": "Audio",
+                "Automatic Speech Recognition": "Audio",
+                "Audio-to-Audio": "Audio",
+                "Audio Classification": "Audio",
+                "Voice Activity Detection": "Audio",
+                "Tabular Classification": "Tabular",
+                "Tabular Regression": "Tabular",
+                "Time Series Forecasting": "Tabular",
+                "Reinforcement Learning": "Reinforcement Learning",
+                "Robotics": "Reinforcement Learning",
+                "Graph Machine Learning": "Other"
+        }.items()
+}
 
 ### Helper Functions ###
 
@@ -81,13 +136,35 @@ def count_trainable_parameters(model):
     return params
 
 
-def fetch_top_models(limit: int) -> List[str]:
+def fetch_top_models(limit: int, model_family: str) -> List[str]:
         models = []
-        count = 0
+        model_infos = []
+        # Build tasks list for the given model_family
+        tasks = [task for task, family in model_family_dict.items() if family == model_family]
+        if not tasks:
+                print(f"[!] No tasks found for model_family '{model_family}'")
+                return []
+        else:
+                print(f"[+] Tasks for model_family '{model_family}': {tasks}")
+
         if HfApi:
                 api = HfApi()
-                infos = api.list_models(limit=limit * 3, sort="downloads", direction=-1)
-                for m in infos:
+                seen_ids = set()
+                # Collect all models for each task
+                for task in tasks:
+                        try:
+                                infos = api.list_models(limit=limit * 10, sort="downloads", direction=-1, pipeline_tag=task)
+                                for m in infos:
+                                        if m.modelId not in seen_ids:
+                                                model_infos.append(m)
+                                                seen_ids.add(m.modelId)
+                        except Exception as e:
+                                print(f"[!] Error fetching models for task '{task}': {e}")
+                                continue
+                # Sort all collected models by downloads (descending)
+                model_infos.sort(key=lambda m: getattr(m, "downloads", 0), reverse=True)
+                count = 0
+                for m in model_infos:
                         if count >= limit:
                                 break
                         try:
@@ -96,25 +173,11 @@ def fetch_top_models(limit: int) -> List[str]:
                                 if num_params < 1_000_000_000:
                                         models.append(m.modelId)
                                         count += 1
-                        except Exception:
+                        except Exception as e:
+                                print(f"[!] Error loading model {m.modelId}: {e}")
                                 continue
                 return models
-        # HTTP fallback
-        url = "https://huggingface.co/api/models"
-        params = {"sort": "downloads", "direction": -1, "limit": limit * 3}
-        resp = requests.get(url, params=params, timeout=10)
-        resp.raise_for_status()
-        for m in resp.json():
-                if count >= limit:
-                        break
-                try:
-                        model = AutoModel.from_pretrained(m['id'])
-                        num_params = count_trainable_parameters(model)
-                        if num_params < 1_000_000_000:
-                                models.append(m['id'])
-                                count += 1
-                except Exception:
-                        continue
+        print("Uh oh")
         return models
 
 
@@ -191,8 +254,7 @@ def analyze_model_raw(model_id: str) -> DynamoExplainData:
     # Load inputs from the dictionary in text.txt
     # Load inputs from temp.txt as a Python dict with torch tensors
     with open('temp.txt', 'r') as f:
-        content = f.read().replace('tensor', 'torch.tensor')
-
+        content = f.read()
         # Use eval with restricted globals to allow torch.tensor and numpy arrays
         inputs = eval(content, {"torch": torch, "np": np, "numpy": np})
     # Convert lists to torch tensors if needed (in case eval parses as lists)
@@ -241,7 +303,7 @@ def analyze_model_raw(model_id: str) -> DynamoExplainData:
 
 def single_scan(n: int):
     """Print top-N models."""
-    for i, mid in enumerate(fetch_top_models(n), start=1):
+    for i, mid in enumerate(fetch_top_models(n, model_family='Multimodal'), start=1):
         print(f"{i:2d}. {mid}")
 
 
@@ -304,7 +366,7 @@ def main():
     args = parser.parse_args()
 
     # Scheduled scan via env var
-    if True:
+    if False:
         scheduled_scan(args.N)
     # Default one-time listing
     else:
