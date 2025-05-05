@@ -2,19 +2,19 @@ from huggingface_hub import HfApi, ModelInfo, ModelCard
 import re
 import io
 import sys
+import ast
+import json
 
 
-def get_model_sample_code():
+def get_model_sample_code(model_id: str):
         """
         Fetches the sample code for a model from Hugging Face Hub.
 
         Returns:
         A dictionary containing the model ID and its sample code.
         """
-        api = HfApi()
-        model_id = "bert-base-uncased"  # Example model ID
 #     try:
-        card = ModelCard.load("bert-base-uncased")
+        card = ModelCard.load(model_id)
         model_card_str = card.content
         parse_text(model_card_str)
 #     except Exception as e:
@@ -30,13 +30,14 @@ def parse_text(card_text: str):
             lines = block.strip().split('\n')
             for i, line in enumerate(lines):
                 # Match the line containing 'input'
-                if "input" in line:
+                if "encoded_input" in line:
                     # Only keep lines up to and including the 'input' assignment
                     output_lines = lines[:i + 1]
                     # Insert print statement for the variable assigned in the 'input' line
                     match = re.match(r'\s*(\w+)\s*=', line)
                     if match:
                         var_name = match.group(1)
+                        # Add print statement
                         output_lines.append(f'print({var_name})')
                     else:
                         output_lines.append('# print statement could not be generated')
@@ -48,15 +49,12 @@ def parse_text(card_text: str):
                     try:
                             exec('\n'.join(output_lines), {})
                     except Exception as e:
-                            print(f"Error during execution: {e}")
+                        print(f"Error during execution: {e}")
                     sys.stdout = old_stdout
 
                     # Save the captured output to temp.txt
                     with open('temp.txt', 'w') as f:
-                            f.write(mystdout.getvalue())
+                        f.write(mystdout.getvalue())
                     return
         else:
             raise ValueError("No code block with an 'input' assignment found.")
-
-
-get_model_sample_code()

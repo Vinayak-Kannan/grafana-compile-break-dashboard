@@ -47,6 +47,7 @@ from transformers import AutoModel
 from dynamo_explain_parser import DynamoExplainParser, DynamoExplainData
 # from collect_compile_breaks import record, flush
 from run_model_sample_code import get_model_sample_code
+import ast
 
 # File paths
 STATE_FILE = "last_model_commits.json"
@@ -92,7 +93,6 @@ def fetch_top_models(limit: int) -> List[str]:
                         try:
                                 model = AutoModel.from_pretrained(m.modelId)
                                 num_params = count_trainable_parameters(model)
-                                print(num_params)
                                 if num_params < 1_000_000_000:
                                         models.append(m.modelId)
                                         count += 1
@@ -189,8 +189,16 @@ def analyze_model_raw(model_id: str) -> DynamoExplainData:
 #     inputs = build_model_inputs(model)
 
     # Load inputs from the dictionary in text.txt
+    # Load inputs from temp.txt as a Python dict with torch tensors
     with open('temp.txt', 'r') as f:
-        inputs = json.load(f)
+        content = f.read().replace('tensor', 'torch.tensor')
+
+        # Use eval with restricted globals to allow torch.tensor and numpy arrays
+        inputs = eval(content, {"torch": torch, "np": np, "numpy": np})
+    # Convert lists to torch tensors if needed (in case eval parses as lists)
+    for k, v in inputs.items():
+        if not isinstance(v, torch.Tensor):
+            inputs[k] = torch.tensor(v)
 
     print(f"[*] Running TorchDynamo explain for {model_id} with inputs {list(inputs)}")
     explain_out = dynamo.explain(model.forward)(**inputs)
@@ -287,7 +295,7 @@ def scheduled_scan(n: int):
 
 def main():
     parser = argparse.ArgumentParser(description="Pull and monitor top Hugging Face models.")
-    parser.add_argument('N', nargs='?', type=int, default=15,
+    parser.add_argument('N', nargs='?', type=int, default=3,
                         help='Number of top models to fetch')
     parser.add_argument('--watch', action='store_true',
                         help='Continuously poll for new commits')
@@ -296,7 +304,7 @@ def main():
     args = parser.parse_args()
 
     # Scheduled scan via env var
-    if os.getenv('SCHEDULED_SCAN') == '1':
+    if True:
         scheduled_scan(args.N)
     # Default one-time listing
     else:
