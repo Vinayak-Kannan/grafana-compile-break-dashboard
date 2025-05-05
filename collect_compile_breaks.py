@@ -118,3 +118,15 @@ with open("dynamo_explanation.txt", "w") as f:
 # finally, dump current metrics snapshot
 with PROM_FILE.open("w") as f:
     f.write(generate_latest().decode())
+
+def main():
+    """
+    Example standalone invocation:
+       python collect_compile_breaks.py
+    """
+    # (Re-run whatever recording logic you want here for manual runs)
+    # For example, if you had a single-model demo, move that demo code here.
+    pass
+ 
+if __name__ == "__main__":
+    main()
