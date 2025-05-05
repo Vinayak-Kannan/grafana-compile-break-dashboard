@@ -1,9 +1,5 @@
 pipeline {
     agent any
-
-    environment {
-        PUSHGATEWAY_URL = 'http://pushgateway:9091'
-    }
     
     stages {
         stage('Download Requirements') {
