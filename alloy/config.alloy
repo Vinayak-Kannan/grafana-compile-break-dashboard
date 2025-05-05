@@ -23,7 +23,7 @@ loki.write "cloud" {
     url = "https://logs-prod-036.grafana.net/loki/api/v1/push"
     basic_auth {
       username = env("LOKI_USERNAME")
-      password = env("GRAFANA_CLOUD_API_KEY")
+      password = env("GRAFANA_CLOUD_LOKI_API_KEY")
     }
   }
 }
@@ -44,7 +44,7 @@ prometheus.remote_write "metrics_hosted_prometheus" {
     url = "https://prometheus-prod-56-prod-us-east-2.grafana.net/api/prom/push"
     basic_auth {
       username = env("PROM_USERNAME")
-      password = env("GRAFANA_CLOUD_API_KEY")
+      password = env("GRAFANA_CLOUD_PROM_API_KEY")
     }
   }
 }
