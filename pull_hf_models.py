@@ -27,6 +27,10 @@ import argparse
 import dataclasses
 from typing import List, Dict
 
+import inspect
+import numpy as np
+import umap
+
 # Try to import HF client; fallback HTTP if needed
 try:
     from huggingface_hub import HfApi, ModelInfo
@@ -41,7 +45,7 @@ from transformers import AutoModel
 
 # Parser and metrics
 from dynamo_explain_parser import DynamoExplainParser, DynamoExplainData
-from collect_compile_breaks import record, flush
+# from collect_compile_breaks import record, flush
 
 # File paths
 STATE_FILE = "last_model_commits.json"
@@ -83,10 +87,64 @@ def fetch_top_models(limit: int) -> List[str]:
     return [m['id'] for m in resp.json()]
 
 
-def get_latest_commit(model_id: str, api: 'HfApi') -> str:
-    commits = api.list_repo_commits(model_id, limit=1)
-    return commits[0].sha if commits else ""
+def get_latest_commit(model_id: str, api) -> str:
+    commits = api.list_repo_commits(model_id)
+    if not commits:
+        return ""
+    return commits[0].commit_id
 
+
+def build_model_inputs(model):
+    """
+    Inspect model.forward signature and:
+      - For text models (input_ids), patch forward to inject UMAP/seq-length hack,
+        and return a dummy input_ids tensor.
+      - For vision models (pixel_values), return a dummy image tensor.
+    """
+    sig = inspect.signature(model.forward)
+    params = list(sig.parameters.keys())
+    device = next(model.parameters()).device
+
+    # TEXT MODELS
+    if "input_ids" in params:
+        # patch forward to refine inputs
+        model.original_forward = model.forward
+
+        def forward_refined(**kwargs):
+            input_ids = kwargs["input_ids"]
+            seq_len = input_ids.shape[1]
+            mod_ids = input_ids.clone()
+            mod_ids[0, 0] += seq_len
+
+            arr = input_ids.cpu().numpy()
+            reducer = umap.UMAP(n_neighbors=2, n_components=2, random_state=42)
+            emb = reducer.fit_transform(arr)
+            umap_val = torch.tensor(emb[0, 0],
+                                   dtype=mod_ids.dtype,
+                                   device=mod_ids.device)
+            mod_ids[0, 0] += umap_val
+
+            kwargs["input_ids"] = mod_ids
+            return model.original_forward(**kwargs)
+
+        model.forward = forward_refined
+        # return a dummy batch of token indices
+        return {"input_ids": torch.ones(1, 10, dtype=torch.long, device=device)}
+    # VISION MODELS
+    elif "pixel_values" in params:
+        img_size = getattr(model.config, "image_size", 224)
+        # no patching: just random image
+        return {
+            "pixel_values": torch.randn(1, 3, img_size, img_size,
+                                        dtype=torch.float32,
+                                        device=device)
+        }
+    else:
+        raise RuntimeError(
+            f"Cannot auto-build inputs for model; "
+            f"forward signature keys: {params}"
+        )
+ 
 
 def analyze_model_raw(model_id: str) -> DynamoExplainData:
     """
@@ -95,6 +153,13 @@ def analyze_model_raw(model_id: str) -> DynamoExplainData:
     print(f"[*] Loading model {model_id}")
     model = AutoModel.from_pretrained(model_id)
 
+    # Dynamically build inputs and patch model.forward if needed
+    inputs = build_model_inputs(model)
+
+    print(f"[*] Running TorchDynamo explain for {model_id} with inputs {list(inputs)}")
+    explain_out = dynamo.explain(model.forward)(**inputs)
+
+    '''
     # Wrap forward to refine inputs (e.g., UMAP + seq-length hack)
     def forward_refined(**kwargs):
         input_ids = kwargs.get("input_ids")
@@ -115,14 +180,17 @@ def analyze_model_raw(model_id: str) -> DynamoExplainData:
     print(f"[*] Running TorchDynamo explain for {model_id}")
     inputs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
     explain_out = dynamo.explain(model.forward)(**inputs)
+    '''
 
     data = DynamoExplainParser.parse_explain_output(explain_out)   # Important for Grafana 
 
+    '''
     # Save raw explanation text
     out_txt = f"{model_id.replace('/', '_')}_dynamo_explanation.txt"
     with open(out_txt, 'w') as f:
         f.write(str(explain_out))
     print(f"[+] Saved raw explain output to {out_txt}")
+    '''
 
     return data
 
@@ -135,11 +203,37 @@ def single_scan(n: int):
 
 def scheduled_scan(n: int):
     """One-time scan: detect new commits, analyze, record metrics, save results."""
+    api = HfApi()                  
+    last = load_state()
+    new_state = {}
+    results = {}
+
+    for mid in fetch_top_models(n):
+        sha = get_latest_commit(mid, api)
+        new_state[mid] = sha
+
+        if last.get(mid) != sha:
+            print(f"[+] New commit for {mid}: {sha[:7]} – analyzing")
+            data = analyze_model_raw(mid)
+            for br in data.break_reasons:
+                record(model=mid, commit=sha, reason=br.reason)
+            flush(grouping_key={"model": mid, "commit": sha})
+            results[mid] = dataclasses.asdict(data)
+
+    save_state(new_state)
+    if results:
+        save_results(results)
+    else:
+        print("[*] No updates detected; no results to save.")
+
+'''
+def scheduled_scan(n: int):
+    """One-time scan: detect new commits, analyze, record metrics, save results."""
     last = load_state()
     new_state = {}
     results = {}
     for mid in fetch_top_models(n):
-        sha = get_latest_commit(mid)
+        sha = get_latest_commit(mid, HfApi)
         new_state[mid] = sha
         if last.get(mid) != sha:
             print(f"[+] New commit for {mid}: {sha[:7]} – analyzing")
@@ -153,6 +247,7 @@ def scheduled_scan(n: int):
         save_results(results)
     else:
         print("[*] No updates detected; no results to save.")
+'''
 
 
 ### Main function to parse arguments and run the appropriate mode ###
@@ -170,9 +265,6 @@ def main():
     # Scheduled scan via env var
     if os.getenv('SCHEDULED_SCAN') == '1':
         scheduled_scan(args.N)
-    # Watch mode
-    elif args.watch:
-        watch_loop(args.N, args.interval)
     # Default one-time listing
     else:
         single_scan(args.N)

@@ -290,3 +290,76 @@ time=1746461165417424896 model=prajjwal1/bert-tiny commit=1 reason="store_attr"
 time=1746461165417452032 model=prajjwal1/bert-tiny commit=1 reason="generic_jump NumpyNdarrayVariable()"
 time=1746461165417481984 model=prajjwal1/bert-tiny commit=1 reason="TODO: add support for ndarray.dtype"
 time=1746461165417509120 model=prajjwal1/bert-tiny commit=1 reason="generic_jump NumpyNdarrayVariable()"
+time=1746467127316572928 model=prajjwal1/bert-tiny commit=1 reason="Failed to trace builtin operator
+  Explanation: Dynamo does not know how to trace builtin operator `print` with argument types [&#x27;&lt;unknown type&gt;&#x27;] (has_kwargs False)
+  Hint: Avoid calling builtin `print` with argument types [&#x27;&lt;unknown type&gt;&#x27;]. Consider using an equivalent alternative function/method to `print`.
+  Hint: If you are attempting to call a logging function (e.g. `print`), you can try adding it to `torch._dynamo.config.reorderable_logging_functions`.
+  Hint: Please report an issue to PyTorch.
+
+  Developer debug context: builtin print [&lt;class &#x27;torch._dynamo.variables.misc.StringFormatVariable&#x27;&gt;] False
+"
+time=1746467127316861952 model=prajjwal1/bert-tiny commit=1 reason="Failed to trace builtin operator
+  Explanation: Dynamo does not know how to trace builtin operator `print` with argument types [&#x27;&lt;unknown type&gt;&#x27;] (has_kwargs False)
+  Hint: Avoid calling builtin `print` with argument types [&#x27;&lt;unknown type&gt;&#x27;]. Consider using an equivalent alternative function/method to `print`.
+  Hint: If you are attempting to call a logging function (e.g. `print`), you can try adding it to `torch._dynamo.config.reorderable_logging_functions`.
+  Hint: Please report an issue to PyTorch.
+
+  Developer debug context: builtin print [&lt;class &#x27;torch._dynamo.variables.misc.StringFormatVariable&#x27;&gt;] False
+"
+time=1746467127316913920 model=prajjwal1/bert-tiny commit=1 reason="step_unsupported"
+time=1746467127316953088 model=prajjwal1/bert-tiny commit=1 reason="Dynamic shape operator
+  Explanation: Operator `aten.nonzero.default`&#x27;s output shape depends on input Tensor data.
+  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`
+
+  Developer debug context: aten.nonzero.default
+"
+time=1746467127316986112 model=prajjwal1/bert-tiny commit=1 reason="Dynamic shape operator
+  Explanation: Operator `aten.nonzero.default`&#x27;s output shape depends on input Tensor data.
+  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`
+
+  Developer debug context: aten.nonzero.default
+"
+time=1746467127317017088 model=prajjwal1/bert-tiny commit=1 reason="Dynamic shape operator
+  Explanation: Operator `aten.nonzero.default`&#x27;s output shape depends on input Tensor data.
+  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`
+
+  Developer debug context: aten.nonzero.default
+"
+time=1746467127317047040 model=prajjwal1/bert-tiny commit=1 reason="Dynamic shape operator
+  Explanation: Operator `aten.nonzero.default`&#x27;s output shape depends on input Tensor data.
+  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`
+
+  Developer debug context: aten.nonzero.default
+"
+time=1746467127317074944 model=prajjwal1/bert-tiny commit=1 reason="Dynamic shape operator
+  Explanation: Operator `aten.nonzero.default`&#x27;s output shape depends on input Tensor data.
+  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`
+
+  Developer debug context: aten.nonzero.default
+"
+time=1746467127317232896 model=prajjwal1/bert-tiny commit=1 reason="Dynamic shape operator
+  Explanation: Operator `aten.nonzero.default`&#x27;s output shape depends on input Tensor data.
+  Hint: Enable tracing of dynamic shape operators with `torch._dynamo.config.capture_dynamic_output_shape_ops = True`
+
+  Developer debug context: aten.nonzero.default
+"
+time=1746467127317267968 model=prajjwal1/bert-tiny commit=1 reason="generic_jump NumpyNdarrayVariable()"
+time=1746467127317303040 model=prajjwal1/bert-tiny commit=1 reason="Data-dependent branching
+  Explanation: Detected data-dependent branching (e.g. `if my_tensor.sum() &gt; 0:`). Dynamo does not support tracing dynamic control flow.
+  Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround.
+  Hint: Use `torch.cond` to express dynamic control flow.
+
+  Developer debug context: attempted to jump with NumpyNdarrayVariable()
+"
+time=1746467127317334016 model=prajjwal1/bert-tiny commit=1 reason="Data-dependent branching
+  Explanation: Detected data-dependent branching (e.g. `if my_tensor.sum() &gt; 0:`). Dynamo does not support tracing dynamic control flow.
+  Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround.
+  Hint: Use `torch.cond` to express dynamic control flow.
+
+  Developer debug context: attempted to jump with NumpyNdarrayVariable()
+"
+time=1746467127317363968 model=prajjwal1/bert-tiny commit=1 reason="generic_jump NumpyNdarrayVariable()"
+time=1746467127317395968 model=prajjwal1/bert-tiny commit=1 reason="store_attr"
+time=1746467127317424896 model=prajjwal1/bert-tiny commit=1 reason="generic_jump NumpyNdarrayVariable()"
+time=1746467127317455104 model=prajjwal1/bert-tiny commit=1 reason="TODO: add support for ndarray.dtype"
+time=1746467127317481984 model=prajjwal1/bert-tiny commit=1 reason="generic_jump NumpyNdarrayVariable()"
