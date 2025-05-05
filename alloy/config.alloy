@@ -1,38 +1,26 @@
-/*  Compile-break logs → Loki  */
-local.file_match "logs" {
+/*  Compile-break logs -> Loki -> Grafana Cloud  */
+local.file_match "compile_logs" {
   path_targets = [
     {__path__ = "/var/jenkins_home/workspace/*/metrics/compile_breaks.log"},
   ]
 }
 
 loki.source.file "compile_breaks" {
-  targets = local.file_match.logs.targets
+  targets = local.file_match.compile_logs.targets
   forward_to = [loki.write.cloud.receiver]
 }
 
-prometheus.exporter.unix "jenkins_textfile" {
-  enable_collectors = ["textfile"]
-  textfile {
-    directory = "/var/jenkins_home/workspace/*/metrics"
-  }
-}
-
-/*  Ship to Grafana Cloud – credentials kept in Jenkins secrets  */
-loki.write "cloud" {
+loki.write "grafana_cloud_loki_api" {
   endpoint {
-    url = "https://logs-prod-036.grafana.net/loki/api/v1/push"
+    url = env("LOKI_URL")
     basic_auth {
       username = env("LOKI_USERNAME")
-      password = env("GRAFANA_CLOUD_LOKI_API_KEY")
+      password = env("LOKI_GRAFANA_CLOUD_API_KEY")
     }
   }
 }
 
-/*  Expose the same file as a metrics endpoint (textfile pattern)  */
-local.file_match "break_files" {
-  path_targets = [{__path__ = "/var/jenkins_home/metrics/compile_breaks.prom"}]
-}
-
+/*  Compile-break metrics -> Prometheus Pushgateway <- scraped by Alloy */
 prometheus.scrape "pushgateway" {
   targets    = [{"__address__" = "pushgateway:9091",}]
   forward_to = [prometheus.remote_write.metrics_hosted_prometheus.receiver]
@@ -41,10 +29,10 @@ prometheus.scrape "pushgateway" {
 prometheus.remote_write "metrics_hosted_prometheus" {
   endpoint {
     name = "hosted-prometheus"
-    url = "https://prometheus-prod-56-prod-us-east-2.grafana.net/api/prom/push"
+    url = env("PROM_URL")
     basic_auth {
       username = env("PROM_USERNAME")
-      password = env("GRAFANA_CLOUD_PROM_API_KEY")
+      password = env("PROM_GRAFANA_CLOUD_API_KEY")
     }
   }
 }
