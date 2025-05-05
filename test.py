@@ -56,7 +56,5 @@ def toy_example(a, b):
 
 a = torch.randn(10)
 b = torch.randn(10)
-# explanation = dynamo.explain(toy_example)(a, b)
-# print(explanation)
-compiled_model = torch.compile(model)
-compiled_model(**inputs)
+explanation = dynamo.explain(toy_example)(a, b)
+print(explanation)
