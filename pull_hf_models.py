@@ -4,20 +4,27 @@ pull_hf_models.py
 
 Unified script to:
   - Print top-N Hugging Face models by downloads.
-  - Perform a one-time scheduled scan (via env var) detecting new commits and running analysis.
-  - Run in watch mode (via --watch) to continuously poll for new commits.
+  - Perform a one-time scheduled scan (via SCHEDULED_SCAN env var) detecting new commits and running analysis.
+  - Run in watch mode (--watch) to continuously poll for new commits.
+  - Collect analysis outputs and metrics, record Prometheus counters, and save JSON for Grafana ingestion.
 
 Usage:
-  pip install huggingface_hub requests
+  # One-time list
   python pull_hf_models.py [N]
+
+  # Scheduled scan (e.g. via Jenkins with SCHEDULED_SCAN=1)
   SCHEDULED_SCAN=1 python pull_hf_models.py [N]
+
+  # Continuous watch mode
   python pull_hf_models.py [N] --watch --interval SECONDS
 """
+
 import sys
 import os
 import json
 import time
 import argparse
+import dataclasses
 from typing import List, Dict
 
 # Try to import HF client; fallback HTTP if needed
@@ -25,16 +32,23 @@ try:
     from huggingface_hub import HfApi, ModelInfo
 except ImportError:
     HfApi = None
-
 import requests
 
-# Import analysis function (ensure in PYTHONPATH or same dir)
-from analyze_model import analyze_model
+# TorchDynamo & HF model loading
+import torch
+import torch._dynamo as dynamo
+from transformers import AutoModel
 
-# State file for commit SHAs
+# Parser and metrics
+from dynamo_explain_parser import DynamoExplainParser, DynamoExplainData
+from collect_compile_breaks import record, flush
+
+# File paths
 STATE_FILE = "last_model_commits.json"
 OUTPUT_FILE = "analysis_results.json"
 
+
+### Helper Functions ###
 
 def load_state() -> Dict[str, str]:
     if os.path.exists(STATE_FILE):
@@ -74,6 +88,45 @@ def get_latest_commit(model_id: str, api: 'HfApi') -> str:
     return commits[0].sha if commits else ""
 
 
+def analyze_model_raw(model_id: str) -> DynamoExplainData:
+    """
+    Load model, run Dynamo explain, parse with DynamoExplainParser, return structured data.
+    """
+    print(f"[*] Loading model {model_id}")
+    model = AutoModel.from_pretrained(model_id)
+
+    # Wrap forward to refine inputs (e.g., UMAP + seq-length hack)
+    def forward_refined(**kwargs):
+        input_ids = kwargs.get("input_ids")
+        seq_len = input_ids.shape[1]
+        mod_ids = input_ids.clone()
+        mod_ids[0, 0] += seq_len
+        arr = input_ids.cpu().numpy()
+        reducer = umap.UMAP(n_neighbors=2, n_components=2, random_state=42)
+        emb = reducer.fit_transform(arr)
+        umap_val = torch.tensor(emb[0, 0], dtype=mod_ids.dtype, device=mod_ids.device)
+        mod_ids[0, 0] += umap_val
+        kwargs["input_ids"] = mod_ids
+        return model.original_forward(**kwargs)
+
+    model.original_forward = model.forward
+    model.forward = forward_refined
+
+    print(f"[*] Running TorchDynamo explain for {model_id}")
+    inputs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
+    explain_out = dynamo.explain(model.forward)(**inputs)
+
+    data = DynamoExplainParser.parse_explain_output(explain_out)
+
+    # Save raw explanation text
+    out_txt = f"{model_id.replace('/', '_')}_dynamo_explanation.txt"
+    with open(out_txt, 'w') as f:
+        f.write(str(explain_out))
+    print(f"[+] Saved raw explain output to {out_txt}")
+
+    return data
+
+
 def single_scan(n: int):
     """Print top-N models."""
     for i, mid in enumerate(fetch_top_models(n), start=1):
@@ -81,25 +134,20 @@ def single_scan(n: int):
 
 
 def scheduled_scan(n: int):
-    """One-time scan: detect new commits, run analysis for updated models, save results."""
-    if not HfApi:
-        print("Error: huggingface_hub not installed. Cannot perform scheduled scan.")
-        return
-    api = HfApi()
+    """One-time scan: detect new commits, analyze, record metrics, save results."""
     last = load_state()
-    
-    new_state: Dict[str, str] = {}
-    results: Dict[str, dict] = {}
-
+    new_state = {}
+    results = {}
     for mid in fetch_top_models(n):
-        sha = get_latest_commit(mid, api)
+        sha = get_latest_commit(mid)
         new_state[mid] = sha
         if last.get(mid) != sha:
             print(f"[+] New commit for {mid}: {sha[:7]} – analyzing")
-            metrics = analyze_model(mid)
-            # Expect analyze_model to return a dict of metrics
-            results[mid] = metrics
-
+            data = analyze_model_raw(mid)
+            for br in data.break_reasons:
+                record(model=mid, commit=sha, reason=br.reason)
+            flush(grouping_key={"model": mid, "commit": sha})
+            results[mid] = dataclasses.asdict(data)
     save_state(new_state)
     if results:
         save_results(results)
@@ -108,30 +156,28 @@ def scheduled_scan(n: int):
 
 
 def watch_loop(n: int, interval: int):
-    if not HfApi:
-        print("Error: huggingface_hub not installed. Cannot watch models.")
-        return
-    api = HfApi()
-    last_state = load_state()
-
+    last = load_state()
     while True:
-        new_state: Dict[str, str] = {}
-        results: Dict[str, dict] = {}
-
+        new_state = {}
+        results = {}
         for mid in fetch_top_models(n):
-            sha = get_latest_commit(mid, api)
+            sha = get_latest_commit(mid)
             new_state[mid] = sha
-            if last_state.get(mid) != sha:
+            if last.get(mid) != sha:
                 print(f"[+] Detected new commit for {mid}: {sha[:7]} – analyzing")
-                metrics = analyze_model(mid)
-                results[mid] = metrics
-
+                data = analyze_model_raw(mid)
+                for br in data.break_reasons:
+                    record(model=mid, commit=sha, reason=br.reason)
+                flush(grouping_key={"model": mid, "commit": sha})
+                results[mid] = dataclasses.asdict(data)
         save_state(new_state)
         if results:
             save_results(results)
         time.sleep(interval)
-        last_state = new_state
+        last = new_state
 
+
+### Main function to parse arguments and run the appropriate mode ###
 
 def main():
     parser = argparse.ArgumentParser(description="Pull and monitor top Hugging Face models.")
