@@ -2,33 +2,28 @@ pipeline {
     agent any
     
     stages {
-        stage('Hello') {
+        stage('Download Requirements') {
             steps {
-                echo 'Hello World'
+                sh '''
+                    . /opt/venv/bin/activate
+                    pip install -r requirements.txt
+                '''
             }
         }
 
-        stage('Download Requirements') {
-                steps {
-                    sh 'pip install -r requirements.txt'
-                }
-            }
-
-        stage('Run Dynamo Explain') {
-                steps {
-                    // Execute a Python script that runs dynamo.explain
-                    sh '''
-                        python3 pull_model_run_dynamo_explain.py
-                    '''
-                }
-            }
-
-        stage('Get Number Graph Breaks') {
+        stage('Collect compile-breaks') {
             steps {
-                // Execute a Python script that runs dynamo.explain
                 sh '''
-                    python3 parse_dynamo_explain.py
+                . /opt/venv/bin/activate
+                python scripts/collect_compile_breaks.py
                 '''
+            }
+        }
+
+        stage('Archive artifacts') {
+            steps {
+                archiveArtifacts artifacts: 'metrics/**',
+                fingerprint: true
             }
         }
     }

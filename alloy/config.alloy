@@ -1,0 +1,38 @@
+/*  Compile-break logs -> Loki -> Grafana Cloud  */
+local.file_match "compile_logs" {
+  path_targets = [
+    {__path__ = "/var/jenkins_home/workspace/*/metrics/compile_breaks.log"},
+  ]
+}
+
+loki.source.file "compile_breaks" {
+  targets = local.file_match.compile_logs.targets
+  forward_to = [loki.write.grafana_cloud_loki_api.receiver]
+}
+
+loki.write "grafana_cloud_loki_api" {
+  endpoint {
+    url = env("LOKI_URL")
+    basic_auth {
+      username = env("LOKI_USERNAME")
+      password = env("LOKI_GRAFANA_CLOUD_API_KEY")
+    }
+  }
+}
+
+/*  Compile-break metrics -> Prometheus Pushgateway <- scraped by Alloy */
+prometheus.scrape "pushgateway" {
+  targets    = [{"__address__" = "pushgateway:9091",}]
+  forward_to = [prometheus.remote_write.metrics_hosted_prometheus.receiver]
+}
+
+prometheus.remote_write "metrics_hosted_prometheus" {
+  endpoint {
+    name = "hosted-prometheus"
+    url = env("PROM_URL")
+    basic_auth {
+      username = env("PROM_USERNAME")
+      password = env("PROM_GRAFANA_CLOUD_API_KEY")
+    }
+  }
+}

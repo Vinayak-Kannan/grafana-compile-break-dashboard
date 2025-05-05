@@ -32,4 +32,3 @@
 10. Sync it up with the github repository. Make sure you add your github credentials (I recommend using a personal access token (classic with repo access))
 11. You should see it start running our Jenkinsfile after creation
 
-

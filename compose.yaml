@@ -1,0 +1,34 @@
+services:
+  jenkins:
+    build: .
+    container_name: jenkins
+    user: root
+    ports:
+      - "8080:8080"   # expose Jenkins UI
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: pushgateway
+    ports:
+      - "9091:9091"        # expose to Alloy
+    restart: unless-stopped
+
+  alloy:
+    image: grafana/alloy:latest
+    container_name: alloy
+    ports:
+      - "12345:12345"          # expose Alloy UI + /metrics
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - /etc/alloy/config.alloy
+    env_file: ./alloy/env.secrets
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - jenkins_home:/var/jenkins_home:ro
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
