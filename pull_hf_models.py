@@ -215,9 +215,6 @@ def scheduled_scan(n: int):
         if last.get(mid) != sha:
             print(f"[+] New commit for {mid}: {sha[:7]} – analyzing")
             data = analyze_model_raw(mid)
-            for br in data.break_reasons:
-                record(model=mid, commit=sha, reason=br.reason)
-            flush(grouping_key={"model": mid, "commit": sha})
             results[mid] = dataclasses.asdict(data)
 
     save_state(new_state)
