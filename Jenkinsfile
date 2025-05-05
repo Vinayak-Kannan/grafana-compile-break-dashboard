@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh '''
                 . /opt/venv/bin/activate
-                python collect_compile_breaks.py
+                python scripts/collect_compile_breaks.py
                 '''
             }
         }
