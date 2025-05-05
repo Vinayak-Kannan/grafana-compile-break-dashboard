@@ -10,7 +10,7 @@ from pathlib import Path
 from prometheus_client import CollectorRegistry, Counter, push_to_gateway, generate_latest
 from mock_dynamo_explain_data import load_mock_dynamo_explain_data
 
-output_dir = Path("metrics")
+output_dir = Path("scripts/metrics")
 output_dir.mkdir(parents=True, exist_ok=True)
 PUSHGATEWAY_URL = "http://pushgateway:9091"
 
