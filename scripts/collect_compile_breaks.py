@@ -60,8 +60,7 @@ for model_family_dir in input_dir.iterdir():
         for pkl_file in model_family_dir.glob("*.pkl"):
             # Extract model name from filename
             try:
-                stem = pkl_file.stem.replace("_dynamo_explain", "")
-                model_name = stem.replace("--", "/")
+                model_name = pkl_file.stem.replace("_dynamo_explain", "")
             except ValueError:
                 print(f"Skipping improperly named file: {pkl_file}")
                 continue
@@ -77,13 +76,13 @@ for model_family_dir in input_dir.iterdir():
             prom_file = output_dir / f"{model_family}_{model_name}_compile_breaks.prom"
             log_file = output_dir / f"{model_family}_{model_name}_compile_breaks.log"
 
-            for break_reason in data.break_reasons:
+            for break_reason in data:
                 record(model_family, model_name, break_reason.reason, log_file)
 
-            if data.compile_times:
-                compile_time_gauge.labels(model_family, model_name).set(data.compile_times.total_time)
+            # if data.compile_times:
+            #     compile_time_gauge.labels(model_family, model_name).set(data.compile_times.total_time)
 
-            graph_break_count_gauge.labels(model_family, model_name).set(data.graph_break_count)
+            graph_break_count_gauge.labels(model_family, model_name).set(len(data))
 
             flush(grouping_key={"pipeline": os.getenv("BUILD_NUMBER")})
 
