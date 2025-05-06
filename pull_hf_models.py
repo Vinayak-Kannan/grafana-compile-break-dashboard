@@ -26,6 +26,7 @@ import time
 import argparse
 import dataclasses
 from typing import List, Dict
+import shutil
 
 import inspect
 import numpy as np
@@ -153,29 +154,32 @@ def fetch_top_models(limit: int, model_family: str) -> List[str]:
                 # Collect all models for each task
                 for task in tasks:
                         try:
-                                infos = api.list_models(limit=limit * 10, sort="downloads", direction=-1, pipeline_tag=task)
+                                infos = api.list_models(limit=limit * 10, sort="downloads", direction=-1, pipeline_tag=task, expand=['safetensors'])
                                 for m in infos:
-                                        if m.modelId not in seen_ids:
+                                        if m.id not in seen_ids:
                                                 model_infos.append(m)
-                                                seen_ids.add(m.modelId)
+                                                seen_ids.add(m.id)
                         except Exception as e:
                                 print(f"[!] Error fetching models for task '{task}': {e}")
                                 continue
                 # Sort all collected models by downloads (descending)
+                # Filter out models where safetensors.parameters >= 1 billion
+                def has_large_safetensors(m):
+                        try:
+                                params = m.safetensors.total
+                                return params >= 1_000_000_000
+                        except Exception:
+                                return True
+
+                print(len( model_infos), "models found")
+                model_infos = [m for m in model_infos if not has_large_safetensors(m)]
                 model_infos.sort(key=lambda m: getattr(m, "downloads", 0), reverse=True)
                 count = 0
                 for m in model_infos:
                         if count >= limit:
                                 break
-                        try:
-                                model = AutoModel.from_pretrained(m.modelId)
-                                num_params = count_trainable_parameters(model)
-                                if num_params < 1_000_000_000:
-                                        models.append(m.modelId)
-                                        count += 1
-                        except Exception as e:
-                                print(f"[!] Error loading model {m.modelId}: {e}")
-                                continue
+                        models.append(m.id)
+                        count += 1
                 return models
         print("Uh oh")
         return models
