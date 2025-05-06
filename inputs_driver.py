@@ -7,17 +7,26 @@ cache_dir = os.path.expanduser("~/.cache/huggingface")
 if os.path.exists(cache_dir):
     shutil.rmtree(cache_dir)
 
+###### INSERT USAGE HERE ######
+from transformers import WhisperProcessor, WhisperForConditionalGeneration
+from datasets import load_dataset
 
+# load model and processor
+model_id = "litus-ai/whisper-small-ita"
+processor = WhisperProcessor.from_pretrained(model_id)
+model = WhisperForConditionalGeneration.from_pretrained(model_id)
 
+# load Meta voxpopuli in italian
+ds = load_dataset("facebook/voxpopuli", "it", split="test")
+sample = ds[171]["audio"]  # sample having an "[UNINT]" token
 
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-import torch
-model_name = "MoritzLaurer/DeBERTa-v3-base-mnli"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSequenceClassification.from_pretrained(model_name)
-premise = "I first thought that I liked the movie, but upon second thought it was actually disappointing."
-hypothesis = "The movie was good."
-inputs = tokenizer(premise, hypothesis, truncation=True, return_tensors="pt")
+inputs = processor(
+  sample["array"],
+  sampling_rate=sample["sampling_rate"],
+  return_tensors="pt",
+).input_features
+
+#################################
 
 with open("inputs.pkl", "wb") as f:
     pickle.dump(inputs, f)

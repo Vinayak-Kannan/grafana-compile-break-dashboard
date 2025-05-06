@@ -14,9 +14,6 @@ Usage:
 
   # Scheduled scan (e.g. via Jenkins with SCHEDULED_SCAN=1)
   SCHEDULED_SCAN=1 python pull_hf_models.py [N]
-
-  # Continuous watch mode
-  python pull_hf_models.py [N] --watch --interval SECONDS
 """
 
 import sys
@@ -154,7 +151,7 @@ def fetch_top_models(limit: int, model_family: str) -> List[str]:
                 # Collect all models for each task
                 for task in tasks:
                         try:
-                                infos = api.list_models(limit=limit, sort="created_at", direction=-1, pipeline_tag=task, expand=['safetensors', 'downloads'])
+                                infos = api.list_models(limit=limit, sort="trending_score", direction=-1, pipeline_tag=task, expand=['safetensors', 'downloads'])
                                 for m in infos:
                                         if m.id not in seen_ids:
                                                 model_infos.append(m)
@@ -173,7 +170,7 @@ def fetch_top_models(limit: int, model_family: str) -> List[str]:
 
                 print(len( model_infos), "models found")
                 model_infos = [m for m in model_infos if not has_large_safetensors(m)]
-                # model_infos.sort(key=lambda m: getattr(m, "downloads", 0), reverse=True)
+                model_infos.sort(key=lambda m: getattr(m, "downloads", 0), reverse=True)
                 count = 0
                 for m in model_infos:
                         if count >= limit:
@@ -307,7 +304,7 @@ def analyze_model_raw(model_id: str) -> DynamoExplainData:
 
 def single_scan(n: int):
     """Print top-N models."""
-    for i, mid in enumerate(fetch_top_models(n, model_family='Natural Language Processing'), start=1):
+    for i, mid in enumerate(fetch_top_models(n, model_family='Computer Vision'), start=1):
         print(f"{i:2d}. {mid}")
 
 
@@ -332,29 +329,6 @@ def scheduled_scan(n: int):
         save_results(results)
     else:
         print("[*] No updates detected; no results to save.")
-
-'''
-def scheduled_scan(n: int):
-    """One-time scan: detect new commits, analyze, record metrics, save results."""
-    last = load_state()
-    new_state = {}
-    results = {}
-    for mid in fetch_top_models(n):
-        sha = get_latest_commit(mid, HfApi)
-        new_state[mid] = sha
-        if last.get(mid) != sha:
-            print(f"[+] New commit for {mid}: {sha[:7]} – analyzing")
-            data = analyze_model_raw(mid)
-            for br in data.break_reasons:
-                record(model=mid, commit=sha, reason=br.reason)
-            flush(grouping_key={"model": mid, "commit": sha})
-            results[mid] = dataclasses.asdict(data)
-    save_state(new_state)
-    if results:
-        save_results(results)
-    else:
-        print("[*] No updates detected; no results to save.")
-'''
 
 
 ### Main function to parse arguments and run the appropriate mode ###

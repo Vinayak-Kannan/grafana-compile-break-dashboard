@@ -39,7 +39,13 @@ for root, dirs, files in os.walk(INPUTS_DIR):
                                                         AutoModelForSpeechSeq2Seq,
                                                         AutoModelForAudioClassification,
                                                         AutoModelForCTC,
-                                                        AutoModelForImageTextToText
+                                                        AutoModelForImageTextToText,
+                                                        RTDetrForObjectDetection,
+                                                        VitPoseForPoseEstimation,
+                                                        AutoProcessor,
+                                                        AutoImageProcessor,
+                                                        Dinov2Model
+
                                         )
                                         auto_model_classes = [
                                                         AutoModelForCausalLM,
@@ -53,7 +59,12 @@ for root, dirs, files in os.walk(INPUTS_DIR):
                                                         AutoModelForSpeechSeq2Seq,
                                                         AutoModelForAudioClassification,
                                                         AutoModelForCTC,
-                                                        AutoModelForImageTextToText
+                                                        AutoModelForImageTextToText,
+                                                        RTDetrForObjectDetection,
+                                                        VitPoseForPoseEstimation,
+                                                        AutoProcessor,
+                                                        AutoImageProcessor,
+                                                        Dinov2Model
                                         ]
                                         model = None
                                         for AutoModelClass in auto_model_classes:
