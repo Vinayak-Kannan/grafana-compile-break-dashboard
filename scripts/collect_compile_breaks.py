@@ -7,7 +7,7 @@ from pathlib import Path
 # import numpy as np
 # import umap
 # from dynamo_explain_parser import DynamoExplainParser
-from prometheus_client import CollectorRegistry, Counter, push_to_gateway, generate_latest
+from prometheus_client import CollectorRegistry, Counter, Gauge, push_to_gateway, generate_latest
 from mock_dynamo_explain_data import load_mock_dynamo_explain_data
 
 output_dir = Path("scripts/metrics")
@@ -17,16 +17,30 @@ PUSHGATEWAY_URL = "http://pushgateway:9091"
 # group and isolate metrics in its own registry
 registry = CollectorRegistry()
 
-breaks_counter = Counter(
-    "compile_breaks_total",
-    "Torch.compile breaks per commit",
+break_reasons_counter = Counter(
+    "break_reasons_counter",
+    "Break reasons per commit",
     ["model_family", "model_name", "model_commit", "reason"],
+    registry=registry
+)
+
+graph_break_count_gauge = Gauge(
+    "graph_break_count_total",
+    "Total number of graph breaks per commit",
+    ["model_family", "model_name", "model_commit"],
+    registry=registry
+)
+
+compile_time_gauge = Gauge(
+    "compile_time_seconds",
+    "Time taken to compile a model in seconds",
+    ["model_family", "model_name", "model_commit"],
     registry=registry
 )
 
 def record(model_family, model_name, model_commit, reason, log_file):
     # increment Prometheus counter
-    breaks_counter.labels(model_family, model_name, model_commit, reason).inc()
+    break_reasons_counter.labels(model_family, model_name, model_commit, reason).inc()
 
     # append to Loki log
     ts = int(time.time()*1e9)
@@ -55,6 +69,11 @@ for data, model_info in zip(mock_dynamo_explain_data, mock_model_info):
     
     for break_reason in data.break_reasons:
         record(model_family, model_name, model_commit_hash, break_reason.reason, log_file)
+
+    if data.compile_times:
+        compile_time_gauge.labels(model_family, model_name, model_commit_hash).set(data.compile_times.total_time)
+
+    graph_break_count_gauge.labels(model_family, model_name, model_commit_hash).set(data.graph_break_count)
 
     # push metrics to Prometheus Pushgateway
     flush(grouping_key={"pipeline": os.getenv("BUILD_NUMBER")})

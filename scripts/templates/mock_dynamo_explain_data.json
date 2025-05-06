@@ -26,6 +26,25 @@
             "transformers/generation/utils.py:1493",
             "main.py:48"
           ]
+        },
+        {
+          "number": 3,
+          "reason": "data-dependent control flow",
+          "user_stack": [
+            "transformers/generation/utils.py:715",
+            "transformers/generation/utils.py:1493",
+            "main.py:48"
+          ]
+        }
+        ,
+        {
+          "number": 4,
+          "reason": "data-dependent control flow",
+          "user_stack": [
+            "transformers/generation/utils.py:715",
+            "transformers/generation/utils.py:1493",
+            "main.py:48"
+          ]
         }
       ],
       "compile_times": {
