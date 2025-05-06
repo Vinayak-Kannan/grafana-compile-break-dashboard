@@ -25,7 +25,6 @@ loki.process "label" {
     stage.static_labels {
         values = {
           service_name="jenkins",
-          level="info",
         }
     }
 
