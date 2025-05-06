@@ -2,6 +2,7 @@ import os
 import pickle
 import torch
 from transformers import AutoModel
+from dynamo_explain_parser import DynamoExplainParser, DynamoExplainData
 
 import torch._dynamo as dynamo
 
@@ -88,8 +89,10 @@ for root, dirs, files in os.walk(INPUTS_DIR):
                         if len(explain_output.break_reasons) == 0:
                                 continue
 
+                        data = DynamoExplainParser.parse_explain_output(explain_output)
+
                         # Save the explain output
                         output_file = os.path.splitext(file)[0] + "_dynamo_explain.pkl"
                         output_path = os.path.join(OUTPUT_DIR, output_file)
                         with open(output_path, "wb") as f:
-                                pickle.dump(explain_output.break_reasons, f)
+                                pickle.dump(data, f)
