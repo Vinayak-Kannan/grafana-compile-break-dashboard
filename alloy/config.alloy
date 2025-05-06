@@ -17,7 +17,6 @@ loki.process "label" {
         "time" = "",
         "model_family" = "",
         "model_name" = "",
-        "model_commit" = "",
         "reason" = "",
       }
     }
