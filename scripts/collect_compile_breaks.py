@@ -45,7 +45,7 @@ def record(model_family, model_name, model_commit, reason, log_file):
     # append to Loki log
     ts = int(time.time()*1e9)
     log_file.open("a").write(
-        f"time={ts} model_family={model_family} model_name={model_name} model_commit={model_commit} reason=\"{reason}\"\n"
+        f"time={ts} service_name=jenkins level=info model_family={model_family} model_name={model_name} model_commit={model_commit} reason=\"{reason}\"\n"
     )
 
 def flush(job_name="compile_breaks", grouping_key=None):
