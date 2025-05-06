@@ -154,7 +154,7 @@ def fetch_top_models(limit: int, model_family: str) -> List[str]:
                 # Collect all models for each task
                 for task in tasks:
                         try:
-                                infos = api.list_models(limit=limit * 10, sort="downloads", direction=-1, pipeline_tag=task, expand=['safetensors'])
+                                infos = api.list_models(limit=limit, sort="created_at", direction=-1, pipeline_tag=task, expand=['safetensors', 'downloads'])
                                 for m in infos:
                                         if m.id not in seen_ids:
                                                 model_infos.append(m)
@@ -167,13 +167,13 @@ def fetch_top_models(limit: int, model_family: str) -> List[str]:
                 def has_large_safetensors(m):
                         try:
                                 params = m.safetensors.total
-                                return params >= 1_000_000_000
+                                return params >= 500_000_000 or m.downloads < 100
                         except Exception:
                                 return True
 
                 print(len( model_infos), "models found")
                 model_infos = [m for m in model_infos if not has_large_safetensors(m)]
-                model_infos.sort(key=lambda m: getattr(m, "downloads", 0), reverse=True)
+                # model_infos.sort(key=lambda m: getattr(m, "downloads", 0), reverse=True)
                 count = 0
                 for m in model_infos:
                         if count >= limit:
@@ -307,7 +307,7 @@ def analyze_model_raw(model_id: str) -> DynamoExplainData:
 
 def single_scan(n: int):
     """Print top-N models."""
-    for i, mid in enumerate(fetch_top_models(n, model_family='Multimodal'), start=1):
+    for i, mid in enumerate(fetch_top_models(n, model_family='Natural Language Processing'), start=1):
         print(f"{i:2d}. {mid}")
 
 
@@ -361,7 +361,7 @@ def scheduled_scan(n: int):
 
 def main():
     parser = argparse.ArgumentParser(description="Pull and monitor top Hugging Face models.")
-    parser.add_argument('N', nargs='?', type=int, default=3,
+    parser.add_argument('N', nargs='?', type=int, default=30,
                         help='Number of top models to fetch')
     parser.add_argument('--watch', action='store_true',
                         help='Continuously poll for new commits')
