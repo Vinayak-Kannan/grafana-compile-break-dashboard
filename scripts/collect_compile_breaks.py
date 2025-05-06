@@ -3,7 +3,7 @@ import os
 import pickle
 from pathlib import Path
 from prometheus_client import CollectorRegistry, Counter, Gauge, push_to_gateway, generate_latest
-from dynamo_explain_parser import DynamoExplainData  # or import your actual class definition
+from dynamo_explain_parser import DynamoExplainData
 
 input_dir = Path("scripts/dynamo_explain_output")
 output_dir = Path("scripts/metrics")
