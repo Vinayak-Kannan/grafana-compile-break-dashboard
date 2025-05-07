@@ -68,5 +68,32 @@ pipeline {
                 fingerprint: true
             }
         }
+
+        stage('Generate Dynamo Explanations') {
+            steps {
+                sh '''
+                . /opt/venv/bin/activate
+                set -e
+
+                # for each category (Audio, Computer Vision, …)
+                for catdir in /inputs/*/; do
+                    category="$(basename "$catdir")"
+                    # for each .pkl in that category
+                    for inp in "$catdir"/*.pkl; do
+                    base="$(basename "$inp" .pkl)"
+                    outdir="/dynamo_explain_output/$category"
+                    outpkl="$outdir/${base}_dynamo_explain.pkl"
+
+                    mkdir -p "$outdir"
+                    echo "Running dynamo explain for $category/$base"
+
+                    python dynamo_explain_creator.py \
+                        --input-pkl "$inp" \
+                        --output-pkl "$outpkl"
+                    done
+                done
+                '''
+            }
+        }
     }
 }
