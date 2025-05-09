@@ -95,6 +95,6 @@ for subdir in subdirs:
 
                         # Save the explain output
                         output_file = os.path.splitext(file)[0] + "_dynamo_explain.pkl"
-                        output_path = os.path.join(OUTPUT_DIR, output_file)
+                        output_path = os.path.join(OUTPUT_DIR, subdir, output_file)
                         with open(output_path, "wb") as f:
                                 pickle.dump(data, f)
