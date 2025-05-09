@@ -1,3 +1,5 @@
+Note: To view torchlens / model visualization repository, see it [here](https://github.com/Vinayak-Kannan/torchlens-HPML)
+
 # How to run Grafana Pipeline
 ## Prerequisites
 
