@@ -10,11 +10,13 @@ INPUTS_DIR = "inputs"
 OUTPUT_DIR = "dynamo_explain_output"
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+subdirs = os.listdir(INPUTS_DIR)
 
-for root, dirs, files in os.walk(INPUTS_DIR):
+for subdir in subdirs:
+        files = os.listdir(os.path.join(INPUTS_DIR, subdir))
         for file in files:
                 if file.endswith(".pkl"):
-                        input_path = os.path.join(root, file)
+                        input_path = os.path.join(INPUTS_DIR, subdir, file)
                         # Unpickle the inputs
                         with open(input_path, "rb") as f:
                                 model_inputs = pickle.load(f)
@@ -93,6 +95,6 @@ for root, dirs, files in os.walk(INPUTS_DIR):
 
                         # Save the explain output
                         output_file = os.path.splitext(file)[0] + "_dynamo_explain.pkl"
-                        output_path = os.path.join(OUTPUT_DIR, output_file)
+                        output_path = os.path.join(OUTPUT_DIR, subdir, output_file)
                         with open(output_path, "wb") as f:
                                 pickle.dump(data, f)

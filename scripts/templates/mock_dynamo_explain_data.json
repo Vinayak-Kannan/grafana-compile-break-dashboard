@@ -1,0 +1,178 @@
+[
+    {
+      "model_info": {
+        "model_family": "bert",
+        "model_name": "bert-base-uncased",
+        "model_commit_hash": "abc123"
+      },
+      "graph_count": 3,
+      "graph_break_count": 2,
+      "op_count": 127,
+      "break_reasons": [
+        {
+          "number": 1,
+          "reason": "call_function torch.arange with dynamic size",
+          "user_stack": [
+            "transformers/models/bert/modeling_bert.py:112",
+            "transformers/modeling_utils.py:456",
+            "my_script.py:10"
+          ]
+        },
+        {
+          "number": 2,
+          "reason": "data-dependent control flow",
+          "user_stack": [
+            "transformers/generation/utils.py:715",
+            "transformers/generation/utils.py:1493",
+            "main.py:48"
+          ]
+        },
+        {
+          "number": 3,
+          "reason": "data-dependent control flow",
+          "user_stack": [
+            "transformers/generation/utils.py:715",
+            "transformers/generation/utils.py:1493",
+            "main.py:48"
+          ]
+        }
+        ,
+        {
+          "number": 4,
+          "reason": "data-dependent control flow",
+          "user_stack": [
+            "transformers/generation/utils.py:715",
+            "transformers/generation/utils.py:1493",
+            "main.py:48"
+          ]
+        }
+      ],
+      "compile_times": {
+        "total_time": 2.5,
+        "details": {
+          "backend_compile": [1.2, 0.9],
+          "graph_capture": [0.2, 0.2]
+        }
+      },
+      "additional_data": {},
+      "graphs": ["graph_0", "graph_1", "graph_2"]
+    },
+    {
+      "model_info": {
+        "model_family": "gpt2",
+        "model_name": "gpt2-medium",
+        "model_commit_hash": "def456"
+      },
+      "graph_count": 5,
+      "graph_break_count": 3,
+      "op_count": 210,
+      "break_reasons": [
+        {
+          "number": 1,
+          "reason": "tensor shape mismatch caused by torch.cat",
+          "user_stack": [
+            "transformers/models/gpt2/modeling_gpt2.py:209",
+            "transformers/modeling_utils.py:432",
+            "train.py:21"
+          ]
+        },
+        {
+          "number": 2,
+          "reason": "mutation of input tensor detected",
+          "user_stack": [
+            "transformers/activations.py:58",
+            "utils.py:14"
+          ]
+        },
+        {
+          "number": 3,
+          "reason": "Unsupported Python construct: list comprehension with tensor ops",
+          "user_stack": [
+            "custom_model.py:87"
+          ]
+        }
+      ],
+      "compile_times": {
+        "total_time": 4.1,
+        "details": {
+          "backend_compile": [1.1, 1.4, 1.0],
+          "graph_capture": [0.2, 0.3, 0.1]
+        }
+      },
+      "additional_data": {},
+      "graphs": ["graph_0", "graph_1", "graph_2", "graph_3", "graph_4"]
+    },
+    {
+      "model_info": {
+        "model_family": "t5",
+        "model_name": "t5-small",
+        "model_commit_hash": "ghi789"
+      },
+      "graph_count": 1,
+      "graph_break_count": 1,
+      "op_count": 45,
+      "break_reasons": [
+        {
+          "number": 1,
+          "reason": "Closure over non-local variable",
+          "user_stack": [
+            "transformers/models/t5/modeling_t5.py:321",
+            "run_generation.py:53"
+          ]
+        }
+      ],
+      "compile_times": null,
+      "additional_data": {},
+      "graphs": ["graph_0"]
+    },
+    {
+      "model_info": {
+        "model_family": "bert",
+        "model_name": "bert-base-uncased",
+        "model_commit_hash": "jkl012"
+      },
+      "graph_count": 4,
+      "graph_break_count": 1,
+      "op_count": 150,
+      "break_reasons": [
+          {
+              "number": 1,
+              "reason": "use of torch.nonzero on dynamic condition",
+              "user_stack": [
+                  "transformers/models/bert/modeling_bert.py:198",
+                  "my_script.py:33"
+              ]
+          }
+      ],
+      "compile_times": {
+          "total_time": 3.0,
+          "details": {
+              "backend_compile": [1.5],
+              "graph_capture": [0.2]
+          }
+      },
+      "additional_data": {},
+      "graphs": ["graph_0", "graph_1", "graph_2", "graph_3"]
+    },
+    {
+        "model_info": {
+            "model_family": "bert",
+            "model_name": "bert-large",
+            "model_commit_hash": "mno345"
+        },
+        "graph_count": 4,
+        "graph_break_count": 0,
+        "op_count": 155,
+        "break_reasons": [],
+        "compile_times": {
+            "total_time": 2.7,
+            "details": {
+                "backend_compile": [1.3, 1.2],
+                "graph_capture": [0.2]
+            }
+        },
+        "additional_data": {},
+        "graphs": ["graph_0", "graph_1", "graph_2", "graph_3"]
+    }
+]
+  

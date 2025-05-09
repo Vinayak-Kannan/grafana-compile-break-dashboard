@@ -70,7 +70,7 @@ Note: To view torchlens / model visualization repository, see it [here](https://
 1. Prometheus Metrics: Metrics are pushed to the Prometheus Pushgateway and can be viewed in Grafana Cloud Dashboards.
    - Select the default Prometheus data source.
    - Select `compile_breaks_total` as the metric.
-   - Run the query `sum by(model, commit, reason) (compile_breaks_total)`.
+   - Run the query `sum by(model, reason) (compile_breaks_total)`.
    - View the total compile breaks as a line graph or bar chart.
 2. Loki Logs: Compile-break logs are sent to Loki and can be visualized in Grafana Cloud Dashboards.
    - Select the default Loki data source.

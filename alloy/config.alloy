@@ -1,13 +1,33 @@
 /*  Compile-break logs -> Loki -> Grafana Cloud  */
 local.file_match "compile_logs" {
   path_targets = [
-    {__path__ = "/var/jenkins_home/workspace/*/metrics/compile_breaks.log"},
+    {__path__ = "/var/jenkins_home/workspace/*/scripts/metrics/*.log"},
   ]
 }
 
 loki.source.file "compile_breaks" {
   targets = local.file_match.compile_logs.targets
-  forward_to = [loki.write.grafana_cloud_loki_api.receiver]
+  forward_to = [loki.process.label.receiver]
+}
+
+/*  Parse logfmt-style lines into key-value pairs */
+loki.process "label" {
+    stage.logfmt {
+      mapping = {
+        "time" = "",
+        "model_family" = "",
+        "model_name" = "",
+        "reason" = "",
+      }
+    }
+
+    stage.static_labels {
+        values = {
+          service_name="jenkins",
+        }
+    }
+
+    forward_to = [loki.write.grafana_cloud_loki_api.receiver]
 }
 
 loki.write "grafana_cloud_loki_api" {
