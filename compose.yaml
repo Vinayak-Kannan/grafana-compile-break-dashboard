@@ -4,7 +4,7 @@ services:
     container_name: jenkins
     user: root
     ports:
-      - "8080:8080"   # Jenkins UI
+      - "8080:8080"   # expose Jenkins UI
     volumes:
       - jenkins_home:/var/jenkins_home
 
@@ -12,7 +12,7 @@ services:
     image: prom/pushgateway:latest
     container_name: pushgateway
     ports:
-      - "9091:9091"        # exposable to Alloy or your browser
+      - "9091:9091"        # expose to Alloy
     restart: unless-stopped
 
   alloy:

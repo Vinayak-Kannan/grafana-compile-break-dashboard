@@ -1,4 +1,4 @@
-# ./jenkins-with-python/Dockerfile
+# ./Dockerfile
 FROM jenkins/jenkins:lts-jdk17
 
 USER root

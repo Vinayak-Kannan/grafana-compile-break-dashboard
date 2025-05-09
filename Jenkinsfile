@@ -19,20 +19,6 @@ pipeline {
     }
     
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
-            }
-        }
-
-        stage('Python?') {
-            steps {
-                sh 'python --version'
-                sh 'pip --version'
-                sh 'pwd'
-            }
-        }
-
         stage('Download Requirements') {
             steps {
                 sh '''
@@ -57,7 +43,7 @@ pipeline {
             steps {
                 sh '''
                 . /opt/venv/bin/activate
-                python collect_compile_breaks.py
+                python scripts/collect_compile_breaks.py
                 '''
             }
         }
