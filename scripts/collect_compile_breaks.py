@@ -1,6 +1,7 @@
 import time
 import os
 import pickle
+import json
 from pathlib import Path
 from prometheus_client import CollectorRegistry, Counter, Gauge, push_to_gateway, generate_latest
 from dynamo_explain_parser import DynamoExplainData
@@ -42,7 +43,7 @@ def record(model_family, model_name, reason, log_file):
     # append to Loki log
     ts = int(time.time()*1e9)
     log_file.open("a").write(
-        f"INFO: time={ts} model_family={model_family} model_name={model_name} reason=\"{reason}\"\n"
+        f"INFO: time={ts} model_family={model_family} model_name={model_name} reason=\"{json.dumps(reason)}\"\n"
     )
 
 def flush(job_name="compile_breaks", grouping_key=None):
