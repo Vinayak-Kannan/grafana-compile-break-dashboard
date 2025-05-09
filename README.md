@@ -1,19 +1,20 @@
 # HPML Project: Debug Tools for Compile and Export
 
+Note: To view torchlens / model visualization repository, see it [here](https://github.com/Vinayak-Kannan/torchlens-HP`ML)
+
 ## Team Information
 - **Members**:
   - Vinayak Kannan (vk2364)
   - Taejun Seo (ts3574)
   - Peter Ma (pym2104)
 
-Note: To view torchlens / model visualization repository, see it [here](https://github.com/Vinayak-Kannan/torchlens-HP`ML)
-
 ---
 
 ## 1. Problem Statement
-Modern machine learning models—especially those shared on platforms like Hugging Face—require robust workflows for compilation and export to various inference backends. However, existing tools for model compilation (e.g., `torch.compile`) are hard to debug and not well integrated with CI/CD pipelines.
+Modern machine learning models - especially those shared on platforms like Hugging Face - require robust workflows for compilation and export to various inference backends. However, existing tools for model compilation (e.g., `torch.compile`) are hard to debug and not well integrated with CI/CD pipelines.
 
-This project addresses this gap by developing a continuous debugging system for PyTorch model compilation compatibility, using a Jenkins-based CI/CD pipeline and extending visualization/debugging tools to highlight causes and surface analytics for graph breaks.
+This project addresses this gap by developing a continuous debugging system for PyTorch model compilation compatibility. We use a Jenkins-based CI/CD pipeline and extend visualization/debugging tools to highlight causes as well as surface analytics for graph breaks.
+
 ---
 
 ## 2. System Description
@@ -28,9 +29,9 @@ Our compilation and visualization pipeline consists of the following components:
    - Archives data
 - Prometheus to monitor metrics, uploaded to Pushgateway
 - Loki to monitor logs, stored in log files
-- Grafana Alloy to continuously collect metrics and logs
+- Grafana Alloy to continuously collect these metrics and logs
 - Grafana Cloud platform to host data and visualization dashboards
-- Docker to compose and containerize multiple components
+- Docker to compose and containerize the multiple components
 
 ---
 
@@ -39,9 +40,9 @@ Our compilation and visualization pipeline consists of the following components:
 
 [External Link to Grafana Dashboard](https://hpmldebug.grafana.net/public-dashboards/ad228f34c4bf4d33ada79c27157ac974)
 
-We successfully developed a fully automated pipeline and a sample dashboard with ingested compilation data, metrics, and logs is shown at the link above. Here we monitor compilation graph breaks by model family, model, and break reasons over time for various sample Audio and Computer Vision models.
+We successfully developed a fully automated pipeline and show at the link above a sample dashboard with ingested compilation data, metrics, and logs. Here we monitor compilation graph breaks by model family, model, and break reasons over time for various sample Audio and Computer Vision models.
 
-This infrastructure can be easily extended to ingest other metrics and logs, and this raw data can be manipulated using the variety of Grafana operations and dashboards. Other models can also be plugged in such as those in the IBM Foundation Model Stack.
+**Our key contrbution is that this infrastructure can be easily extended to ingest other metrics and logs, and the raw data can be manipulated using the variety of Grafana operations to generate more advanced dashboards. Other models, such as those in the IBM Foundation Model Stack, can also be plugged in**
 
 ---
 
@@ -115,7 +116,14 @@ Not applicable.
       docker compose restart alloy
    ```
 
-#### Step 3: Triggering the Jenkins Pipeline
+#### Step 5: Upload Models for Analysis
+Sample models and outputs are provided out of the box to use in `scripts/inputs` and `scipts/dynamo_explain_output`.
+
+To upload your own model:
+1. Refer to each model's specific input requirements on its page on Hugging Face.
+2. Modify `inputs_driver.py` to support that input and serialize.
+
+#### Step 4: Triggering the Jenkins Pipeline
 1. Access the Jenkins UI at http://localhost:8080.
 2. During the initial setup:
    - Retrieve the admin password by running:
@@ -131,7 +139,7 @@ Not applicable.
    - Jenkins will automatically detect the Jenkinsfile in the repository and start running the pipeline.
   
 
-#### Step 4: Verifying Metrics and Logs
+#### Step 5: Verifying Metrics and Logs
 1. Prometheus Metrics: Metrics are pushed to the Prometheus Pushgateway and can be viewed in Grafana Cloud Dashboards.
    - Select the default Prometheus data source.
    - Select `compile_breaks_total` as the metric.
@@ -146,13 +154,13 @@ Not applicable.
 ---
 
 ## 5. Notes
-- Full drill down for every model/family can be accessed by clicking on the "Graph Breaks by Model Family" panel.However, this requires the user to be an internal organization member.
+- Full drill down for every model/family can be accessed by clicking on the "Graph Breaks by Model Family" panel. However, this requires the user to be an internal organization member.
 - Repo overview
    - Config files:
-      - `compose.yaml`, `Dockerfile`: Hooks up multiple Docker containers
-      - `Jenkinsfile`: Define stages in CI/CD pipeline, pulls the top-N Hugging Face models
-      - `alloy/config.alloy`: Configures metrics (Prometheus), logs (Loki), and Alloy (collector agent)
-      - `alloy/env.secrets`: Upload your own URLs, usernames, and API keys to connect Alloy to Loki/Prometheus/Grafana Cloud
+      - `compose.yaml`, `Dockerfile`: Hooks up multiple the Docker containers.
+      - `Jenkinsfile`: Define stages in CI/CD pipeline, pulls the top-N Hugging Face models.
+      - `alloy/config.alloy`: Configures metrics (Prometheus), logs (Loki), and Alloy (collector agent).
+      - `alloy/env.secrets`: Upload your own URLs, usernames, and API keys to connect Alloy to Loki/Prometheus/Grafana Cloud.
    - Driver scripts are located in `scripts/`
       - `inputs_driver.py`: serializes custom input for a specific model, currently done manually, will fully automate in the future.
       - `pull_hf_models.py`: fetches the top N (configurable) models from various model families on Hugging Face.
