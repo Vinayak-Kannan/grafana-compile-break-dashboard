@@ -76,13 +76,13 @@ for model_family_dir in input_dir.iterdir():
             prom_file = output_dir / f"{model_family}_{model_name}_compile_breaks.prom"
             log_file = output_dir / f"{model_family}_{model_name}_compile_breaks.log"
 
-            for break_reason in data:
+            for break_reason in data.break_reasons:
                 record(model_family, model_name, break_reason.reason, log_file)
 
-            # if data.compile_times:
-            #     compile_time_gauge.labels(model_family, model_name).set(data.compile_times.total_time)
+            if data.compile_times:
+                compile_time_gauge.labels(model_family, model_name).set(data.compile_times.total_time)
 
-            graph_break_count_gauge.labels(model_family, model_name).set(len(data))
+            graph_break_count_gauge.labels(model_family, model_name).set(data.graph_break_count)
 
             flush(grouping_key={"pipeline": os.getenv("BUILD_NUMBER")})
 
