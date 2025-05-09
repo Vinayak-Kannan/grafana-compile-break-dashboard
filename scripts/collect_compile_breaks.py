@@ -43,7 +43,7 @@ def record(model_family, model_name, reason, log_file):
     # append to Loki log
     ts = int(time.time()*1e9)
     log_file.open("a").write(
-        f"INFO: time={ts} model_family={model_family} model_name={model_name} reason=\"{json.dumps(reason)}\"\n"
+        f"INFO: time={ts} model_family={model_family} model_name={model_name} reason=\"{json.dumps(reason)[1:-1]}\"\n"
     )
 
 def flush(job_name="compile_breaks", grouping_key=None):
