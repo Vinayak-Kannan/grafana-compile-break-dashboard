@@ -16,7 +16,7 @@ for subdir in subdirs:
         files = os.listdir(os.path.join(INPUTS_DIR, subdir))
         for file in files:
                 if file.endswith(".pkl"):
-                        input_path = os.path.join(root, file)
+                        input_path = os.path.join(INPUTS_DIR, subdir, file)
                         # Unpickle the inputs
                         with open(input_path, "rb") as f:
                                 model_inputs = pickle.load(f)
