@@ -44,7 +44,7 @@ from transformers import AutoModel
 # Parser and metrics
 from dynamo_explain_parser import DynamoExplainParser, DynamoExplainData
 # from collect_compile_breaks import record, flush
-from run_model_sample_code import get_model_sample_code
+# from run_model_sample_code import get_model_sample_code
 import ast
 
 # File paths
@@ -241,65 +241,65 @@ def build_model_inputs(model):
         )
  
 
-def analyze_model_raw(model_id: str) -> DynamoExplainData:
-    """
-    Load model, run Dynamo explain, parse with DynamoExplainParser, return structured data.
-    """
-    print(f"[*] Loading model {model_id}")
-    model = AutoModel.from_pretrained(model_id)
-    get_model_sample_code(model_id)
+# def analyze_model_raw(model_id: str) -> DynamoExplainData:
+#     """
+#     Load model, run Dynamo explain, parse with DynamoExplainParser, return structured data.
+#     """
+#     print(f"[*] Loading model {model_id}")
+#     model = AutoModel.from_pretrained(model_id)
+#     get_model_sample_code(model_id)
 
-    # Dynamically build inputs and patch model.forward if needed
-#     inputs = build_model_inputs(model)
+#     # Dynamically build inputs and patch model.forward if needed
+# #     inputs = build_model_inputs(model)
 
-    # Load inputs from the dictionary in text.txt
-    # Load inputs from temp.txt as a Python dict with torch tensors
-    with open('temp.txt', 'r') as f:
-        content = f.read()
-        # Use eval with restricted globals to allow torch.tensor and numpy arrays
-        inputs = eval(content, {"torch": torch, "np": np, "numpy": np})
-    # Convert lists to torch tensors if needed (in case eval parses as lists)
-    for k, v in inputs.items():
-        if not isinstance(v, torch.Tensor):
-            inputs[k] = torch.tensor(v)
+#     # Load inputs from the dictionary in text.txt
+#     # Load inputs from temp.txt as a Python dict with torch tensors
+#     with open('temp.txt', 'r') as f:
+#         content = f.read()
+#         # Use eval with restricted globals to allow torch.tensor and numpy arrays
+#         inputs = eval(content, {"torch": torch, "np": np, "numpy": np})
+#     # Convert lists to torch tensors if needed (in case eval parses as lists)
+#     for k, v in inputs.items():
+#         if not isinstance(v, torch.Tensor):
+#             inputs[k] = torch.tensor(v)
 
-    print(f"[*] Running TorchDynamo explain for {model_id} with inputs {list(inputs)}")
-    explain_out = dynamo.explain(model.forward)(**inputs)
+#     print(f"[*] Running TorchDynamo explain for {model_id} with inputs {list(inputs)}")
+#     explain_out = dynamo.explain(model.forward)(**inputs)
 
-    '''
-    # Wrap forward to refine inputs (e.g., UMAP + seq-length hack)
-    def forward_refined(**kwargs):
-        input_ids = kwargs.get("input_ids")
-        seq_len = input_ids.shape[1]
-        mod_ids = input_ids.clone()
-        mod_ids[0, 0] += seq_len
-        arr = input_ids.cpu().numpy()
-        reducer = umap.UMAP(n_neighbors=2, n_components=2, random_state=42)
-        emb = reducer.fit_transform(arr)
-        umap_val = torch.tensor(emb[0, 0], dtype=mod_ids.dtype, device=mod_ids.device)
-        mod_ids[0, 0] += umap_val
-        kwargs["input_ids"] = mod_ids
-        return model.original_forward(**kwargs)
+#     '''
+#     # Wrap forward to refine inputs (e.g., UMAP + seq-length hack)
+#     def forward_refined(**kwargs):
+#         input_ids = kwargs.get("input_ids")
+#         seq_len = input_ids.shape[1]
+#         mod_ids = input_ids.clone()
+#         mod_ids[0, 0] += seq_len
+#         arr = input_ids.cpu().numpy()
+#         reducer = umap.UMAP(n_neighbors=2, n_components=2, random_state=42)
+#         emb = reducer.fit_transform(arr)
+#         umap_val = torch.tensor(emb[0, 0], dtype=mod_ids.dtype, device=mod_ids.device)
+#         mod_ids[0, 0] += umap_val
+#         kwargs["input_ids"] = mod_ids
+#         return model.original_forward(**kwargs)
 
-    model.original_forward = model.forward
-    model.forward = forward_refined
+#     model.original_forward = model.forward
+#     model.forward = forward_refined
 
-    print(f"[*] Running TorchDynamo explain for {model_id}")
-    inputs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
-    explain_out = dynamo.explain(model.forward)(**inputs)
-    '''
+#     print(f"[*] Running TorchDynamo explain for {model_id}")
+#     inputs = {"input_ids": torch.ones(1, 10, dtype=torch.long)}
+#     explain_out = dynamo.explain(model.forward)(**inputs)
+#     '''
 
-    data = DynamoExplainParser.parse_explain_output(explain_out)   # Important for Grafana 
+#     data = DynamoExplainParser.parse_explain_output(explain_out)   # Important for Grafana 
 
-    '''
-    # Save raw explanation text
-    out_txt = f"{model_id.replace('/', '_')}_dynamo_explanation.txt"
-    with open(out_txt, 'w') as f:
-        f.write(str(explain_out))
-    print(f"[+] Saved raw explain output to {out_txt}")
-    '''
+#     '''
+#     # Save raw explanation text
+#     out_txt = f"{model_id.replace('/', '_')}_dynamo_explanation.txt"
+#     with open(out_txt, 'w') as f:
+#         f.write(str(explain_out))
+#     print(f"[+] Saved raw explain output to {out_txt}")
+#     '''
 
-    return data
+#     return data
 
 
 def single_scan(n: int):
@@ -308,27 +308,27 @@ def single_scan(n: int):
         print(f"{i:2d}. {mid}")
 
 
-def scheduled_scan(n: int):
-    """One-time scan: detect new commits, analyze, record metrics, save results."""
-    api = HfApi()                  
-    last = load_state()
-    new_state = {}
-    results = {}
+# def scheduled_scan(n: int):
+#     """One-time scan: detect new commits, analyze, record metrics, save results."""
+#     api = HfApi()                  
+#     last = load_state()
+#     new_state = {}
+#     results = {}
 
-    for mid in fetch_top_models(n):
-        sha = get_latest_commit(mid, api)
-        new_state[mid] = sha
+#     for mid in fetch_top_models(n):
+#         sha = get_latest_commit(mid, api)
+#         new_state[mid] = sha
 
-        if last.get(mid) != sha:
-            print(f"[+] New commit for {mid}: {sha[:7]} – analyzing")
-            data = analyze_model_raw(mid)
-            results[mid] = dataclasses.asdict(data)
+#         if last.get(mid) != sha:
+#             print(f"[+] New commit for {mid}: {sha[:7]} – analyzing")
+#             data = analyze_model_raw(mid)
+#             results[mid] = dataclasses.asdict(data)
 
-    save_state(new_state)
-    if results:
-        save_results(results)
-    else:
-        print("[*] No updates detected; no results to save.")
+#     save_state(new_state)
+#     if results:
+#         save_results(results)
+#     else:
+#         print("[*] No updates detected; no results to save.")
 
 
 ### Main function to parse arguments and run the appropriate mode ###
@@ -344,11 +344,13 @@ def main():
     args = parser.parse_args()
 
     # Scheduled scan via env var
-    if False:
-        scheduled_scan(args.N)
-    # Default one-time listing
-    else:
-        single_scan(args.N)
+    # if False:
+    #     scheduled_scan(args.N)
+    # # Default one-time listing
+    # else:
+    #     single_scan(args.N)
+
+    single_scan(args.N)
 
 if __name__ == '__main__':
     main()
