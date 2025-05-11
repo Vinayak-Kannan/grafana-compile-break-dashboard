@@ -47,6 +47,7 @@ We successfully developed a fully automated pipeline and show at the link above 
 ---
 
 ## 4. Reproducibility Instructions
+Note: The following is specifically configured to run for MacOS. Please adjust accordingly for other operating systems.
 
 ### A. Requirements
 
