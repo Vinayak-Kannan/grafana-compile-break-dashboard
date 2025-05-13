@@ -1,6 +1,6 @@
 # HPML Project: Debug Tools for Compile and Export
 
-Note: To view torchlens / model visualization repository, see it [here](https://github.com/Vinayak-Kannan/torchlens-HP`ML)
+Note: To view torchlens / model visualization repository, see it [here](https://github.com/Vinayak-Kannan/torchlens-HPML)
 
 ## Team Information
 - **Members**:
